@@ -351,7 +351,26 @@ ul#nav li.current a { color: #fe6928; }
 .mfp-fade.mfp-wrap.mfp-removing .mfp-content .popup-modal {
    opacity: 0;
 }
+/* ------------------------------------------------------------------ */
+/* e. Schedule
+/* ------------------------------------------------------------------ */
+.Schedule{
+   position: absolute;
+   top: 130px;
+   left: 300px;
+   width: 70%;
+   height: 80%;
+   background-color: beige;
+}
+.Schedule th{
+   display: flex;
+   flex-direction: row;
+}
+.Schedule td{
+   display: flex;
+   flex-direction: column;
 
+}
 /* ------------------------------------------------------------------ */
 /* f. Call To Action Section
 /* ------------------------------------------------------------------ */

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import '../App.css';
 import ParticlesBg  from "particles-bg";
 
 import NaviBar from './NaviBar';
+
 class Header extends Component {
   render() {
 
@@ -19,8 +21,7 @@ class Header extends Component {
     return (
       <header id="home">
       <ParticlesBg type="circle" bg={true} />
-      <NaviBar/>
-
+       <NaviBar/>
       <div className="row banner">
       
          <div className="banner-text">
@@ -28,8 +29,8 @@ class Header extends Component {
             <h3>{description}.</h3>
             <hr />
             <ul className="social">
-            <a href={github} className="button btn github-btn"><i class="fa fa-sign-in" aria-hidden="true"></i>Iniciar sesión</a>
-               <a href={project} className="button btn project-btn">Registrarse</a>
+               <a className="button btn github-btn"><i class="fa fa-sign-in" aria-hidden="true"></i>Iniciar sesión</a>
+               <a className="button btn project-btn">Registrarse</a>
             </ul>
          </div>
       </div>
@@ -37,8 +38,7 @@ class Header extends Component {
       <p className="scrolldown">
          <a className="smoothscroll" href="#about"><i className="icon-down-circle"></i></a>
       </p>
-
-   </header>
+    </header>
     );
   }
 }
