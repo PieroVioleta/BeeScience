@@ -36,13 +36,26 @@ class App extends Component {
         state: '',
         zip: ''
       },
-      bio: 'Este página ha sido creada como proyecto de ciclo del curso Desarrollo de Software (CC3S2)'
+      integrantes: ['Piero Violeta', 'Roberto Cerna', 'Juan Carlos Cotrina', 'Cristhian Cruz'],
+      bio: 'Este página ha sido creada como proyecto de ciclo del curso de Desarrollo de Software (CC3S2)',
+      social: [
+        {
+          "name":"facebook",
+          "url":"https://www.facebook.com/Facultad-de-Ciencias-UNI-183409708573",
+          "className":"fa fa-facebook"
+        },
+        {
+          "name":"github",
+          "url":"https://github.com/PieroVioleta/BeeScience",
+          "className":"fa fa-github"
+        }
+      ]
     }
     return (
       <div className="App">
         <Header data={information_site} />
         <About data={information_site}/> 
-        <Footer data={this.state.resumeData.main}/>
+        <Footer data={information_site}/>
       </div>
     );
   }

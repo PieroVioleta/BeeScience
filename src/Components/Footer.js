@@ -19,8 +19,8 @@ class Footer extends Component {
            </ul>
 
            <ul className="copyright">
-              <li>&copy; Copyright 2017 Nordic Giant</li>
-              <li>Design by <a title="Styleshout" href="http://www.styleshout.com/">Styleshout</a></li>
+              <li> <a href="https://fc.uni.edu.pe/fc/">Facultad de Ciencias 2020</a> </li>
+              <li> <a href="https://www.facebook.com/epccuni">Computer Science</a></li>
            </ul>
 
         </div>
