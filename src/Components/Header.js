@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ParticlesBg  from "particles-bg";
 
+import NaviBar from './NaviBar';
 class Header extends Component {
   render() {
 
@@ -11,23 +12,14 @@ class Header extends Component {
       var description= this.props.data.description;
      
     }
+  
+  
+   
 
     return (
       <header id="home">
       <ParticlesBg type="circle" bg={true} />
-      <nav id="nav-wrap">
-         <a className="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
-	      <a className="mobile-btn" href="#home" title="Hide navigation">Hide navigation</a>
-
-         <ul id="nav" className="nav">
-            <li className="current"><a className="smoothscroll" href="#home">Home</a></li>
-            <li><a className="smoothscroll" href="#about">About</a></li>
-	         <li><a className="smoothscroll" >ForUni</a></li>
-            <li><a className="smoothscroll" >Gestor de Notas</a></li>
-            <li><a className="smoothscroll" >Horario</a></li>
-            <li><a className="smoothscroll" >Recursos</a></li>
-         </ul>
-      </nav>
+      <NaviBar/>
 
       <div className="row banner">
       
@@ -36,7 +28,7 @@ class Header extends Component {
             <h3>{description}.</h3>
             <hr />
             <ul className="social">
-               <a href={github} className="button btn github-btn"><i class="fa fa-sign-in" aria-hidden="true"></i>Iniciar sesión</a>
+            <a href={github} className="button btn github-btn"><i class="fa fa-sign-in" aria-hidden="true"></i>Iniciar sesión</a>
                <a href={project} className="button btn project-btn">Registrarse</a>
             </ul>
          </div>
@@ -52,3 +44,4 @@ class Header extends Component {
 }
 
 export default Header;
+

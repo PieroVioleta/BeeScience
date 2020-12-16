@@ -6,8 +6,13 @@ import Footer from './Components/Footer';
 import About from './Components/About';
 import Resume from './Components/Resume';
 import Contact from './Components/Contact';
+import NaviBar from './Components/NaviBar';
 import Portfolio from './Components/Portfolio';
-
+import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
+import ForUni from './Pages/ForUni'
+import GestorNotas from './Pages/GestorNotas';
+import Horario from './Pages/Horario';
+import Recursos from './Pages/Recursos';
 class App extends Component {
 
   constructor(props){
@@ -53,9 +58,32 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <Header data={information_site} />
-        <About data={information_site}/> 
-        <Footer data={information_site}/>
+        {/* <Header data={information_site} />
+        <About data={information_site}/>  
+          <Footer data={information_site}/> */}
+        
+        <Router>
+        <NaviBar/>
+          <Switch>
+          <Route path="/" exact>  
+            <Header data={information_site} />
+            <About data={information_site}/>  
+            <Footer data={information_site}/>
+          </Route>
+          <Route path="/forUni">
+            <ForUni/>
+          </Route>
+          <Route path="/GestorNotas">
+            <GestorNotas/>
+          </Route>
+          <Route path="/Horario">
+            <Horario/>
+          </Route>
+          <Route path="/Recursos">
+            <Recursos/>
+          </Route>
+          </Switch>
+        </Router>
       </div>
     );
   }

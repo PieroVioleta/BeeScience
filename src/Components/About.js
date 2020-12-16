@@ -12,7 +12,7 @@ class About extends Component {
       <section id="about">
       <div className="row">
          <div className="three columns">
-            <img className="profile-pic"   src='images\bee.jpg' alt="logoFC" />
+            <img className="profile-pic"  src='images\bee.jpg' alt="logoFC" />
          </div>
          <div className="nine columns main-col">
             <h2>Acerca de Bee Science</h2>
