@@ -4,13 +4,14 @@ import ParticlesBg  from "particles-bg";
 class Header extends Component {
   render() {
 
-   if(this.props.data){
-      var project = this.props.data.project;
-      var github = this.props.data.github;
+    if(this.props.data){
+       var project = this.props.data.project;
+       var github = this.props.data.github;
       var name = this.props.data.name;
       var description= this.props.data.description;
+     
     }
-    console.log(name)
+
     return (
       <header id="home">
       <ParticlesBg type="circle" bg={true} />
@@ -21,9 +22,10 @@ class Header extends Component {
          <ul id="nav" className="nav">
             <li className="current"><a className="smoothscroll" href="#home">Home</a></li>
             <li><a className="smoothscroll" href="#about">About</a></li>
-	         <li><a className="smoothscroll" href="#resume">Resume</a></li>
-            <li><a className="smoothscroll" href="#portfolio">Works</a></li>
-            <li><a className="smoothscroll" href="#contact">Contact</a></li>
+	         <li><a className="smoothscroll" >ForUni</a></li>
+            <li><a className="smoothscroll" >Gestor de Notas</a></li>
+            <li><a className="smoothscroll" >Horario</a></li>
+            <li><a className="smoothscroll" >Recursos</a></li>
          </ul>
       </nav>
 
