@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import ParticlesBg  from "particles-bg";
+import '../App.css';
+
 
 class Header extends Component {
   render() {
@@ -13,8 +14,9 @@ class Header extends Component {
     }
 
     return (
-      <header id="home">
-      <ParticlesBg type="circle" bg={true} />
+      <div className="container" >
+      <header id="home" >
+
       <nav id="nav-wrap">
          <a className="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
 	      <a className="mobile-btn" href="#home" title="Hide navigation">Hide navigation</a>
@@ -36,8 +38,8 @@ class Header extends Component {
             <h3>{description}.</h3>
             <hr />
             <ul className="social">
-               <a href={github} className="button btn github-btn"><i class="fa fa-sign-in" aria-hidden="true"></i>Iniciar sesión</a>
-               <a href={project} className="button btn project-btn">Registrarse</a>
+               <a className="button btn github-btn"><i class="fa fa-sign-in" aria-hidden="true"></i>Iniciar sesión</a>
+               <a className="button btn project-btn">Registrarse</a>
             </ul>
          </div>
       </div>
@@ -47,6 +49,7 @@ class Header extends Component {
       </p>
 
    </header>
+      </div>
     );
   }
 }
