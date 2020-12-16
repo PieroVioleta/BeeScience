@@ -4,17 +4,13 @@ import ParticlesBg  from "particles-bg";
 class Header extends Component {
   render() {
 
-    if(this.props.data){
-       var project = this.props.data.project;
-       var github = this.props.data.github;
+   if(this.props.data){
+      var project = this.props.data.project;
+      var github = this.props.data.github;
       var name = this.props.data.name;
       var description= this.props.data.description;
-      var city= this.props.data.address.city;
-      var networks= this.props.data.social.map(function(network){
-        return <li key={network.name}><a href={network.url}><i className={network.className}></i></a></li>
-      })
     }
-
+    console.log(name)
     return (
       <header id="home">
       <ParticlesBg type="circle" bg={true} />

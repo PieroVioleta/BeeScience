@@ -25,13 +25,23 @@ class App extends Component {
 
 
   render() {
+    const information_site = {
+      name: 'Bee Science',
+      github: 'https://github.com/PieroVioleta/BeeScience',
+      description: 'Un sitio web multi-uso para los estudiantes de la Facultad de Ciencias',
+      project: 'https://github.com/PieroVioleta/BeeScience',
+      address: {
+        street: '',
+        city: '',
+        state: '',
+        zip: ''
+      },
+      bio: 'Este página ha sido creada como proyecto de ciclo del curso Desarrollo de Software (CC3S2)'
+    }
     return (
       <div className="App">
-        <Header data={this.state.resumeData.main}/>
-        <About data={this.state.resumeData.main}/>
-        {/* <Resume data={this.state.resumeData.resume}/>
-        <Portfolio data={this.state.resumeData.portfolio}/>
-        <Contact data={this.state.resumeData.main}/> */}
+        <Header data={information_site} />
+        <About data={information_site}/> 
         <Footer data={this.state.resumeData.main}/>
       </div>
     );
