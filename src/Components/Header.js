@@ -37,7 +37,7 @@ class Header extends Component {
             <hr />
             <ul className="social">
                <a href={github} className="button btn github-btn"><i class="fa fa-sign-in" aria-hidden="true"></i>Iniciar sesión</a>
-               <a href={project} className="button btn project-btn">Registrara</a>
+               <a href={project} className="button btn project-btn">Registrarse</a>
             </ul>
          </div>
       </div>
