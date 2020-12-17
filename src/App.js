@@ -9,7 +9,7 @@ import Contact from './Components/Contact';
 import NaviBar from './Components/NaviBar';
 import Portfolio from './Components/Portfolio';
 import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
-import ForUni from './Pages/ForUni'
+import ForUni from './Pages/ForUni';
 import GestorNotas from './Pages/GestorNotas';
 import Horario from './Pages/Horario';
 import Recursos from './Pages/Recursos';
@@ -22,8 +22,7 @@ class App extends Component {
       resumeData: {}
     };
 
-    ReactGA.initialize('UA-110570651-1');
-    ReactGA.pageview(window.location.pathname);
+
 
   }
 
@@ -80,7 +79,7 @@ class App extends Component {
             <Horario/>
           </Route>
           <Route path="/Recursos">
-            <Recursos/>
+            <Recursos data={information_site}/>
           </Route>
           </Switch>
         </Router>

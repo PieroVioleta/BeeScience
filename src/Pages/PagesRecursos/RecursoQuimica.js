@@ -9,15 +9,12 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
-import RecursoComputacion from './PagesRecursos/RecursoComputacion';
 
 // import CardComponent from '../Components/Card';
 
 const useStyles = makeStyles((theme) => ({
   icono:{
     flexDirection: 'center',
-    
   },
 
   heroContent: {
@@ -49,28 +46,28 @@ const useStyles = makeStyles((theme) => ({
 
 const cards = [
     {index: 1, 
-      enlace: "./Horario",
+      enlace: "/GestorNotas",
       escuela: "Ingenieria física",
        link:"https://images.unsplash.com/photo-1568754690048-73d7d3a6bf32?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=633&q=80"},
     {index: 2, 
-      enlace: "../Pages/PagesRecursos/RecursoQuimica",
+      enlace: "/Foruni",
       escuela: "Química", 
       link:"https://images.unsplash.com/photo-1581091012184-7e0cdfbb6797?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"},
     {index: 3, 
-      enlace: "../Pages/PagesRecursos/RecursoFisica",
+      enlace: "/Horario",
       escuela: "Física", 
       link:"https://images.unsplash.com/photo-1607988795691-3d0147b43231?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"},
     {index: 4, 
-      enlace: "../Pages/PagesRecursos/RecursoMatematica",
+      enlace: "/GestorNotas",
       escuela: "Matematica", 
       link:"https://images.unsplash.com/photo-1581089778245-3ce67677f718?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"},
     {index: 5, 
-      enlace: "./RecursoComputacion",
+      enlace: "/GestorNotas",
       escuela: "Ciencia de la computación", 
       link:"https://images.unsplash.com/photo-1600267147646-33cf514b5f3e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1030&q=80"},
 ];
 
-export default function Album() {
+export default function RecursoQuimica() {
   const classes = useStyles();
 
   return (
@@ -81,7 +78,7 @@ export default function Album() {
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              Recursos 
+              Recursos de la Carrera Profesional de Química
             </Typography>
             <Typography variant="h5" align="center" color="textSecondary" paragraph>
               En esta sección encontrarás recursos educativos divididos por carreras profesionales de la facultad de ciencias.
