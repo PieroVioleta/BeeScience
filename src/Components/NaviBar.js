@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import ParticlesBg  from "particles-bg";
-import { render } from 'react-dom';
 import {Link} from 'react-router-dom';
 
 class NaviBar extends Component{

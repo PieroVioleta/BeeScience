@@ -1,19 +1,13 @@
 /*
-=====================================================================
-*   Ceevee v1.0 Layout Stylesheet
-*   url: styleshout.com
-*   03-18-2014
+
 =====================================================================
 
    TOC:
    a. General Styles
    b. Header Styles
    c. About Section
-   e. Portfolio Section
-   f. Call To Action Section
-   g. Testimonials Section
-   h. Contact Section
-   i. Footer
+   e. Schedule
+   f. footer
 
 ===================================================================== */
 
@@ -79,9 +73,10 @@ header .banner-text h3 a {
 header .banner-text hr {
    width: 60%;
    margin: 18px auto 24px auto;
-   border-color: #2F2D2E;
+   border-color:#22161c;
    border-color: rgba(150, 150, 150, .1);
 }
+
 
 /* header social links */
 header .social {

@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import ReactGA from 'react-ga';
 import './App.css';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import About from './Components/About';
-import Resume from './Components/Resume';
-import Contact from './Components/Contact';
 import NaviBar from './Components/NaviBar';
-import Portfolio from './Components/Portfolio';
 import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
 import ForUni from './Pages/ForUni';
 import GestorNotas from './Pages/GestorNotas';
@@ -55,15 +51,11 @@ class App extends Component {
     }
     return (
       <div className="App">
-        {/* <Header data={information_site} />
-        <About data={information_site}/>  
-          <Footer data={information_site}/> */}
-        
         <Router>
         <NaviBar/>
           <Switch>
           <Route path="/" exact>  
-            <Header data={information_site} />
+            <Header classname='Cabezara' data={information_site} />
             <About data={information_site}/>  
             <Footer data={information_site}/>
           </Route>
