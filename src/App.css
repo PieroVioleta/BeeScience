@@ -4,10 +4,14 @@
 }
 
 header .banner-text h1 {
-    color:#293241 ;
+    color:BLACK ;
+    
+    /* background-color: blue; */
 }
 header .banner-text h3{
-    color: #293241;
+    color: white;
+    background-color: rgba(24, 21, 13, 0.767);
+
     font-size: 20px;
     font-weight: bold;
 }
