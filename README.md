@@ -5,10 +5,10 @@ Proyecto del curso de Desarrollo de Software (CC3S2), .
 
 # Integrantes
 
-****Cruz Coro Cristhian Elian****
-****Cotrina Muñoz Juan Carlos****
-****Violeta Estrella Piero Alexis****
-****Roberto Alexis Cerna Espiritu****
+Cruz Coro Cristhian Elian
+Cotrina Muñoz Juan Carlos
+Violeta Estrella Piero Alexis
+Roberto Alexis Cerna Espiritu
 
 ## 
 
