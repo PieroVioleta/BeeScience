@@ -815,3 +815,83 @@ footer .social-links li:first-child { margin-left: 0; }
 .github-btn{
    background-color: #34495e !important;
 }
+
+
+
+/* ------------------------------------------------------------------ */
+/* j. ForUni
+/* ------------------------------------------------------------------ */
+
+#contenedor-pregunta {
+   display: flex;
+   width: 100%;
+   padding-top: 50px;
+}
+
+#form_pregunta {
+   margin: auto;
+   text-align: center;
+   vertical-align: middle;
+}
+.entradaTexto {
+   margin-top: 30px;
+   width: 100%;
+}
+#descripcionPregunta {
+   font-size: 30px;
+   margin-bottom: 30px;
+   color: white;
+}
+input[type=text] {
+   margin-top: 20px;
+   border-radius: 20px;
+   border: solid 2px;
+   border-top: none;
+   border-left: none;
+   border-right: none;
+   background-color: #3D5A80;
+   color: white;
+   padding: 12px 20px;
+   font-size: 20px;
+   box-sizing: border-box;
+ }
+#boton {
+   background-color: #EE6C4D;
+   border: solid 3px;
+   border-radius: 20px;
+
+}
+ /* preguntas dasssssssssssssssssssssssssssssssssssssssssssss
+ asddddddddddddddddddddddddddddddddddddddddddddddddddddddd */
+ .pregunta-container {
+   width: 600px;
+   margin: 30px auto 30px auto;
+   border: solid #3D5A80;
+   padding: 15px;
+   border-radius: 15px;
+   display: flex;
+}
+.pregunta-detalle {
+   font-size: 11px;
+   
+}
+.pregunta {
+   font-size: 21px;
+   text-decoration: none;
+   color: #98C1D9;
+}
+.pregunta:hover {
+   cursor: pointer;
+   color: #E0FBFC;
+}
+.perfil-foto {
+   border-radius: 50%;
+   object-fit: cover;
+   width: 50px;
+   height: 50px;
+}
+.contenedor-perfil {
+   width: 50px;
+   height: 50px;
+   margin-right: 15px;
+}
