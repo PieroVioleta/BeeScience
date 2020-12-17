@@ -11,7 +11,7 @@ import Portfolio from './Components/Portfolio';
 import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
 import ForUni from './Pages/ForUni';
 import GestorNotas from './Pages/GestorNotas';
-import Horario from './Pages/Horario';
+import Tarea from './Pages/Tarea';
 import Recursos from './Pages/Recursos';
 import CursoFisica from './Pages/PagesRecursos/Cursos/CursoFisica';
 class App extends Component {
@@ -73,8 +73,8 @@ class App extends Component {
           <Route path="/GestorNotas">
             <GestorNotas/>
           </Route>
-          <Route path="/Horario">
-            <Horario/>
+          <Route path="/Tarea">
+            <Tarea/>
           </Route>
           <Route path="/Recursos">
             <Recursos data={information_site}/>

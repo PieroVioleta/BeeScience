@@ -21,8 +21,8 @@ class NaviBar extends Component{
             <Link to="/GestorNotas">
             <li><a className="smoothscroll" >Gestor de Notas</a></li>
             </Link>
-            <Link to="/Horario">
-            <li><a className="smoothscroll" >Horario</a></li>
+            <Link to="/Tarea">
+            <li><a className="smoothscroll" >Tareas</a></li>
             </Link>
             <Link to="/Recursos">
             <li><a className="smoothscroll" href="/Recursos" >Recursos</a></li>

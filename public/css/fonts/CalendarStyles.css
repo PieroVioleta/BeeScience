@@ -1,0 +1,12 @@
+.calendar_default_event_inner {
+    background: #2e78d6;
+    color: #fff;
+    border: none;
+    font-size: 10pt;
+    padding: 5px;
+    opacity: 0.9;
+    
+}
+.scheduler_default_corner div:nth-of-type(2) {
+    display: none !important;
+ }

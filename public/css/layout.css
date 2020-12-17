@@ -354,22 +354,23 @@ ul#nav li.current a { color: #fe6928; }
 /* ------------------------------------------------------------------ */
 /* e. Schedule
 /* ------------------------------------------------------------------ */
+
 .Schedule{
    position: absolute;
    top: 130px;
    left: 300px;
    width: 70%;
-   height: 80%;
-   background-color: beige;
-}
-.Schedule th{
-   display: flex;
-   flex-direction: row;
-}
-.Schedule td{
-   display: flex;
-   flex-direction: column;
+   height: 78%;
+   background-color: #98c1d9;
+   border: 1px black solid;
 
+}
+
+.scheduler_default_corner div:nth-of-type(2) {
+   display: none !important;
+}
+.toolbar-item{
+   color: black;
 }
 /* ------------------------------------------------------------------ */
 /* f. Call To Action Section
