@@ -1,8 +1,10 @@
 .todo {
-    margin: 75px 0px 5px 0px;
+    margin: 75px 10px 5px 10px;
+    background-color: #293241;
 }
 
 .selectCiclo {
+    margin: 25px 0px 25px 0px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -10,22 +12,25 @@
 }
 
 .selectReport {
-    background-color: #acdce4;
+    background-color: #98C1D9;
+    min-width: fit-content;
     width: fit-content;
+    max-width: fit-content;
     height: fit-content;
-    font-size: 32px;
+    font-size: 18px;
     color: grey;
-    margin: 0px 2px 0px 2px;
-    border-radius: 10px;
-    text-align-last: right;
-    padding: 5px;
+    margin: 0px 5px 0px 5px;
+    border-radius: 20px;
+    text-align-last: center;
+    padding: 15px 15px 15px 15px;
 }
 
 .btn {
     width: fit-content;
-    padding: 5px 3px 5px 3px;
-    margin: 0px 2px 0px 2px;
-    font-size: 20px;
+    padding: 0px 20px 0px 20px;
+    margin: 0px 5px 0px 5px;
+    font-size: 12px;
+    border-radius: 25px;
 }
 
 .addCicloForm {
@@ -33,4 +38,15 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
+}
+.inputCiclo {
+    background-color: #98C1D9;
+    color: rgba(0, 0, 0, 50%);
+    min-width: 100px;
+    max-width: 100px;
+    font-size: 14px;
+}
+
+::placeholder {
+    color: rgba(240, 240, 240, 25%);
 }

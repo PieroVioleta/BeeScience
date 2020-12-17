@@ -1,0 +1,32 @@
+.cont {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.btn {
+    width: fit-content;
+    padding: 0px 20px 0px 20px;
+    margin: 0px 5px 0px 5px;
+    font-size: 12px;
+    border-radius: 25px;
+}
+
+.selectReport {
+    background-color: #98C1D9;
+    min-width: fit-content;
+    width: fit-content;
+    max-width: fit-content;
+    height: fit-content;
+    font-size: 18px;
+    color: grey;
+    margin: 0px 5px 0px 5px;
+    border-radius: 20px;
+    text-align-last: center;
+    padding: 15px 15px 15px 15px;
+}
+
+::placeholder {
+    color: rgba(0, 0, 0, 50%);
+}

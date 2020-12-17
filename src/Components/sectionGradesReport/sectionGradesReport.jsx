@@ -15,15 +15,16 @@ class SectionGradesReport extends React.Component {
       <div className="reportSection">
         {this.props.cicloActual === null ? (
           <div>
-            <h3>No hay registros. Seleccione o agregue un reporte de notas</h3>
+            <h3 className="nothingFound">No hay registros. Seleccione o agregue un reporte de notas</h3>
           </div>
         ) : (
           <div>
-            <span>
+            <span className="headerCiclo">
               <h2 className="reportSection-title">
                 Ciclo {this.props.cicloActual.codigoCiclo}
               </h2>
               <button
+                className="btn"
                 onClick={() => {
                   this.setState({ formAddCourseActivated: true });
                   this.setState({ formRemoveCourseActivated: false });
@@ -32,6 +33,7 @@ class SectionGradesReport extends React.Component {
                 Agregar Reporte del Curso
               </button>
               <button
+              className="btn"
                 onClick={() =>
                   {
                     this.setState({ formAddCourseActivated: false });
@@ -41,14 +43,15 @@ class SectionGradesReport extends React.Component {
               >
                 Eliminar Reporte del Curso
               </button>
+            </span>
               {this.state.formAddCourseActivated ? (
-                <div>
+                <div className="addCourseForm">
                   <input
                     id="codCurso"
                     placeholder="Escriba el codigo del curso"
                     type="text"
                   ></input>{" "}
-                  <button
+                  <button className="btn"
                     onClick={() => {
                       let curso = document.getElementById("codCurso").value;
                       this.props.addCurso(curso);
@@ -57,7 +60,7 @@ class SectionGradesReport extends React.Component {
                   >
                     Agregar
                   </button>
-                  <button
+                  <button className="btn"
                     onClick={() =>
                       this.setState({ formAddCourseActivated: false })
                     }
@@ -67,13 +70,13 @@ class SectionGradesReport extends React.Component {
                 </div>
               ) : null}
               {this.state.formRemoveCourseActivated ? (
-                <div>
+                <div className="addCourseForm">
                   <input
                     id="codCurso"
                     placeholder="Escriba el codigo del curso"
                     type="text"
                   ></input>{" "}
-                  <button
+                  <button className="btn"
                     onClick={() => {
                       let curso = document.getElementById("codCurso").value;
                       this.props.removeCurso(curso);
@@ -82,7 +85,7 @@ class SectionGradesReport extends React.Component {
                   >
                     Eliminar
                   </button>
-                  <button
+                  <button className="btn"
                     onClick={() =>
                       this.setState({ formRemoveCourseActivated: false })
                     }
@@ -91,9 +94,8 @@ class SectionGradesReport extends React.Component {
                   </button>
                 </div>
               ) : null}
-            </span>
 
-            <p className="gradeMean weighted">
+            <p className="promedioCiclo">
               Promedio del Ciclo:{" "}
               {this.props.cicloActual.promedioCiclo.toFixed(3)}
             </p>

@@ -1,4 +1,5 @@
 import React from "react";
+import "./gradeSection.css";
 
 class AddedGrade extends React.Component {
   constructor(props) {
@@ -19,8 +20,8 @@ class AddedGrade extends React.Component {
         ) : (
           <input type="checkbox" disabled />
         )}
-        <button>Modificar nota</button>
-        <button>Eliminar nota</button>
+        <button className="btn">Modificar nota</button>
+        <button className="btn">Eliminar nota</button>
       </div>
     );
   }
@@ -41,8 +42,8 @@ class AddGradeForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <select>
+      <div className="cont">
+        <select className="selectReport">
           {this.state.practs.map((pract) => (
             <option key={"PC-" + pract} value={"PC-" + pract}>{"PC-" + pract}</option>
           ))}
@@ -52,7 +53,7 @@ class AddGradeForm extends React.Component {
         </select>
         <input type="number" placeholder="Nota" min="0" max="20" />
         <input type="checkbox" defaultChecked />
-        <button onClick={() => this.handleClick()}>Agregar calificación</button>
+        <button className="btn" onClick={() => this.handleClick()}>Agregar calificación</button>
       </div>
     );
   }

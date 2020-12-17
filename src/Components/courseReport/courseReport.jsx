@@ -14,8 +14,7 @@ class CourseReport extends React.Component {
       <div className="courseGradeSection">
         <h4>{this.props.curso.nombreCurso} - {this.props.curso.codigoCurso}</h4>
         <p>Promedio del Curso: {this.props.curso.promedioCurso.toFixed(2)}</p>
-        <p>Promedio de Prácticas: </p>
-        <p>Promedio de Laboratorio: </p>
+        <p>Promedio de Prácticas: {this.props.curso.promedioPracticas.toFixed(2)}</p>
         <ul>
           <li key="prov">
             <GradeSection isFilled={true} onClick={() => this.handleClick()}/>

@@ -30,7 +30,7 @@ let cursos = [
     laboratorios: false,
     parcial: true,
     final: true,
-    sustitutorio: false 
+    sustitutorio: false,
   },
 ];
 
@@ -53,19 +53,17 @@ class Nota {
 
 class ReporteCurso {
   constructor(codigoCurso) {
-    let curso = cursos.filter(
-      (curso) => curso.codigoCurso === codigoCurso
-    )[0];
+    let curso = cursos.filter((curso) => curso.codigoCurso === codigoCurso)[0];
     this.codigoCurso = curso.codigoCurso;
     this.nombreCurso = curso.nombreCurso;
     this.sistCalificacion = curso.sistCalificacion;
     this.numeroCreditos = curso.numeroCreditos;
     this.notas = {
-      "PC": [],
-      "PL": [],
-      "EP": [],
-      "EF": [],
-      "ES": []
+      PC: [],
+      PL: [],
+      EP: [],
+      EF: [],
+      ES: [],
     }; //Arreglo de objetos Notas
     this.practicas = curso.calificadas;
     this.laboratorios = curso.laboratorios;
@@ -103,6 +101,21 @@ class SelectSection extends React.Component {
     return (
       <div>
         <div className="selectCiclo">
+          <button
+            className="btn"
+            onClick={() => this.setState({ formAddTermActivated: true })}
+          >
+            Agregar Reporte de Notas
+          </button>
+          <button
+            className="btn"
+            onClick={() => {
+              let ciclo = document.getElementById("selection").value;
+              this.props.removeCiclo(ciclo);
+            }}
+          >
+            Eliminar Reporte de Notas
+          </button>
           <select
             id="selection"
             className="selectReport"
@@ -125,41 +138,33 @@ class SelectSection extends React.Component {
               </option>
             ))}
           </select>
-          <button className="btn" onClick={() => this.setState({ formAddTermActivated: true })}>
-            Agregar Reporte de Notas
-          </button>
-          <button className="btn"
-            onClick={() => {
-              let ciclo = document.getElementById("selection").value;
-              this.props.removeCiclo(ciclo);
-            }}
-          >
-            Eliminar Reporte de Notas
-          </button>
+        </div>
+        {this.state.formAddTermActivated ? (
+          <div className="addCicloForm">
+            <input
+              className="inputCiclo"
+              id="codCiclo"
+              placeholder="(año)-(periodo) Ej. 2020-2"
+              type="text"
+            ></input>
+            <button
+              className="btn"
+              onClick={() => {
+                let ciclo = document.getElementById("codCiclo").value;
+                this.props.addCiclo(ciclo);
+                this.setState({ formAddTermActivated: false });
+              }}
+            >
+              Agregar
+            </button>
+            <button
+              className="btn"
+              onClick={() => this.setState({ formAddTermActivated: false })}
+            >
+              Cancelar
+            </button>
           </div>
-          {this.state.formAddTermActivated ? (
-                <div className="addCicloForm">
-                  <input
-                    id="codCiclo"
-                    placeholder="(año)-(periodo) Ej. 2020-2"
-                    type="text"
-                  ></input>
-                  <button className="btn"
-                    onClick={() => {
-                      let ciclo = document.getElementById("codCiclo").value;
-                      this.props.addCiclo(ciclo);
-                      this.setState({ formAddTermActivated: false });
-                    }}
-                  >
-                    Agregar
-                  </button>
-                  <button className="btn"
-                    onClick={() => this.setState({ formAddTermActivated: false })}
-                  >
-                    Cancelar
-                  </button>
-                </div>
-            ) : null}
+        ) : null}
       </div>
     );
   }
@@ -264,13 +269,13 @@ class MainSection extends React.Component {
 
   handleAddNota(nombreEvaluacion) {
     let tipo = nombreEvaluacion.splice(0, 3);
-    // let notas 
+    // let notas
     this.notas = {
-      "PC": [],
-      "PL": [],
-      "EP": [],
-      "EF": [],
-      "ES": []
+      PC: [],
+      PL: [],
+      EP: [],
+      EF: [],
+      ES: [],
     };
     console.log(tipo);
   }
