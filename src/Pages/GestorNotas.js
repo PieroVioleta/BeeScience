@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import MainSection from '../Components/mainSection/mainSection.jsx'
+// import 
 
 class GestorNotas extends Component{
     render(){
-        return(<h1>Test Notas</h1>);
+        return(
+            <MainSection />
+            );
     }
 }
 export default GestorNotas;

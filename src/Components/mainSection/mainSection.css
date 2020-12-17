@@ -1,0 +1,36 @@
+.todo {
+    margin: 75px 0px 5px 0px;
+}
+
+.selectCiclo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.selectReport {
+    background-color: #acdce4;
+    width: fit-content;
+    height: fit-content;
+    font-size: 32px;
+    color: grey;
+    margin: 0px 2px 0px 2px;
+    border-radius: 10px;
+    text-align-last: right;
+    padding: 5px;
+}
+
+.btn {
+    width: fit-content;
+    padding: 5px 3px 5px 3px;
+    margin: 0px 2px 0px 2px;
+    font-size: 20px;
+}
+
+.addCicloForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
