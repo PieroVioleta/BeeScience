@@ -6,13 +6,15 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
+import RecursoComputacion from '../Pages/PagesRecursos/RecursoComputacion';
+import RecursoFisica from '../Pages/PagesRecursos/RecursoFisica';
+import RecursoIngenieria from '../Pages/PagesRecursos/RecursoIngenieria';
+import RecursoMatematica from '../Pages/PagesRecursos/RecursoMatematica';
+import RecursoQuimica from '../Pages/PagesRecursos/RecursoQuimica';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
-import RecursoComputacion from './PagesRecursos/RecursoComputacion';
 
-// import CardComponent from '../Components/Card';
 
 const useStyles = makeStyles((theme) => ({
   icono:{
@@ -49,33 +51,33 @@ const useStyles = makeStyles((theme) => ({
 
 const cards = [
     {index: 1, 
-      enlace: "./Horario",
-      escuela: "Ingenieria física",
-       link:"https://images.unsplash.com/photo-1568754690048-73d7d3a6bf32?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=633&q=80"},
+      enlace: "#RecursoComputacion",
+      escuela: "Ciencia de la computación", 
+      link:"https://images.unsplash.com/photo-1600267147646-33cf514b5f3e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1030&q=80"},
     {index: 2, 
-      enlace: "../Pages/PagesRecursos/RecursoQuimica",
+      enlace: "#RecursoQuimica",
       escuela: "Química", 
       link:"https://images.unsplash.com/photo-1581091012184-7e0cdfbb6797?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"},
     {index: 3, 
-      enlace: "../Pages/PagesRecursos/RecursoFisica",
+      enlace: "#RecursoFisica",
       escuela: "Física", 
       link:"https://images.unsplash.com/photo-1607988795691-3d0147b43231?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"},
     {index: 4, 
-      enlace: "../Pages/PagesRecursos/RecursoMatematica",
+      enlace: "#RecursoMatematica",
       escuela: "Matematica", 
       link:"https://images.unsplash.com/photo-1581089778245-3ce67677f718?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"},
     {index: 5, 
-      enlace: "./RecursoComputacion",
-      escuela: "Ciencia de la computación", 
-      link:"https://images.unsplash.com/photo-1600267147646-33cf514b5f3e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1030&q=80"},
+      enlace: "#RecursoIngFisica",
+      escuela: "Ingenieria física",
+      link:"https://images.unsplash.com/photo-1568754690048-73d7d3a6bf32?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=633&q=80"},
 ];
 
 export default function Album() {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
-      
+    <div id="Recursos">
+      <React.Fragment>
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
@@ -112,9 +114,9 @@ export default function Album() {
                     </Typography>
                     </CardContent>
                   <CardActions>
-                  <Button  variant="outlined" size="large" color="primary" href={card.enlace}>
+                    <Button  variant="outlined" size="large" color="primary" href={card.enlace}>
                       Ver
-                  </Button>
+                    </Button>
                                                         
                   </CardActions>
                 </Card>
@@ -126,7 +128,23 @@ export default function Album() {
                 
         
       </main>
-
+      <div id="RecursoComputacion">
+        <RecursoComputacion />
+      </div>
+      <div id="RecursoFisica">
+        <RecursoFisica />
+      </div>
+      <div id="RecursoIngFisica">
+        <RecursoIngenieria />
+      </div>
+      <div id="RecursoMatematica">
+        <RecursoMatematica />
+      </div>
+      <div id="RecursoQuimica">
+        <RecursoQuimica />
+      </div>
     </React.Fragment>
+    </div>
+    
   );
 }

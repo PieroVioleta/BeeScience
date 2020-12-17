@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   heroContent: {
-    backgroundColor: '#98C1D9',
+    backgroundColor: 'lightblue',
     padding: theme.spacing(8, 0, 6),
   },
   heroButtons: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: 'white',
+    backgroundColor: '#cccccc',
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
@@ -46,46 +46,55 @@ const useStyles = makeStyles((theme) => ({
 
 const cards = [
     {index: 1, 
-      curso: "Introducción a la Computación",
-      link: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+      curso: "PC1",
+      link: "https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=675&q=80",
     },
     {index: 2, 
-      curso: "Física I",
-      link: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+      curso: "PC2",
+      link: "https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=675&q=80",
     },
     {index: 3, 
-      curso: "Calculo Diferencial",
-      link: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+      curso: "PC3",
+      link: "https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=675&q=80",
     },
     {index: 4, 
-      curso: "Algebra Lineal",
-      link: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+      curso: "PC4",
+      link: "https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=675&q=80",
     },
     {index: 5, 
-      curso: "Química I",
-      link: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+      curso: "PC5",
+      link: "https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=675&q=80",
+    },
+    {index: 6, 
+      curso: "Parcial",
+      link: "https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=675&q=80",
+    },
+    {index: 7, 
+      curso: "Final",
+      link: "https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=675&q=80",
     },
 ];
 
-export default function Album() {
+export default function CursoFisica() {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
+    <div>
+      <React.Fragment>
       
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-               Física
+               Fisica I
             </Typography>
-            <Typography variant="h3" align="center" color="textPrimary" gutterBottom>
-               Ciclo I
+            <Typography variant="h4" align="center" color="textPrimary" gutterBottom>
+               Estudiar las leyes fundamentales de la mecánica clásica que modelan el mundo dísico que nos rodea.
+               Aplicar los conocimientos adquiridos a problemas sencillos y al análisis de una serie de experimentos
+               a desarrollarse en el curso.
             </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
-              En esta sección encontrarás recursos de los cursos del Primer ciclo.
-            </Typography>
+            
           </Container>
         </div>  
         
@@ -106,13 +115,7 @@ export default function Album() {
                     </Typography>
                     </CardContent>
                   <CardActions>
-                  <Link to="/CursoFisica">
-                    <Button  variant="outlined" size="large" color="primary" >
-                        Ver
-                    </Button>
-                  </Link>
-                  
-                                                        
+                                    
                   </CardActions>
                 </Card>
               </Grid>
@@ -125,5 +128,7 @@ export default function Album() {
       </main>
 
     </React.Fragment>
+    
+    </div>
   );
 }

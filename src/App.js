@@ -13,6 +13,7 @@ import ForUni from './Pages/ForUni';
 import GestorNotas from './Pages/GestorNotas';
 import Horario from './Pages/Horario';
 import Recursos from './Pages/Recursos';
+import CursoFisica from './Pages/PagesRecursos/Cursos/CursoFisica';
 class App extends Component {
 
   constructor(props){
@@ -21,9 +22,6 @@ class App extends Component {
       foo: 'bar',
       resumeData: {}
     };
-
-
-
   }
 
 
@@ -80,6 +78,9 @@ class App extends Component {
           </Route>
           <Route path="/Recursos">
             <Recursos data={information_site}/>
+          </Route>
+          <Route path="/CursoFisica">
+            <CursoFisica/>
           </Route>
           </Switch>
         </Router>

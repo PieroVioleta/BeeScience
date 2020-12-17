@@ -9,12 +9,12 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
-// import CardComponent from '../Components/Card';
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   icono:{
     flexDirection: 'center',
+    
   },
 
   heroContent: {
@@ -46,28 +46,28 @@ const useStyles = makeStyles((theme) => ({
 
 const cards = [
     {index: 1, 
-      enlace: "/GestorNotas",
-      escuela: "Ingenieria física",
-       link:"https://images.unsplash.com/photo-1568754690048-73d7d3a6bf32?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=633&q=80"},
+      curso: "Introducción a la Computación",
+      link: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+    },
     {index: 2, 
-      enlace: "/Foruni",
-      escuela: "Química", 
-      link:"https://images.unsplash.com/photo-1581091012184-7e0cdfbb6797?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"},
+      curso: "Física I",
+      link: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+    },
     {index: 3, 
-      enlace: "/Horario",
-      escuela: "Física", 
-      link:"https://images.unsplash.com/photo-1607988795691-3d0147b43231?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"},
+      curso: "Calculo Diferencial",
+      link: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+    },
     {index: 4, 
-      enlace: "/GestorNotas",
-      escuela: "Matematica", 
-      link:"https://images.unsplash.com/photo-1581089778245-3ce67677f718?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"},
+      curso: "Algebra Lineal",
+      link: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+    },
     {index: 5, 
-      enlace: "/GestorNotas",
-      escuela: "Ciencia de la computación", 
-      link:"https://images.unsplash.com/photo-1600267147646-33cf514b5f3e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1030&q=80"},
+      curso: "Química I",
+      link: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+    },
 ];
 
-export default function RecursoQuimica() {
+export default function Album() {
   const classes = useStyles();
 
   return (
@@ -78,19 +78,16 @@ export default function RecursoQuimica() {
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              Recursos de la Carrera Profesional de Química
+               Química
+            </Typography>
+            <Typography variant="h3" align="center" color="textPrimary" gutterBottom>
+               Ciclo I
             </Typography>
             <Typography variant="h5" align="center" color="textSecondary" paragraph>
-              En esta sección encontrarás recursos educativos divididos por carreras profesionales de la facultad de ciencias.
+              En esta sección encontrarás recursos de los cursos del Primer ciclo.
             </Typography>
-            
           </Container>
-        </div>
-        
-        <div className={classes.icon} >
-          <Icon className="fa fa-plus-circle" color="secondary" style={{ fontSize: 30 }}/>
-        </div>
-        
+        </div>  
         
         <Container className={classes.cardGrid} maxWidth="md" >
           {/* End hero unit */}
@@ -101,17 +98,19 @@ export default function RecursoQuimica() {
                   <CardMedia
                     className={classes.cardMedia}
                     image={card.link}
-                    title={card.escuela}
+                    title={card.curso}
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2" align="center">
-                      {card.escuela}
+                      {card.curso}
                     </Typography>
                     </CardContent>
                   <CardActions>
-                  <Button  variant="outlined" size="large" color="primary" href={card.enlace}>
-                      Ver
-                  </Button>
+                  <Link to="/CursoFisica">
+                    <Button  variant="outlined" size="large" color="primary" >
+                        Ver
+                    </Button>
+                  </Link>
                                                         
                   </CardActions>
                 </Card>

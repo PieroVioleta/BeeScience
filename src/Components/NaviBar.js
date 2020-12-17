@@ -25,7 +25,7 @@ class NaviBar extends Component{
             <li><a className="smoothscroll" >Horario</a></li>
             </Link>
             <Link to="/Recursos">
-            <li><a className="smoothscroll" >Recursos</a></li>
+            <li><a className="smoothscroll" href="/Recursos" >Recursos</a></li>
             </Link>
          </ul>
       </nav>);

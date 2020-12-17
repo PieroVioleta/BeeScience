@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-
+// import ParticlesBg  from "particles-bg";
 
 import NaviBar from './NaviBar';
 
@@ -25,7 +25,7 @@ class Header extends Component {
          
             <div className="banner-text">
                <h1 className="responsive-headline">{name}</h1>
-               <h3>{description}.</h3>
+               <h3>{description}</h3>
                <hr />
                <ul className="social">
                   <a className="button btn github-btn"><i className="fa fa-sign-in" aria-hidden="true"></i>Iniciar sesión</a>
