@@ -1,32 +1,71 @@
-.cont {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.btn {
-    width: fit-content;
-    padding: 0px 20px 0px 20px;
-    margin: 0px 5px 0px 5px;
-    font-size: 12px;
-    border-radius: 25px;
-}
-
-.selectReport {
-    background-color: #98C1D9;
+.grades-table-data td {
     min-width: fit-content;
     width: fit-content;
     max-width: fit-content;
     height: fit-content;
-    font-size: 18px;
-    color: grey;
-    margin: 0px 5px 0px 5px;
-    border-radius: 20px;
-    text-align-last: center;
-    padding: 15px 15px 15px 15px;
+    padding: 5px 10px;
+    margin: 0 5px;
+    font-size: 1.2em;
+    text-align: center;
 }
 
-::placeholder {
-    color: rgba(0, 0, 0, 50%);
+.grade-btn {
+    font-size: 0.8em;
+}
+
+.evaluation-selection{
+    min-width: fit-content;
+    width: fit-content;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin: 0 auto;
+    background-color: #d4d4d4;
+    color: rgba(0, 0, 0, 70%);
+    font-size: 1.1em;
+    font-weight: 500;
+    text-align: center;
+}
+
+#grade-input {
+    min-width: 100px;
+    width: 170px;
+    height: fit-content;
+    padding: 10px 20px;
+    border: none;
+    margin: 0 auto;
+    background-color: #d4d4d4;
+    color: black;
+    font-size: 1.1em;
+    border-radius: 20px;
+    box-sizing: border-box;
+    display: inline;
+    text-align: center;
+}
+
+#grade-input::placeholder {
+    text-align: center;
+}
+
+#grade-input:focus {
+    background-color: #aaa3a3;
+}
+
+.passed {
+    background-color: rgb(70, 70, 240);
+    color: #E0FBFC;
+    font-weight: 800;
+    padding: 2px 15px;
+    border-radius: 10px;
+    margin: 0 auto;
+    max-width: fit-content;
+}
+
+.failed {
+    background-color: rgb(240, 96, 70);
+    color: #E0FBFC;
+    font-weight: 800;
+    padding: 2px 15px;
+    border-radius: 10px;
+    margin: 0 auto;
+    max-width: fit-content;
 }

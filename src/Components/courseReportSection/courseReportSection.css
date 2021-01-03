@@ -1,0 +1,61 @@
+.course-report-section {
+    background-color: #98C1D9;
+    padding: 20px 25px;
+    border-radius: 20px;
+    margin: 20px 0;
+    color: rgba(0, 0, 0, 65%)
+}
+
+.course-report-section h2 {
+    font-size: 2em;
+    color: black;
+    margin: 0;
+}
+
+.course-report-section p {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.grades-table {
+    min-width: fit-content;
+    width: 100%;
+}
+
+.grades-table-headers th {
+    min-width: fit-content;
+    width: fit-content;
+    border-bottom: 1px solid rgba(0, 0, 0, 50%);
+    margin: 0 10px;
+    font-size: 1.2em;
+    font-weight: 600;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.grades-table-headers th:nth-of-type(1) {
+    width: 30%;
+}
+
+.grades-table-headers th:nth-of-type(2) {
+    width: 20%;
+}
+
+.grades-table-headers th:nth-of-type(3) {
+    width: 20%;
+}
+
+.grades-table-headers th:nth-of-type(4) {
+    width: 15%;
+}
+
+.grades-table-headers th:nth-of-type(5) {
+    width: 15%;
+}
+
+
+@media (max-width: 750px) {
+    .removeable {
+        display: none;
+    }
+}

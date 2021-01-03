@@ -1,0 +1,178 @@
+.term-selection-section {
+    font-size: 1em;
+    min-width: fit-content;
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.section-header {
+    min-width: fit-content;
+    margin: 10px 5px 10px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#term-selection {
+    min-width: fit-content;
+    width: fit-content;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin: 0 5px;
+    background-color: #98C1D9;
+    color: rgba(0, 0, 0, 70%);
+    font-size: 1.7em;
+    font-weight: 600;
+    text-align: center;
+}
+
+#term-selection option {
+    font-size: 0.8em;
+    margin: 5px;
+}
+
+.add-term-form {
+    min-width: fit-content;
+    margin: 10px 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#term-code-label {
+    font-size: 1.3em;
+    min-width: fit-content;
+    color: #E0FBFC;
+}
+
+#term-code-input {
+    min-width: fit-content;
+    width: fit-content;
+    border: none;
+    margin: 0px 15px;
+    background-color:#c5bdbd;
+    color:black;
+    font-size: 1.2em;
+}
+
+#term-code-input:focus {
+    background-color:#aaa3a3;
+}
+
+#term-code-input::placeholder {
+    color: rgba(0, 0, 0, 50%);
+}
+
+.buttons {
+    margin-right: 0;
+    padding-left: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.section-header-buttons {
+    min-width: fit-content;
+    margin-right: 0;
+    padding-left: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.grade-report-btn {
+    min-width: fit-content;
+    width: fit-content;
+    padding: 0 20px;
+    margin: 0 5px;
+    font-family: 'opensans-bold', sans-serif;
+    font-size: 1em;
+    border-radius: 25px;
+    background-color: #11ABB0;
+    text-decoration: none;
+    color:#E0FBFC;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+    white-space: nowrap;
+}
+
+.grade-report-btn:hover {
+    background-color: #3d4145;
+}
+
+.grade-report-btn:disabled {
+    background-color: #285758;
+    cursor: default;
+}
+
+.confirm-btn {
+    background-color: rgb(99, 209, 99);
+}
+
+.confirm-btn:hover {
+    background-color: green;
+}
+
+.cancel-btn {
+    background-color: palevioletred;
+}
+
+.cancel-btn:hover {
+    background-color: red;
+}
+
+@media (max-width: 767px) {
+    .buttons {
+        margin: 5px 0 0 0;
+    }
+}
+
+@media (max-width: 648px) {
+    .term-selection-section {
+        justify-content: flex-start;
+    }
+
+    .section-header {
+        margin-left: 5px;
+        margin-right: auto;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+}
+
+@media (max-width: 632px) {
+    #term-code-input {
+        margin-right: 0;
+    }
+
+    .add-term-form {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}
+
+@media (max-width: 416px) {
+    .section-header {
+        align-items: center;
+        flex-wrap: wrap-reverse;
+    }
+
+    .section-header-buttons {
+        margin-top: 5px;
+    }
+    .form {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

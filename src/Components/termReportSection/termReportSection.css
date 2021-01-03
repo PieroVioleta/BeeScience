@@ -1,0 +1,28 @@
+.term-report-section {
+    min-width: fit-content;
+    height: fit-content;
+    padding: 25px 15px;
+    border-radius: 20px;
+    margin: 10px;
+    background-color: #3D5A80;
+    color: #E0FBFC;
+    box-sizing: content-box;
+}
+
+.term-report-section h3 {
+    color: #E0FBFC;
+    margin-left: 10px;
+    font-size: 2em;
+}
+
+.promedioCiclo {
+    font-size: 1.4em;
+    color: #E0FBFC;
+    margin: 10px 10px;
+}
+
+@media (max-width: 291px) {
+    .noTerm {
+        min-width: 249px;
+    }
+}

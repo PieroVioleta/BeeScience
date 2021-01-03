@@ -1,5 +1,6 @@
 import React from "react";
-import SectionGradesReport from "../sectionGradesReport/sectionGradesReport";
+import TermSelectionSection from '../termSelectionSection/termSelectionSection';
+import TermReportSection from "../termReportSection/termReportSection";
 import "./mainSection.css";
 
 let sistemas = {
@@ -88,87 +89,6 @@ class ReporteCiclo {
 }
 
 let initialInfo = [new ReporteCiclo("2020-1"), new ReporteCiclo("2020-2")];
-
-class SelectSection extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      formAddTermActivated: false,
-    };
-  }
-
-  render() {
-    return (
-      <div>
-        <div className="selectCiclo">
-          <button
-            className="btn"
-            onClick={() => this.setState({ formAddTermActivated: true })}
-          >
-            Agregar Reporte de Notas
-          </button>
-          <button
-            className="btn"
-            onClick={() => {
-              let ciclo = document.getElementById("selection").value;
-              this.props.removeCiclo(ciclo);
-            }}
-          >
-            Eliminar Reporte de Notas
-          </button>
-          <select
-            id="selection"
-            className="selectReport"
-            onChange={() => {
-              let ciclo = document.getElementById("selection").value;
-              this.props.selectCiclo(ciclo);
-            }}
-            value={
-              this.props.cicloActual !== null
-                ? this.props.cicloActual.codigoCiclo
-                : "default"
-            }
-          >
-            <option value="default" key="default">
-              ------
-            </option>
-            {this.props.ciclos.map((ciclo) => (
-              <option value={ciclo.codigoCiclo} key={ciclo.codigoCiclo}>
-                {ciclo.codigoCiclo}
-              </option>
-            ))}
-          </select>
-        </div>
-        {this.state.formAddTermActivated ? (
-          <div className="addCicloForm">
-            <input
-              className="inputCiclo"
-              id="codCiclo"
-              placeholder="(año)-(periodo) Ej. 2020-2"
-              type="text"
-            ></input>
-            <button
-              className="btn"
-              onClick={() => {
-                let ciclo = document.getElementById("codCiclo").value;
-                this.props.addCiclo(ciclo);
-                this.setState({ formAddTermActivated: false });
-              }}
-            >
-              Agregar
-            </button>
-            <button
-              className="btn"
-              onClick={() => this.setState({ formAddTermActivated: false })}
-            >
-              Cancelar
-            </button>
-          </div>
-        ) : null}
-      </div>
-    );
-  }
-}
 
 class MainSection extends React.Component {
   constructor(props) {
@@ -286,15 +206,15 @@ class MainSection extends React.Component {
 
   render() {
     return (
-      <div class="todo">
-        <SelectSection
+      <div class="main-section">
+        <TermSelectionSection
           ciclos={this.state.info}
-          cicloActual={this.state.cicloActual}
-          selectCiclo={(codigo) => this.handleSelectCiclo(codigo)}
+          currentTerm={this.state.cicloActual}
+          selectTerm={(codigo) => this.handleSelectCiclo(codigo)}
           addCiclo={(codigo) => this.handleAddCiclo(codigo)}
-          removeCiclo={(codigo) => this.handleRemoveCiclo(codigo)}
+          removeTerm={(codigo) => this.handleRemoveCiclo(codigo)}
         />
-        <SectionGradesReport
+        <TermReportSection
           cicloActual={this.state.cicloActual}
           addCurso={(codigo) => this.handleAddCurso(codigo)}
           removeCurso={(codigo) => this.handleRemoveCurso(codigo)}
