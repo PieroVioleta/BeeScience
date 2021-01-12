@@ -25,7 +25,7 @@ const TermReport = require('./models/termReport');
 const CourseReport = require('./models/courseReport');
 const Course = require('./models/course');
 const EvaluationSystem = require('./models/evaluationSystem');
-
+  
 let user_id = "";
 let terms = [];
 let courses = [];
