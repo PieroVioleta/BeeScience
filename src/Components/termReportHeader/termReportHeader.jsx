@@ -6,7 +6,7 @@ class TermReportHeader extends React.Component {
     super(props);
     this.state = {
       addCourseFormActivated: false,
-      removeCourseFormActivated: false,
+      removeCourseFormActivated: false
     };
   }
 
@@ -21,8 +21,8 @@ class TermReportHeader extends React.Component {
   }
 
   handleAddCourse() {
-    let course_code = document.getElementById("course-code-input").value;
-    this.props.addCourse(course_code);
+    let courseCode = document.getElementById("course-code-input").value;
+    this.props.addCourse(courseCode.toUpperCase());
     this.setState({ addCourseFormActivated: false });
   }
 
@@ -32,8 +32,8 @@ class TermReportHeader extends React.Component {
   }
 
   handleRemoveCourse() {
-    let course_code = document.getElementById("course-code-input").value;
-    this.props.removeCourse(course_code);
+    let courseCode = document.getElementById("course-code-input").value;
+    this.props.removeCourse(courseCode.toUpperCase());
     this.setState({ removeCourseFormActivated: false });
   }
 
@@ -41,7 +41,7 @@ class TermReportHeader extends React.Component {
     return (
       <div className="term-report-header">
         <div className="term-report-header-title">
-          <h1 id="term-title">Ciclo {this.props.currentTerm.codigoCiclo}</h1>
+          <h1 id="term-title">Ciclo {this.props.currentTerm.termCode}</h1>
           <button
             type="button"
             className="grade-report-btn"
@@ -60,7 +60,7 @@ class TermReportHeader extends React.Component {
         {this.state.addCourseFormActivated === true ? (
           <div className="term-report-header-form">
             <div className="course-form">
-              <label class="course-code-label" for="course-code-input">
+              <label className="course-code-label" htmlFor="course-code-input">
                 Código del curso:{" "}
               </label>
               <input
@@ -90,7 +90,7 @@ class TermReportHeader extends React.Component {
         {this.state.removeCourseFormActivated === true ? (
           <div className="term-report-header-form">
             <div className="form">
-              <label class="course-code-label" for="course-code-input">
+              <label className="course-code-label" htmlFor="course-code-input">
                 Código del curso:{" "}
               </label>
               <input

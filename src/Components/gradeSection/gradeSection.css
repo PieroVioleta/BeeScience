@@ -13,6 +13,10 @@
     font-size: 0.8em;
 }
 
+.grade-btn:disabled {
+    cursor: auto;
+}
+
 .evaluation-selection{
     min-width: fit-content;
     width: fit-content;
@@ -26,9 +30,10 @@
     text-align: center;
 }
 
-#grade-input {
+#input .grade-input {
     min-width: 100px;
     width: 170px;
+    min-height: 50px;
     height: fit-content;
     padding: 10px 20px;
     border: none;
@@ -42,11 +47,11 @@
     text-align: center;
 }
 
-#grade-input::placeholder {
+#input .grade-input::placeholder {
     text-align: center;
 }
 
-#grade-input:focus {
+#input .grade-input:focus {
     background-color: #aaa3a3;
 }
 

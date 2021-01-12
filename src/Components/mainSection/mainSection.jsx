@@ -1,227 +1,184 @@
-import React from "react";
-import TermSelectionSection from '../termSelectionSection/termSelectionSection';
+import React, { useState, useEffect } from "react";
+import io from "socket.io-client";
+import TermSelectionSection from "../termSelectionSection/termSelectionSection";
 import TermReportSection from "../termReportSection/termReportSection";
 import "./mainSection.css";
 
-let sistemas = {
-  D: {
-    pesoPracticas: 1,
-    pesoParcial: 0,
-    pesoFinal: 0,
-  },
-  F: {
-    pesoPracticas: 1,
-    pesoParcial: 1,
-    pesoFinal: 2,
-  },
-  G: {
-    pesoPracticas: 1,
-    pesoParcial: 1,
-    pesoFinal: 2,
-  },
-};
+function MainSection() {
+  //Get user ID 5ffa6b98f96818c0e006c1a9 set for props
+  // const user_id = this.props.user_id;
+  const user_id = "5ffa6b98f96818c0e006c1a9";
+  const [loading, setLoading] = useState(true);
+  const [currentTerm, setCurrentTerm] = useState({
+    _id: "",
+    user_id: user_id,
+    termCode: "",
+    termGrade: 0.0,
+  });
+  const [terms, setTerms] = useState([]);
+  const [termCodes, setTermCodes] = useState([]);
+  const [courses, setCourses] = useState([]);
 
-let cursos = [
-  {
-    codigoCurso: "CC3S2",
-    nombreCurso: "Desarrollo de Software",
-    sistCalificacion: "F",
-    numeroCreditos: 4,
-    calificadas: true,
-    laboratorios: false,
-    parcial: true,
-    final: true,
-    sustitutorio: false,
-  },
-];
+  //Manda el id al server
+  var socket = io.connect("http://localhost:8080", {
+    query: "user_id=" + user_id,
+  });
 
-class Nota {
-  constructor(nombreEvaluacion, nota, esEliminable) {
-    this.nombreEvaluacion = nombreEvaluacion;
-    this.nota = nota;
-    this.esEliminable = esEliminable;
-  }
-  setNombre(nuevoNombre) {
-    this.nombreEvaluacion = nuevoNombre;
-  }
-  setNota(nuevaNota) {
-    this.nota = nuevaNota;
-  }
-  setEsEliminable(flag) {
-    this.nota = flag;
-  }
-}
-
-class ReporteCurso {
-  constructor(codigoCurso) {
-    let curso = cursos.filter((curso) => curso.codigoCurso === codigoCurso)[0];
-    this.codigoCurso = curso.codigoCurso;
-    this.nombreCurso = curso.nombreCurso;
-    this.sistCalificacion = curso.sistCalificacion;
-    this.numeroCreditos = curso.numeroCreditos;
-    this.notas = {
-      PC: [],
-      PL: [],
-      EP: [],
-      EF: [],
-      ES: [],
-    }; //Arreglo de objetos Notas
-    this.practicas = curso.calificadas;
-    this.laboratorios = curso.laboratorios;
-    this.parcial = curso.parcial;
-    this.final = curso.final;
-    this.sustitutorio = curso.sustitutorio;
-    this.promedioPracticas = 0.0;
-    this.promedioLaboratorios = 0.0;
-    this.notaParcial = 0.0;
-    this.notaFinal = 0.0;
-    this.notaSustitutorio = 0.0;
-    this.promedioCurso = 0.0;
-  }
-}
-
-class ReporteCiclo {
-  constructor(codigoCiclo) {
-    this.codigoCiclo = codigoCiclo;
-    this.promedioCiclo = 0.0;
-    this.cursos = []; //Arreglo de objetos reporteCursos
-  }
-}
-
-let initialInfo = [new ReporteCiclo("2020-1"), new ReporteCiclo("2020-2")];
-
-class MainSection extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      info: initialInfo,
-      cicloActual:
-        initialInfo.length !== 0 ? initialInfo[initialInfo.length - 1] : null,
-      sistemas: sistemas,
-    };
-  }
-
-  handleSelectCiclo(codCiclo) {
-    if (codCiclo === "default") {
-      this.setState({ cicloActual: null });
-      return;
-    }
-    let cicloSeleccionado = this.state.info.filter(
-      (ciclo) => ciclo.codigoCiclo === codCiclo
-    )[0];
-    this.setState({ cicloActual: cicloSeleccionado });
-  }
-
-  handleAddCiclo(codCiclo) {
-    let oldCiclo = this.state.info.filter(
-      (ciclo) => ciclo.codigoCiclo === codCiclo
-    );
-    if (oldCiclo.length !== 0) return;
-    let nuevosCiclos = this.state.info;
-    let nuevoCiclo = new ReporteCiclo(codCiclo);
-    nuevosCiclos = nuevosCiclos.concat([nuevoCiclo]);
-    this.setState({ info: nuevosCiclos });
-    this.setState({ cicloActual: nuevoCiclo });
-  }
-
-  handleRemoveCiclo(codCiclo) {
-    if (codCiclo === "default") return;
-    let nuevosCiclos = this.state.info.filter(
-      (ciclo) => ciclo.codigoCiclo !== codCiclo
-    );
-    this.setState({ info: nuevosCiclos });
-    this.setState({
-      cicloActual:
-        nuevosCiclos.length !== 0
-          ? nuevosCiclos[nuevosCiclos.length - 1]
-          : null,
+  useEffect(() => {
+    // data = {termData, currentTerm}
+    socket.on("getTerms", (data) => {
+      let termCodes = (data.termsData).map((termData) => termData.termCode).sort();
+      let lastTerm =
+        termCodes.length === 0
+          ? null
+          : data.termsData.filter(
+              (termData) =>
+                termData.termCode === termCodes[termCodes.length - 1]
+            )[0];
+      setLoading(false);
+      if(data.currentTerm === null) {
+        setCurrentTerm(lastTerm);
+        socket.emit('setCurrentTerm', (lastTerm === null) ? "" : lastTerm._id);
+      }
+      else {
+        setCurrentTerm(data.currentTerm);
+      }
+      setTerms(data.termsData);
+      setTermCodes(termCodes);
     });
-  }
+    socket.on("getCourses", (courses) => {
+      setCourses(courses);
+    });
+    socket.on("courseNotFound", (courseCode) => {
+      alert(`El curso ${courseCode} no existe`);
+    })
+  }, []);
 
-  handleAddCurso(codCurso) {
-    let oldCourse = this.state.cicloActual.cursos.filter(
-      (curso) => curso.codigoCurso === codCurso
-    );
-    if (oldCourse.length !== 0) {
-      alert("El curso ya añadió anteriormente");
+  const handleAddTerm = (termCode) => {
+    if (termCode === "") {
+      alert(
+        `No se pudo agregar. Ningún ciclo fue seleccionado`
+      );
       return;
     }
-    let reporteCurso = new ReporteCurso(codCurso);
-    let reportesCursos = this.state.cicloActual.cursos;
-    reportesCursos = reportesCursos.concat([reporteCurso]);
-    let nuevoReporteCicloActual = {
-      ...this.state.cicloActual,
-      cursos: reportesCursos,
-    };
-    let nuevoReportesCiclos = this.state.info;
-    nuevoReportesCiclos = nuevoReportesCiclos.map((reporte) =>
-      reporte.codigoCiclo === this.state.cicloActual.codigoCiclo
-        ? nuevoReporteCicloActual
-        : reporte
-    );
-    this.setState({ cicloActual: nuevoReporteCicloActual });
-    this.setState({ info: nuevoReportesCiclos });
-  }
-
-  handleRemoveCurso(codCurso) {
-    let nuevosCursos = this.state.cicloActual.cursos;
-    nuevosCursos = nuevosCursos.filter(
-      (curso) => curso.codigoCurso !== codCurso
-    );
-    console.log(nuevosCursos);
-    if (nuevosCursos.length === this.state.cicloActual.cursos.length) {
-      alert("El curso que se desea eliminar no se encuentra registrado");
+    let auxTerm = terms.filter((term) => term.termCode === termCode);
+    if (auxTerm.length !== 0) {
+      alert(
+        `No se pudo agregar. El reporte del ciclo ${termCode} ya fue agregado anteriormente`
+      );
       return;
     }
-    let nuevoReporteCicloActual = {
-      ...this.state.cicloActual,
-      cursos: nuevosCursos,
+    if (terms.length > 20) {
+      alert("No se puede agregar más ciclos. Limite máximo de ciclos: 20");
+      return;
+    }
+    let newTerm = {
+      user_id: user_id,
+      termCode: termCode,
     };
-    let nuevoReportesCiclos = this.state.info;
-    nuevoReportesCiclos = nuevoReportesCiclos.map((reporte) =>
-      reporte.codigoCiclo === this.state.cicloActual.codigoCiclo
-        ? nuevoReporteCicloActual
-        : reporte
-    );
-    this.setState({ cicloActual: nuevoReporteCicloActual });
-    this.setState({ info: nuevoReportesCiclos });
+    socket.emit("postTerm", newTerm);
+  };
+
+  const handleSelectTerm = (termCode) => {
+    if (termCode === "default") {
+      setCurrentTerm(null);
+      return;
+    }
+    let termSelected = terms.filter((term) => term.termCode === termCode)[0];
+    setCurrentTerm(termSelected);
+    socket.emit('setCurrentTerm', termSelected._id);
+  };
+
+  const handleRemoveTerm = (termCode) => {
+    if (termCode === "") {
+      alert(
+        `No se pudo eliminar. Ningún ciclo fue seleccionado`
+      );
+      return;
+    }
+    let auxTerm = terms.filter((term) => term.termCode === termCode);
+    if (auxTerm.length === 0) {
+      alert(
+        `No se pudo eliminar. El reporte del ciclo ${termCode} no existe`
+      );
+      return;
+    }
+    let term_id = terms.filter((term) => term.termCode === termCode)[0]._id;
+    socket.emit("deleteTerm", term_id);
+  };
+
+  const handleAddCourse = (courseCode) => {
+    if (courseCode === "") {
+      alert(
+        `No se pudo agregar. Ningún curso fue seleccionado`
+      );
+      return;
+    }
+    let auxCourse = courses.filter((course) => course.course_code === courseCode);
+    if (auxCourse.length !== 0) {
+      alert(
+        `No se pudo agregar. El reporte del curso ${courseCode} ya fue agregado anteriormente`
+      );
+      return;
+    }
+    if (courses.length > 10) {
+      alert("No se puede agregar más cursos. Limite máximo de cursos: 10");
+      return;
+    }
+    let newCourse = {
+      termReport_id: currentTerm._id,
+      course_code: courseCode,
+    };
+    socket.emit("postCourse", newCourse);
   }
 
-  handleAddNota(nombreEvaluacion) {
-    let tipo = nombreEvaluacion.splice(0, 3);
-    // let notas
-    this.notas = {
-      PC: [],
-      PL: [],
-      EP: [],
-      EF: [],
-      ES: [],
-    };
-    console.log(tipo);
+  const handleRemoveCourse = (courseCode) => {
+    if (courseCode === "") {
+      alert(
+        `No se pudo eliminar. Ningún curso fue seleccionado`
+      );
+      return;
+    }
+    let course = courses.filter((course) => course.course_code === courseCode)[0];
+    if(course === undefined) {
+      alert(`No se pudo eliminar. No existe ningún reporte del curso ${courseCode} en este ciclo`);
+      return;
+    }
+    let course_id = course._id;
+    socket.emit("deleteCourse", course_id);
   }
 
-  handleModifyNota() {}
+  const handleAddGrade = (courseCode, newGrade) => {
+    socket.emit("postGrade", {course_code: courseCode, newGrade: newGrade});
+  }
 
-  handleRemoveNota() {}
-
-  render() {
-    return (
-      <div class="main-section">
-        <TermSelectionSection
-          ciclos={this.state.info}
-          currentTerm={this.state.cicloActual}
-          selectTerm={(codigo) => this.handleSelectCiclo(codigo)}
-          addCiclo={(codigo) => this.handleAddCiclo(codigo)}
-          removeTerm={(codigo) => this.handleRemoveCiclo(codigo)}
-        />
+  const handleRemoveGrade = (courseCode, grade) => {
+    socket.emit("removeGrade", {course_code: courseCode, grade: grade});
+  }
+  
+  return (
+    <div className="main-section">
+      <TermSelectionSection
+        terms={termCodes}
+        currentTerm={currentTerm}
+        selectTerm={(termCode) => handleSelectTerm(termCode)}
+        addTerm={(termCode) => handleAddTerm(termCode)}
+        removeTerm={(termCode) => handleRemoveTerm(termCode)}
+      />
+      {loading === true ? (
+        <h1 className="loading">Cargando...</h1>
+      ) : (
         <TermReportSection
-          cicloActual={this.state.cicloActual}
-          addCurso={(codigo) => this.handleAddCurso(codigo)}
-          removeCurso={(codigo) => this.handleRemoveCurso(codigo)}
+          currentTerm={currentTerm}
+          courses={courses}
+          addCourse={(courseCode) => handleAddCourse(courseCode)}
+          removeCourse={(courseCode) => handleRemoveCourse(courseCode)}
+          addGrade={(courseCode, newGrade) => handleAddGrade(courseCode, newGrade)}
+          removeGrade={(courseCode, grade) => handleRemoveGrade(courseCode, grade)}
         />
-      </div>
-    );
-  }
+      )}
+    </div>
+  );
 }
 
 export default MainSection;

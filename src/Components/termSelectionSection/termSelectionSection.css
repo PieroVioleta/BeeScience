@@ -3,7 +3,7 @@
     min-width: fit-content;
     box-sizing: content-box;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-end;
 }
 
@@ -158,7 +158,7 @@
 
     .add-term-form {
         flex-direction: column;
-        align-items: flex-end;
+        align-items: flex-start;
     }
 }
 
@@ -174,5 +174,6 @@
     .form {
         flex-direction: column;
         align-items: flex-start;
+        margin-bottom: 5px;
     }
 }
