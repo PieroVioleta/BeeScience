@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const grade = {
+const Grade = {
     evaluationName: String,
     grade: Number,
     isRemovable: {
@@ -10,28 +10,55 @@ const grade = {
     }
 }
 
-const system = {
+const System = {
     testsWeight: Number,
     midtermWeight: Number,
     finalWeight: Number
 }
 
 const courseReportSchema = new Schema({
-    termReport_id: String,
-    course_code: String,
-    course_name: String,
-    course_weight: Number,
-    numberQuizzes: Number,
-    numberLabs: Number,
-    removableQuizzes: Number,
-    removableLabs: Number,
-    evaluationSystem: system,
+    termReport_id: {
+        type: String,
+        required: true
+    },
+    course_code: {
+        type: String,
+        required: true
+    },
+    course_name: {
+        type: String,
+        required: true
+    },
+    course_weight: {
+        type: Number,
+        required: true
+    },
+    numberQuizzes: {
+        type: Number,
+        required: true
+    },
+    numberLabs: {
+        type: Number,
+        required: true
+    },
+    removableQuizzes: {
+        type: Number,
+        required: true
+    },
+    removableLabs: {
+        type: Number,
+        required: true
+    },
+    evaluationSystem: {
+        type: System,
+        required: true
+    },
     quizzes: {
-        type: [grade],
+        type: [Grade],
         default: []
     },
     labs: {
-        type: [grade],
+        type: [Grade],
         default: []
     },
     courseGrade: {
@@ -43,15 +70,15 @@ const courseReportSchema = new Schema({
         default: 0
     },
     midtermGrade: {
-        type: grade,
+        type: Grade,
         default: null
     },
     finalGrade: {
-        type: grade,
+        type: Grade,
         default: null
     },
     makeUpGrade: {
-        type: grade,
+        type: Grade,
         default: null
     }
 });
