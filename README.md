@@ -18,3 +18,9 @@ Proyecto del curso de Desarrollo de Software (CC3S2), .
  with npm
  npm install
 ~~~
+## Para ejecutar
+
+~~~
+ with npm
+ npm start
+~~~
