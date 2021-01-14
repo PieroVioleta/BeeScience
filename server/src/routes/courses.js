@@ -5,7 +5,8 @@ const CourseReport = require('../models/courseReport');
 const Course = require('../models/course');
 const EvaluationSystem = require('../models/evaluationSystem');
 
-
+//Parametros: Id del reporte de ciclo
+//Devuelve: Los reportes de cursos que pertenecen al reporte del ciclo
 router.get('/gradesManager/courses/:id', async(req, res) => {
     const termReport_id = req.params.id;
     await CourseReport.find({termReport_id})
@@ -16,6 +17,8 @@ router.get('/gradesManager/courses/:id', async(req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+//Parametros: Id del reporte del ciclo y codigo del curso que se desea agregar
+//Devuelve: El documento creado correspondiente al nuevo reporte del curso
 router.post('/gradesManager/courses/add',async(req, res) => {
     const termReport_id = req.body.termReport_id;
     const course_code = req.body.course_code;
@@ -47,6 +50,8 @@ router.post('/gradesManager/courses/add',async(req, res) => {
 
 });
 
+//Parametros: Id del curso que se desea eliminar
+//Devuelve: -
 router.delete('/gradesManager/courses/delete/:id', async(req, res) => {
     const _id = req.params.id;
     await CourseReport.findByIdAndDelete(_id)
@@ -54,6 +59,8 @@ router.delete('/gradesManager/courses/delete/:id', async(req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
+//Parametros: Id del reporte del curso al que se le quiere actualizar el promedio de prácticas y la nota del promedio de practicas
+//Devuelve: -
 router.post('/gradesManager/courses/update/testsGrade', async(req, res) => {
     const _id = req.body._id;
     const testsGrade = req.body.testsGrade;
@@ -62,6 +69,8 @@ router.post('/gradesManager/courses/update/testsGrade', async(req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+//Parametros: Id del reporte del curso al que se le quiere actualizar la nota final y la nota final
+//Devuelve: -
 router.post('/gradesManager/courses/update/courseGrade', async(req, res) => {
     const _id = req.body._id;
     const courseGrade = req.body.courseGrade;
