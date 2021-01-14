@@ -9,7 +9,7 @@ class Tarea extends Component {
 
         this.state = {
             
-            startDate: "2021-10-01",
+            startDate: "2021-01-01",
             days: 31,
             scale: "Day",
             timeHeaders: [
@@ -81,14 +81,14 @@ class Tarea extends Component {
                   {...config}
                   onEventMoved={args => {
                       console.log("Event moved: ", args.e.data.id, args.newStart, args.newEnd, args.newResource);
-                      this.scheduler.message("Event moved: " + args.e.data.text);
+                      this.scheduler.message("Tarea : " + args.e.data.text);
                   }}
                   onEventResized={args => {
                       console.log("Event resized: ", args.e.data.id, args.newStart, args.newEnd);
-                      this.scheduler.message("Event resized: " + args.e.data.text);
+                      this.scheduler.message("Tarea cambio tamaño: " + args.e.data.text);
                   }}
                   onTimeRangeSelected={args => {
-                    DayPilot.Modal.prompt("New event name", "Event").then(modal => {
+                    DayPilot.Modal.prompt("Nombre de nueva tarea", "Event").then(modal => {
                       this.scheduler.clearSelection();
                       if (!modal.result) {
                         return;

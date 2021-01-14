@@ -25,9 +25,9 @@ class Zoom extends Component {
     render() {
         return (
             <span className="toolbar-item">
-                Choose Mode:
-                <label><input type="radio" name="zoom" value="month" onChange={ev => this.change(ev)} checked={this.state.level === "month"} /> Month</label>
-                <label><input type="radio" name="zoom" value="week"  onChange={ev => this.change(ev)} checked={this.state.level === "week"} /> Week</label>
+                Elegir modo:
+                <label><input type="radio" name="zoom" value="month" onChange={ev => this.change(ev)} checked={this.state.level === "month"} /> Mes</label>
+                <label><input type="radio" name="zoom" value="week"  onChange={ev => this.change(ev)} checked={this.state.level === "week"} /> Semana</label>
             </span>
         );
     }
