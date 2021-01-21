@@ -2,11 +2,9 @@ const router = require('express').Router();
 const TermReport = require('../models/termReport');
 const CourseReport = require('../models/courseReport');
 
-const user_id = "5ffa6b98f96818c0e006c1a9";
-
 //Parametros: Id del usuario del cual se quiere obtener los reportes de notas
 //Devuelve: Los reporte de notas asociados al usuario
-router.get('/gradesManager/terms/:id', async(req, res) => {
+router.get('/:id', async(req, res) => {
     const user_id = req.params.id;
     await TermReport.find({user_id: user_id})
         .then(terms => res.json(terms))
@@ -15,7 +13,7 @@ router.get('/gradesManager/terms/:id', async(req, res) => {
 
 //Parametros: Id del usuario al cual le pertence el nuevo reporte del ciclo a agregar
 //Devuelve: El documento correspondiente al nuevo ciclo agregado
-router.post('/gradesManager/terms/add', async(req, res) => {
+router.post('/add', async(req, res) => {
     const user_id = req.body.user_id;
     const termCode = req.body.termCode;
 
@@ -34,7 +32,7 @@ router.post('/gradesManager/terms/add', async(req, res) => {
 
 // Parametros: Id del reporte del ciclo el cual se desea eliminar
 // Devuelve: -
-router.delete('/gradesManager/terms/delete/:id', async(req, res) => {
+router.delete('/delete/:id', async(req, res) => {
     const _id = req.params.id;
     await TermReport.findByIdAndDelete(_id)
         .then(() => res.json('Term deleted!'))
@@ -45,7 +43,7 @@ router.delete('/gradesManager/terms/delete/:id', async(req, res) => {
 
 // Parametros: Id del reporte del ciclo al cual se le desea actualizar la nota del ciclo y la nota del ciclo
 // Devuelve: -
-router.update('/gradesManager/terms/update/:id',async(req, res) => {
+router.post('/update/:id',async(req, res) => {
     const _id = req.params.id;
     const termGrade = req.body.termGrade;
     await TermReport.findByIdAndUpdate(_id, {$set: {termGrade}})

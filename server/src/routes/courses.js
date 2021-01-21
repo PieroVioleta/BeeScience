@@ -7,7 +7,7 @@ const EvaluationSystem = require('../models/evaluationSystem');
 
 //Parametros: Id del reporte de ciclo
 //Devuelve: Los reportes de cursos que pertenecen al reporte del ciclo
-router.get('/gradesManager/courses/:id', async(req, res) => {
+router.get('/:id', async(req, res) => {
     const termReport_id = req.params.id;
     await CourseReport.find({termReport_id})
         .then(courses => {
@@ -19,7 +19,7 @@ router.get('/gradesManager/courses/:id', async(req, res) => {
 
 //Parametros: Id del reporte del ciclo y codigo del curso que se desea agregar
 //Devuelve: El documento creado correspondiente al nuevo reporte del curso
-router.post('/gradesManager/courses/add',async(req, res) => {
+router.post('/add',async(req, res) => {
     const termReport_id = req.body.termReport_id;
     const course_code = req.body.course_code;
     let course = await Course.findOne({code: course_code});
@@ -52,7 +52,7 @@ router.post('/gradesManager/courses/add',async(req, res) => {
 
 //Parametros: Id del curso que se desea eliminar
 //Devuelve: -
-router.delete('/gradesManager/courses/delete/:id', async(req, res) => {
+router.delete('/delete/:id', async(req, res) => {
     const _id = req.params.id;
     await CourseReport.findByIdAndDelete(_id)
         .then(() => res.json('Course deleted!'))
@@ -61,7 +61,7 @@ router.delete('/gradesManager/courses/delete/:id', async(req, res) => {
 
 //Parametros: Id del reporte del curso al que se le quiere actualizar el promedio de prácticas y la nota del promedio de practicas
 //Devuelve: -
-router.post('/gradesManager/courses/update/testsGrade', async(req, res) => {
+router.post('/update/testsGrade', async(req, res) => {
     const _id = req.body._id;
     const testsGrade = req.body.testsGrade;
     await CourseReport.findByIdAndUpdate({_id}, {$set: {testsGrade}})

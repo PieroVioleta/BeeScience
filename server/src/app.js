@@ -10,11 +10,18 @@ const app = express();
 require('./database');
 
 //Settings
-app.set('port', process.env.port || 3000);
+app.set('port', process.env.port || 8080);
 app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'ejs');
 
+//Importing routes
+const termsRouter = require('./routes/terms');
+const coursesRouter = require('./routes/courses');
+const gradesRouter = require('./routes/grades');
+
 //Middlewares
+app.use(cors());
+app.use(express.json());
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.urlencoded({extended: false}));
@@ -29,9 +36,9 @@ app.use(multer({ storage: storage }).single('file'));
 
 //Routes
 app.use(require('./routes/index'));
-app.use(require('./routes/terms'));
-app.use(require('./routes/courses'));
-app.use(require('./routes/grades'));
+app.use('/terms', termsRouter);
+app.use('/courses', coursesRouter);
+app.use('/grades', gradesRouter);
 
 //static files
 

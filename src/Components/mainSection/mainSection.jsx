@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import io from "socket.io-client";
+import axios from "axios";
 import TermSelectionSection from "../termSelectionSection/termSelectionSection";
 import TermReportSection from "../termReportSection/termReportSection";
 import "./mainSection.css";
@@ -9,56 +9,82 @@ function MainSection() {
   // const user_id = this.props.user_id;
   const user_id = "5ffa6b98f96818c0e006c1a9";
   const [loading, setLoading] = useState(true);
-  const [currentTerm, setCurrentTerm] = useState({
-    _id: "",
-    user_id: user_id,
-    termCode: "",
-    termGrade: 0.0,
-  });
+  const [currentTerm, setCurrentTerm] = useState(null);
   const [terms, setTerms] = useState([]);
-  const [termCodes, setTermCodes] = useState([]);
   const [courses, setCourses] = useState([]);
 
-  //Manda el id al server
-  var socket = io.connect("http://localhost:8080", {
-    query: "user_id=" + user_id,
-  });
+  const getCourses = (currentTerm) => {
+    if (currentTerm !== null) {
+      axios
+        .get("http://localhost:8080/courses/" + currentTerm._id)
+        .then((response) => {
+          let courses = response.data.sort(
+            (courseA, courseB) => courseA.courseGrade - courseB.courseGrade
+          );
+          setCourses(courses);
+        })
+        .catch((error) => console.log(error));
+    } else setCourses([]);
+  };
+
+  //Trae data sobre los reportes de los ciclos pertenecientes a user_id
+  const getTerms = (user_id) => {
+    axios
+      .get("http://localhost:8080/terms/" + user_id)
+      .then((response) => {
+        let terms = response.data.sort((termA, termB) =>
+          termA.termCode.localeCompare(termB.termCode)
+        );
+
+        let currentTerm = terms.length === 0 ? null : terms[terms.length - 1];
+        setTerms(terms);
+        setCurrentTerm(currentTerm);
+        getCourses(currentTerm);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const updateTermGrade = () => {
+    if (currentTerm === null) return;
+    let totalWeight = courses.reduce((acc, course) => {
+      return acc + course.course_weight;
+    }, 0);
+    let calculatedTermGrade = courses.reduce((acc, course) => {
+      return acc + course.courseGrade * (course.course_weight / totalWeight);
+    }, 0);
+    
+    axios
+      .post("http://localhost:8080/terms/update/" + currentTerm._id, {
+        termGrade: calculatedTermGrade
+      })
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log(error));
+
+    let newCurrentTerm = {
+        ...currentTerm,
+        termGrade: calculatedTermGrade,
+    };
+    console.log("nuevo", newCurrentTerm);
+    setCurrentTerm(newCurrentTerm);
+
+    return;
+  };
 
   useEffect(() => {
-    // data = {termData, currentTerm}
-    socket.on("getTerms", (data) => {
-      let termCodes = (data.termsData).map((termData) => termData.termCode).sort();
-      let lastTerm =
-        termCodes.length === 0
-          ? null
-          : data.termsData.filter(
-              (termData) =>
-                termData.termCode === termCodes[termCodes.length - 1]
-            )[0];
-      setLoading(false);
-      if(data.currentTerm === null) {
-        setCurrentTerm(lastTerm);
-        socket.emit('setCurrentTerm', (lastTerm === null) ? "" : lastTerm._id);
-      }
-      else {
-        setCurrentTerm(data.currentTerm);
-      }
-      setTerms(data.termsData);
-      setTermCodes(termCodes);
-    });
-    socket.on("getCourses", (courses) => {
-      setCourses(courses);
-    });
-    socket.on("courseNotFound", (courseCode) => {
-      alert(`El curso ${courseCode} no existe`);
-    })
+    getTerms(user_id);
+    setLoading(false);
+    // socket.on("courseNotFound", (courseCode) => {
+    //   alert(`El curso ${courseCode} no existe`);
+    // })
   }, []);
+
+  useEffect(() => {
+    updateTermGrade();
+  }, [courses]);
 
   const handleAddTerm = (termCode) => {
     if (termCode === "") {
-      alert(
-        `No se pudo agregar. Ningún ciclo fue seleccionado`
-      );
+      alert(`No se pudo agregar. Ningún ciclo fue seleccionado`);
       return;
     }
     let auxTerm = terms.filter((term) => term.termCode === termCode);
@@ -68,15 +94,25 @@ function MainSection() {
       );
       return;
     }
-    if (terms.length > 20) {
-      alert("No se puede agregar más ciclos. Limite máximo de ciclos: 20");
+    if (terms.length > 15) {
+      alert("No se puede agregar más ciclos. Limite máximo de ciclos: 15");
       return;
     }
-    let newTerm = {
-      user_id: user_id,
-      termCode: termCode,
-    };
-    socket.emit("postTerm", newTerm);
+
+    axios
+      .post("http://localhost:8080/terms/add", {
+        user_id,
+        termCode,
+      })
+      .then((response) => {
+        let newTerms = terms
+          .concat(response.data)
+          .sort((termA, termB) => termA.termCode.localeCompare(termB.termCode));
+        setTerms(newTerms);
+        setCurrentTerm(response.data);
+        setCourses([]);
+      })
+      .catch((error) => console.log(error));
   };
 
   const handleSelectTerm = (termCode) => {
@@ -86,35 +122,46 @@ function MainSection() {
     }
     let termSelected = terms.filter((term) => term.termCode === termCode)[0];
     setCurrentTerm(termSelected);
-    socket.emit('setCurrentTerm', termSelected._id);
+    getCourses(termSelected);
   };
 
   const handleRemoveTerm = (termCode) => {
     if (termCode === "") {
-      alert(
-        `No se pudo eliminar. Ningún ciclo fue seleccionado`
-      );
+      alert(`No se pudo eliminar. Ningún ciclo fue seleccionado`);
       return;
     }
     let auxTerm = terms.filter((term) => term.termCode === termCode);
     if (auxTerm.length === 0) {
-      alert(
-        `No se pudo eliminar. El reporte del ciclo ${termCode} no existe`
-      );
+      alert(`No se pudo eliminar. El reporte del ciclo ${termCode} no existe`);
       return;
     }
-    let term_id = terms.filter((term) => term.termCode === termCode)[0]._id;
-    socket.emit("deleteTerm", term_id);
+
+    let _id = auxTerm[0]._id;
+    axios
+      .delete("http://localhost:8080/terms/delete/" + _id)
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log(error));
+
+    let newTerms = terms.filter((term) => term.termCode !== termCode);
+    if (currentTerm._id !== _id) {
+      setTerms(newTerms);
+      return;
+    }
+    let newCurrentTerm =
+      newTerms.length === 0 ? null : newTerms[newTerms.length - 1];
+    setTerms(newTerms);
+    setCurrentTerm(newCurrentTerm);
+    getCourses(newCurrentTerm);
   };
 
   const handleAddCourse = (courseCode) => {
     if (courseCode === "") {
-      alert(
-        `No se pudo agregar. Ningún curso fue seleccionado`
-      );
+      alert(`No se pudo agregar. Ningún curso fue seleccionado`);
       return;
     }
-    let auxCourse = courses.filter((course) => course.course_code === courseCode);
+    let auxCourse = courses.filter(
+      (course) => course.course_code === courseCode
+    );
     if (auxCourse.length !== 0) {
       alert(
         `No se pudo agregar. El reporte del curso ${courseCode} ya fue agregado anteriormente`
@@ -125,41 +172,63 @@ function MainSection() {
       alert("No se puede agregar más cursos. Limite máximo de cursos: 10");
       return;
     }
-    let newCourse = {
-      termReport_id: currentTerm._id,
-      course_code: courseCode,
-    };
-    socket.emit("postCourse", newCourse);
-  }
+
+    let termReport_id = currentTerm._id;
+    axios
+      .post("http://localhost:8080/courses/add", {
+        termReport_id,
+        course_code: courseCode,
+      })
+      .then((response) => {
+        let newCourses = courses
+          .concat(response.data)
+          .sort(
+            (courseA, courseB) => courseA.courseGrade - courseB.courseGrade
+          );
+        setCourses(newCourses);
+      })
+      .catch((error) => console.log(error));
+  };
 
   const handleRemoveCourse = (courseCode) => {
     if (courseCode === "") {
+      alert(`No se pudo eliminar. Ningún curso fue seleccionado`);
+      return;
+    }
+    let course = courses.filter(
+      (course) => course.course_code === courseCode
+    )[0];
+    if (course === undefined) {
       alert(
-        `No se pudo eliminar. Ningún curso fue seleccionado`
+        `No se pudo eliminar. No existe ningún reporte del curso ${courseCode} en este ciclo`
       );
       return;
     }
-    let course = courses.filter((course) => course.course_code === courseCode)[0];
-    if(course === undefined) {
-      alert(`No se pudo eliminar. No existe ningún reporte del curso ${courseCode} en este ciclo`);
-      return;
-    }
-    let course_id = course._id;
-    socket.emit("deleteCourse", course_id);
-  }
+
+    let _id = course._id;
+    axios
+      .delete("http://localhost:8080/courses/delete/" + _id)
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log(error));
+
+    let newCourses = courses.filter(
+      (course) => course.course_code !== courseCode
+    );
+    setCourses(newCourses);
+  };
 
   const handleAddGrade = (courseCode, newGrade) => {
-    socket.emit("postGrade", {course_code: courseCode, newGrade: newGrade});
-  }
+    // socket.emit("postGrade", {course_code: courseCode, newGrade: newGrade});
+  };
 
   const handleRemoveGrade = (courseCode, grade) => {
-    socket.emit("removeGrade", {course_code: courseCode, grade: grade});
-  }
-  
+    // socket.emit("removeGrade", {course_code: courseCode, grade: grade});
+  };
+
   return (
     <div className="main-section">
       <TermSelectionSection
-        terms={termCodes}
+        terms={terms.map((term) => term.termCode)}
         currentTerm={currentTerm}
         selectTerm={(termCode) => handleSelectTerm(termCode)}
         addTerm={(termCode) => handleAddTerm(termCode)}
@@ -173,8 +242,12 @@ function MainSection() {
           courses={courses}
           addCourse={(courseCode) => handleAddCourse(courseCode)}
           removeCourse={(courseCode) => handleRemoveCourse(courseCode)}
-          addGrade={(courseCode, newGrade) => handleAddGrade(courseCode, newGrade)}
-          removeGrade={(courseCode, grade) => handleRemoveGrade(courseCode, grade)}
+          addGrade={(courseCode, newGrade) =>
+            handleAddGrade(courseCode, newGrade)
+          }
+          removeGrade={(courseCode, grade) =>
+            handleRemoveGrade(courseCode, grade)
+          }
         />
       )}
     </div>
