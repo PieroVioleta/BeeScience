@@ -5,24 +5,18 @@ import "./courseReportSection.css";
 class CourseReportSection extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      quizzes: [],
-      labs: [],
-    };
-  }
 
-  updateState() {
     let newQuizzes = [];
     for (let i = 0; i < this.props.course.numberQuizzes; i++) {
       newQuizzes.push((i + 1).toString());
     }
+
     let currentQuizzesInfo = this.props.course.quizzes;
     for (let i = 0; i < currentQuizzesInfo.length; i++) {
       let num = currentQuizzesInfo[i].evaluationName[3];
       const index = newQuizzes.indexOf(num);
       if (index > -1) newQuizzes.splice(index, 1);
     }
-    this.state.quizzes = newQuizzes;
 
     let newLabs = [];
     for (let i = 0; i < this.props.course.numberLabs; i++) {
@@ -34,11 +28,47 @@ class CourseReportSection extends React.Component {
       const index = newLabs.indexOf(num);
       if (index > -1) newLabs.splice(index, 1);
     }
-    this.state.labs = newLabs;
+
+    this.state = {
+      quizzes: newQuizzes,
+      labs: newLabs,
+      addGradeEnable: (this.props.course.quizzes.length === this.props.course.numberQuizzes && this.props.course.labs.length === this.props.course.numberLabs && this.props.course.midtermGrade !== null && this.props.course.finalGrade !== null && this.props.course.makeUpGrade !== null) ? false : true
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.course !== prevProps.course) {
+      let newQuizzes = [];
+      for (let i = 0; i < this.props.course.numberQuizzes; i++) {
+        newQuizzes.push((i + 1).toString());
+      }
+
+      let currentQuizzesInfo = this.props.course.quizzes;
+      for (let i = 0; i < currentQuizzesInfo.length; i++) {
+        let num = currentQuizzesInfo[i].evaluationName[3];
+        const index = newQuizzes.indexOf(num);
+        if (index > -1) newQuizzes.splice(index, 1);
+      }
+
+      let newLabs = [];
+      for (let i = 0; i < this.props.course.numberLabs; i++) {
+        newLabs.push(toString(i + 1));
+      }
+      let currentLabsInfo = this.props.course.labs;
+      for (let i = 0; i < currentLabsInfo.length; i++) {
+        let num = currentLabsInfo[i].evaluationName[3];
+        const index = newLabs.indexOf(num);
+        if (index > -1) newLabs.splice(index, 1);
+      }
+      this.setState({ quizzes: newQuizzes, labs: newLabs });
+    }
+  }
+
+  handleAddGradeEnable() {
+    this.setState({addGradeEnable: (this.props.course.quizzes.length === this.props.course.numberQuizzes && this.props.course.labs.length === this.props.course.numberLabs && this.props.course.midtermGrade !== null && this.props.course.finalGrade !== null && this.props.course.makeUpGrade !== null) ? false : true})
   }
 
   render() {
-    this.updateState();
     return (
       <div className="course-report-section">
         <h2>
@@ -56,7 +86,6 @@ class CourseReportSection extends React.Component {
               <th></th>
             </tr>
           </thead>
-          {/* Por cada nota agregar una fila */}
           <tbody>
             {this.props.course.quizzes
               .sort(
@@ -71,6 +100,8 @@ class CourseReportSection extends React.Component {
                   grade={quiz}
                   removeGrade={this.props.removeGrade}
                   courseCode={this.props.course.course_code}
+                  courseID={this.props.course._id}
+                  handleAddGradeEnable={() => this.handleAddGradeEnable()}
                 />
               ))}
             {this.props.course.labs
@@ -86,6 +117,8 @@ class CourseReportSection extends React.Component {
                   grade={lab}
                   removeGrade={this.props.removeGrade}
                   courseCode={this.props.course.course_code}
+                  courseID={this.props.course._id}
+                  handleAddGradeEnable={() => this.handleAddGradeEnable()}
                 />
               ))}
             {this.props.course.midtermGrade !== null ? (
@@ -94,6 +127,8 @@ class CourseReportSection extends React.Component {
                 grade={this.props.course.midtermGrade}
                 removeGrade={this.props.removeGrade}
                 courseCode={this.props.course.course_code}
+                courseID={this.props.course._id}
+                handleAddGradeEnable={() => this.handleAddGradeEnable()}
               />
             ) : null}
             {this.props.course.finalGrade !== null ? (
@@ -102,6 +137,8 @@ class CourseReportSection extends React.Component {
                 grade={this.props.course.finalGrade}
                 removeGrade={this.props.removeGrade}
                 courseCode={this.props.course.course_code}
+                courseID={this.props.course._id}
+                handleAddGradeEnable={() => this.handleAddGradeEnable()}
               />
             ) : null}
             {this.props.course.makeUpGrade !== null ? (
@@ -110,6 +147,8 @@ class CourseReportSection extends React.Component {
                 grade={this.props.course.makeUpGrade}
                 removeGrade={this.props.removeGrade}
                 courseCode={this.props.course.course_code}
+                courseID={this.props.course._id}
+                handleAddGradeEnable={() => this.handleAddGradeEnable()}
               />
             ) : null}
             <GradeSection
@@ -121,6 +160,9 @@ class CourseReportSection extends React.Component {
               midterm={this.props.course.midtermGrade}
               final={this.props.course.finalGrade}
               makeUp={this.props.course.makeUpGrade}
+              courseID={this.props.course._id}
+              addGradeEnable={this.state.addGradeEnable}
+              handleAddGradeEnable={() => this.handleAddGradeEnable()}
             />
           </tbody>
         </table>

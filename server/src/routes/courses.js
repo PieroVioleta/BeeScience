@@ -11,7 +11,6 @@ router.get('/:id', async(req, res) => {
     const termReport_id = req.params.id;
     await CourseReport.find({termReport_id})
         .then(courses => {
-            console.log(courses);
             res.json(courses)
         })
         .catch(err => res.status(400).json('Error: ' + err));
@@ -19,12 +18,12 @@ router.get('/:id', async(req, res) => {
 
 //Parametros: Id del reporte del ciclo y codigo del curso que se desea agregar
 //Devuelve: El documento creado correspondiente al nuevo reporte del curso
-router.post('/add',async(req, res) => {
+router.post('/add', async(req, res) => {
     const termReport_id = req.body.termReport_id;
     const course_code = req.body.course_code;
     let course = await Course.findOne({code: course_code});
     if(course === null) {
-        res.status(404).json('Error: Course is not registered');
+        res.json(null);
         return;
     }
     let evaluationSystem = await EvaluationSystem.findOne({code: course.evaluationSystemCode}, "testsWeight midtermWeight finalWeight")
@@ -44,7 +43,6 @@ router.post('/add',async(req, res) => {
     await newCourseReport.save()
         .then(() => {
             res.json(newCourseReport);
-            console.log('Course added!');
         })
         .catch(err => res.status(400).json('Error: ' + err));
 
@@ -64,17 +62,17 @@ router.delete('/delete/:id', async(req, res) => {
 router.post('/update/testsGrade', async(req, res) => {
     const _id = req.body._id;
     const testsGrade = req.body.testsGrade;
-    await CourseReport.findByIdAndUpdate({_id}, {$set: {testsGrade}})
+    await CourseReport.updateOne({_id}, {$set: {testsGrade}})
         .then(() => res.json('Tests grade updated!'))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
 //Parametros: Id del reporte del curso al que se le quiere actualizar la nota final y la nota final
 //Devuelve: -
-router.post('/gradesManager/courses/update/courseGrade', async(req, res) => {
+router.post('/update/courseGrade', async(req, res) => {
     const _id = req.body._id;
     const courseGrade = req.body.courseGrade;
-    await CourseReport.findByIdAndUpdate({_id}, {$set: {courseGrade}})
+    await CourseReport.updateOne({_id}, {$set: {courseGrade}})
         .then(() => res.json('Course grade updated!'))
         .catch(err => res.status(400).json('Error: ' + err));
 });

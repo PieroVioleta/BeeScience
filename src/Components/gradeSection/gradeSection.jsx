@@ -2,13 +2,13 @@ import React from "react";
 import "./gradeSection.css";
 
 class GradeData extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
 
   handleRemoveGrade() {
-    this.props.removeGrade(this.props.courseCode, this.props.grade);
+    let courseID = this.props.courseID;
+    let evaluationName = this.props.grade.evaluationName;
+    this.props.removeGrade(courseID, evaluationName);
     document.getElementById("add-btn-" + this.props.courseCode).disabled = false;
+    this.props.handleAddGradeEnable();
   }
 
   render() {
@@ -39,14 +39,8 @@ class GradeData extends React.Component {
 }
 
 class GradeForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      addGrade: (this.props.quizzes.length === 0 && this.props.labs.length === 0 && this.props.midterm !== null && this.props.final !== null && this.props.makeUp !== null) ? false : true
-    }
-  }
-
   handleAddGrade() {
+    let courseID = this.props.courseID;
     let courseCode = this.props.courseCode;
     let evaluationName = document.getElementById(
       "evaluation-input-" + courseCode
@@ -65,11 +59,12 @@ class GradeForm extends React.Component {
         grade: grade,
         isRemovable: activated
       };
-      this.props.addGrade(courseCode, newGrade);
+      this.props.addGrade(courseID, newGrade);
     }
     else {
       alert("Ingrese una nota válida en el campo requerido");
     }
+    this.props.handleAddGradeEnable();
     this.handleCancel();
   }
 
@@ -134,7 +129,7 @@ class GradeForm extends React.Component {
             id={"add-btn-" + this.props.courseCode}
             className="grade-report-btn grade-btn"
             onClick={() => this.handleAddGrade()}
-            disabled={!this.state.addGrade}
+            disabled={!this.props.addGradeEnable}
           >
             Agregar
           </button>
@@ -153,15 +148,14 @@ class GradeForm extends React.Component {
 }
 
 class GradeSection extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
   render() {
     return this.props.isFilled ? (
       <GradeData
         grade={this.props.grade}
         courseCode={this.props.courseCode}
         removeGrade={this.props.removeGrade}
+        courseID={this.props.courseID}
+        handleAddGradeEnable={this.props.handleAddGradeEnable}
       />
     ) : (
       <GradeForm
@@ -172,6 +166,9 @@ class GradeSection extends React.Component {
         midterm={this.props.midterm}
         final={this.props.final}
         makeUp={this.props.makeUp}
+        courseID={this.props.courseID}
+        addGradeEnable={this.props.addGradeEnable}
+        handleAddGradeEnable={this.props.handleAddGradeEnable}
       />
     );
   }

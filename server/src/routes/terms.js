@@ -25,7 +25,6 @@ router.post('/add', async(req, res) => {
     await newTerm.save()
         .then(() => {
             res.json(newTerm);
-            console.log('Term added!');
         })
         .catch(err => res.status(400).json('Error: ' + err));
 })
@@ -40,6 +39,7 @@ router.delete('/delete/:id', async(req, res) => {
     await CourseReport.deleteMany({termReport_id: _id})
         .then(() => console.log('Linked course reports were deleted'))
 });
+
 
 // Parametros: Id del reporte del ciclo al cual se le desea actualizar la nota del ciclo y la nota del ciclo
 // Devuelve: -
