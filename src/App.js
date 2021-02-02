@@ -9,6 +9,7 @@ import ForUni from './Pages/ForUni';
 import GestorNotas from './Pages/GestorNotas';
 import Tarea from './Pages/Tarea';
 import Recursos from './Pages/Recursos';
+import Pregunta from './Pages/Pregunta';
 import CursoFisica from './Pages/PagesRecursos/Cursos/CursoFisica';
 class App extends Component {
 
@@ -61,6 +62,9 @@ class App extends Component {
           </Route>
           <Route path="/forUni">
             <ForUni/>
+          </Route>
+          <Route path="/pregunta">
+            <Pregunta/>
           </Route>
           <Route path="/GestorNotas">
             <GestorNotas/>

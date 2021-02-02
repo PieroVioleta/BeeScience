@@ -880,6 +880,20 @@ input[type=text] {
    cursor: pointer;
    color: #E0FBFC;
 }
+.seccion-comentarios {
+   margin-top: 60px;
+}
+.contenedor-comentarios {
+
+}
+.pregunta-margen {
+   margin-top: 100px;
+}
+.titulo-comentarios {
+   padding-left: 100px;
+   color: white;
+   font-size: 30px;
+}
 .perfil-foto {
    border-radius: 50%;
    object-fit: cover;
