@@ -14,7 +14,7 @@ router.get('/:id', async(req, res) => {
 //Devuelve: El documento correspondiente al nuevo ciclo agregado
 router.post('/add', async(req, res) => {
     const user_id = req.body.user_id;
-    const taskText = req.body.name ;
+    const name = req.body.name ;
     const initialDate = req.body.initialDate;
     const endDate = req.body.endDate;
     const priority = req.body.priority;

@@ -19,6 +19,7 @@ const termsRouter = require('./routes/terms');
 const coursesRouter = require('./routes/courses');
 const gradesRouter = require('./routes/grades');
 const questionRouter = require('./routes/questions');
+const taskRouter = require('./routes/agenda')
 //Middlewares
 app.use(cors());
 app.use(express.json());
@@ -40,6 +41,7 @@ app.use('/terms', termsRouter);
 app.use('/courses', coursesRouter);
 app.use('/grades', gradesRouter);
 app.use('/question', questionRouter);
+app.use('/agenda',taskRouter);
 //static files
 
 //Start the server
