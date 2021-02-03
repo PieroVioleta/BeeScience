@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 
 const question = new Schema({
+    user_id: String,
     questionText: String,
     comments: {
         type: [],
