@@ -23,7 +23,7 @@ router.post('/add', async(req, res) => {
         user_id,
         initialDate,
         endDate,
-        taskText,
+        name,
         priority
 
     });
@@ -39,7 +39,7 @@ router.post('/add', async(req, res) => {
 // Devuelve: -
 router.delete('/delete/:id', async(req, res) => {
     const user_id = req.params.id;
-    await taskReport.findAndDelete({user_id})
+    await taskReport.findOneAndDelete({user_id})
         .then(() => res.json('Task deleted!'))
         .catch(err => res.status(400).json('Error: ' + err));
 });
