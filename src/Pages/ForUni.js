@@ -49,8 +49,6 @@ function ForUni() {
                 // handle error
                 console.log(error);
             })
-        
-        
     }
     
     return(

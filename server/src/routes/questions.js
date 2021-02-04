@@ -1,7 +1,6 @@
 const router = require('express').Router();
 
 const Question = require('../models/question');
-const { route } = require('./grades');
 
 router.get('/', async(req, res) => {
     await Question.find()
