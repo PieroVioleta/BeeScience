@@ -15,17 +15,20 @@ class Tarea extends Component {
         
         //this.handleClickButton = this.handleClickButton.bind(this);
         this.state = {
-            tareas: []
+            tareas: []  
         }
     }
     
-    componentDidUpdate(){
-        axios.get('http://localhost:8080/agenda/' + user_id)
-        .then(res=>{
-            const Tareas = res.data 
-            this.setState({ tareas:Tareas})
-        })
-      
+    async componentDidMount(){
+        // axios.get('http://localhost:8080/agenda/' + user_id)
+        // .then(res=>{
+        //     const Tareas = res.data 
+        //     this.setState({ tareas:Tareas})
+        // })
+        const res = await axios.get('http://localhost:8080/agenda/' + user_id)
+        this.setState({tareas:res.data})
+        console.log(this.state.tareas)
+        
     }
      
     
@@ -54,7 +57,7 @@ class Tarea extends Component {
                     <tr>
                         <th>Prioridad 1</th>
                         {week.map(()=>{
-                            return <Celda name = ' ' priority = '2' />
+                            return <Celda name = '' priority = '2' />
                     })} 
                     </tr>
                     <tr>
@@ -100,9 +103,9 @@ class Tarea extends Component {
                     })} 
                     </tr>
                     <tr>
-                        <th>Prioridad 9</th>
-                        {week.map(()=>{
-                            return <Celda name =  ' '  priority = '2' />
+                        <th>Lista de tareas</th>
+                        {this.state.tareas.map(elem =>{
+                            return <Celda name =  {elem.name}  priority = '2' />
                     })} 
                     </tr>
                     
