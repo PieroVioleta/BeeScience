@@ -17,6 +17,8 @@ function MainSection() {
 
   //Trae data sobre los reportes de los ciclos pertenecientes a user_id
   useEffect(() => {
+    var nav = document.getElementById("nav");
+    nav.style.backgroundColor = "#293241";
     axios
       .get("http://localhost:8080/terms/" + user_id)
       .then((response) => {
