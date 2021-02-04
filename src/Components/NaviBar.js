@@ -1,32 +1,50 @@
-import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from "react";
 
-class NaviBar extends Component{
-    render(){
-        return(
-        <nav id="nav-wrap">
-         <a className="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
-	      <a className="mobile-btn" href="#home" title="Hide navigation">Hide navigation</a>
-            
-         <ul id="nav" className="nav">
-            <Link to="/">
-            <li className="current"><a className="smoothscroll" href="#home">Home</a></li>
-            </Link>
-            <li><a className="smoothscroll" href="#about">About</a></li>
-            <Link to="/ForUni">
-               <li><a className="smoothscroll">ForUni</a></li>
-            </Link>
-            <Link to="/GestorNotas">
-            <li><a className="smoothscroll" >Gestor de Notas</a></li>
-            </Link>
-            <Link to="/Tarea">
-            <li><a className="smoothscroll" >Tareas</a></li>
-            </Link>
-            <Link to="/Recursos">
-            <li><a className="smoothscroll" href="/Recursos" >Recursos</a></li>
-            </Link>
-         </ul>
-      </nav>);
-    }
+class NaviBar extends Component {
+  render() {
+    return (
+      <nav id="nav-wrap">
+        <a className="mobile-btn" href="#nav-wrap" title="Show navigation">
+          Show navigation
+        </a>
+        <a className="mobile-btn" href="#home" title="Hide navigation">
+          Hide navigation
+        </a>
+
+        <ul id="nav" className="nav">
+          <li className="current">
+            <a className="smoothscroll" href="/">
+              Home
+            </a>
+          </li>
+          <li>
+            <a className="smoothscroll" href="./#about">
+              About
+            </a>
+          </li>
+          <li>
+            <a className="smoothscroll" href="/ForUni">
+              ForUni
+            </a>
+          </li>
+          <li>
+            <a className="smoothscroll" href="/GestorNotas">
+              Gestor de Notas
+            </a>
+          </li>
+          <li>
+            <a className="smoothscroll" href="/Tarea">
+              Tareas
+            </a>
+          </li>
+          <li>
+            <a className="smoothscroll" href="/Recursos">
+              Recursos
+            </a>
+          </li>
+        </ul>
+      </nav>
+    );
+  }
 }
-export default NaviBar
+export default NaviBar;

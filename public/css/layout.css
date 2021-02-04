@@ -29,7 +29,7 @@ body { background: #293241;
 
 header {
    position: relative;
-   height: 800px;
+   height: 100vh;
    min-height: 500px;
    width: 100%;
    
@@ -186,6 +186,7 @@ ul#nav li.current a { color: #fe6928; }
    padding-top: 96px;
    padding-bottom: 66px;
    overflow: hidden;
+   height: 80vh;
 }
 
 #about a, #about a:visited  { color: #fff; }
@@ -367,6 +368,7 @@ ul#nav li.current a { color: #fe6928; }
 .toolbar-item{
    color: black;
 }
+
 /* ------------------------------------------------------------------ */
 /* f. Call To Action Section
 /* ------------------------------------------------------------------ */
@@ -721,6 +723,7 @@ footer {
    font-size: 14px;
    text-align: center;
    position: relative;
+   height: 20vh;
 }
 
 footer a, footer a:visited { color: #525252; }
