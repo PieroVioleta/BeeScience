@@ -17,9 +17,11 @@ app.set('views', path.join(__dirname, 'views'));
 //Importing routes
 const termsRouter = require('./routes/terms');
 const coursesRouter = require('./routes/courses');
+const escuelasRouter = require('./routes/escuelas');
 const gradesRouter = require('./routes/grades');
 const questionRouter = require('./routes/questions');
-const taskRouter = require('./routes/agenda')
+const taskRouter = require('./routes/agenda');
+const resourcesRouter = require('./routes/resources');
 //Middlewares
 app.use(cors());
 app.use(express.json());
@@ -36,9 +38,10 @@ app.use(multer({ storage: storage }).single('file'));
 //Global variables
 
 //Routes
-app.use(require('./routes/index'));
+app.use('/resources',resourcesRouter);
 app.use('/terms', termsRouter);
 app.use('/courses', coursesRouter);
+app.use('/escuelas', escuelasRouter);
 app.use('/grades', gradesRouter);
 app.use('/question', questionRouter);
 app.use('/agenda',taskRouter);

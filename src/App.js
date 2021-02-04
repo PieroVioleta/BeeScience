@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { useState} from 'react';
 import './App.css';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
@@ -9,8 +10,11 @@ import ForUni from './Pages/ForUni';
 import GestorNotas from './Pages/GestorNotas';
 import Tarea from './Pages/Tarea';
 import Recursos from './Pages/Recursos';
+import RecursoPorArea from './Pages/PagesRecursos/RecursoPorArea';
+import FilePage from './Pages/PagesRecursos/FileUploadPage';
 import Pregunta from './Pages/Pregunta';
 import CursoFisica from './Pages/PagesRecursos/Cursos/CursoFisica';
+
 class App extends Component {
 
   constructor(props){
@@ -73,10 +77,16 @@ class App extends Component {
             <Tarea/>
           </Route>
           <Route path="/Recursos">
-            <Recursos data={information_site}/>
+            <Recursos/>
+          </Route>
+          <Route path="/RecursosPorCarrera">
+            <RecursoPorArea />
           </Route>
           <Route path="/CursoFisica">
             <CursoFisica/>
+          </Route>
+          <Route path="/SubirArchivo">
+            <FilePage/>
           </Route>
           </Switch>
         </Router>

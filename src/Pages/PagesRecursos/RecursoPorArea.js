@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,7 +8,10 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
+import axios from 'axios';
+
+const API_BASE = "http://localhost:8080/escuelas"
 
 const useStyles = makeStyles((theme) => ({
   icono:{
@@ -18,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   heroContent: {
-    backgroundColor: '#98C1D9',
+    backgroundColor: 'lightblue',
     padding: theme.spacing(8, 0, 6),
   },
   heroButtons: {
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: 'white',
+    backgroundColor: '#cccccc',
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
@@ -67,9 +69,23 @@ const cards = [
     },
 ];
 
-export default function Album() {
-  const classes = useStyles();
 
+export default function Album() {
+  const [userData, setUserData] = useState([]);
+  const id =useLocation().state.id;
+  const classes = useStyles();
+   
+
+  const getEscuela = async () => {
+    const response = await axios.get(`${API_BASE}/${id}`);
+    setUserData(response.data);
+    // console.log( response.data[0].escuela);
+  }
+
+  useEffect(() => {
+    getEscuela();
+  }, []);
+  
   return (
     <React.Fragment>
       
@@ -77,18 +93,23 @@ export default function Album() {
         {/* Hero unit */}
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
+          {userData.map( el => (
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-               Física
+                  {el.escuela}
             </Typography>
+            )
+            )}
+            {userData.map( el => (
             <Typography variant="h3" align="center" color="textPrimary" gutterBottom>
-               Ciclo I
+               {el.ciclo}
             </Typography>
+            )
+            )}
             <Typography variant="h5" align="center" color="textSecondary" paragraph>
               En esta sección encontrarás recursos de los cursos del Primer ciclo.
             </Typography>
           </Container>
         </div>  
-        
         <Container className={classes.cardGrid} maxWidth="md" >
           {/* End hero unit */}
           <Grid container spacing={4}>
@@ -100,19 +121,18 @@ export default function Album() {
                     image={card.link}
                     title={card.curso}
                   />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2" align="center">
-                      {card.curso}
-                    </Typography>
-                    </CardContent>
-                  <CardActions>
-                  <Link to="/CursoFisica">
-                    <Button  variant="outlined" size="large" color="primary" >
-                        Ver
-                    </Button>
-                  </Link>
                   
-                                                        
+                  <CardActions>
+                  <Link to={{ pathname: "/CursoFisica", state: {id:card.escuela}}}>
+                    <CardContent className={classes.cardContent}>
+                      <Typography gutterBottom variant="h5" component="h2" align="center">
+                        {card.curso}
+                      </Typography>
+                    </CardContent>
+                  </Link>
+
+
+                                     
                   </CardActions>
                 </Card>
               </Grid>
@@ -120,10 +140,9 @@ export default function Album() {
           </Grid>
           
         </Container>
-                
-        
-      </main>
 
+      </main>
+     
     </React.Fragment>
   );
 }

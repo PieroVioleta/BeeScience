@@ -1,33 +1,24 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
-import RecursoComputacion from '../Pages/PagesRecursos/RecursoComputacion';
-import RecursoFisica from '../Pages/PagesRecursos/RecursoFisica';
-import RecursoIngenieria from '../Pages/PagesRecursos/RecursoIngenieria';
-import RecursoMatematica from '../Pages/PagesRecursos/RecursoMatematica';
-import RecursoQuimica from '../Pages/PagesRecursos/RecursoQuimica';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   icono:{
-    flexDirection: 'center',
-    
+    marginLeft: '90%',
+    backgroundColor: '#EE6C4D',
+    color: 'white',
   },
 
   heroContent: {
     backgroundColor: 'lightblue',
     padding: theme.spacing(8, 0, 6),
-  },
-  heroButtons: {
-    marginTop: theme.spacing(4),
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -86,16 +77,12 @@ export default function Album() {
               Recursos 
             </Typography>
             <Typography variant="h5" align="center" color="textSecondary" paragraph>
-              En esta sección encontrarás recursos educativos divididos por carreras profesionales de la facultad de ciencias.
+              En esta sección encontrarás recursos educativos de las diferentes carreras profesionales 
+              que ofrece la facultad de ciencias de la Universidad Nacional de Ingenieria.
             </Typography>
             
           </Container>
-        </div>
-        
-        <div className={classes.icon} >
-          <Icon className="fa fa-plus-circle" color="secondary" style={{ fontSize: 30 }}/>
-        </div>
-        
+        </div>       
         
         <Container className={classes.cardGrid} maxWidth="md" >
           {/* End hero unit */}
@@ -108,41 +95,32 @@ export default function Album() {
                     image={card.link}
                     title={card.escuela}
                   />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2" align="center">
-                      {card.escuela}
-                    </Typography>
+                  <Link to={{ pathname: "/RecursosPorCarrera", state: {id:card.escuela}}}>
+                    <CardContent className={classes.cardContent}>
+                      <Typography gutterBottom variant="h5" component="h2" align="center">
+                        {card.escuela}
+                      </Typography>
                     </CardContent>
-                  <CardActions>
-                    <Button  variant="outlined" size="large" color="primary" href={card.enlace}>
-                      Ver
-                    </Button>
-                                                        
-                  </CardActions>
+                  </Link>
+                 
                 </Card>
               </Grid>
             ))}
           </Grid>
-          
-        </Container>
-                
+
+          <div >
+          <label htmlFor="contained-button-file">
+            <Link to="/SubirArchivo">
+              <Button className={classes.icono} variant="contained" component="span">
+                Subir
+              </Button>
+            </Link>
+          </label>
+        </div>
         
+        </Container>
+                     
       </main>
-      <div id="RecursoComputacion">
-        <RecursoComputacion />
-      </div>
-      <div id="RecursoFisica">
-        <RecursoFisica />
-      </div>
-      <div id="RecursoIngFisica">
-        <RecursoIngenieria />
-      </div>
-      <div id="RecursoMatematica">
-        <RecursoMatematica />
-      </div>
-      <div id="RecursoQuimica">
-        <RecursoQuimica />
-      </div>
     </React.Fragment>
     </div>
     
