@@ -35,8 +35,6 @@ router.post('/add', async(req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
-// Parametros: Id del reporte del ciclo el cual se desea eliminar
-// Devuelve: -
 router.delete('/delete/:id', async(req, res) => {
     const user_id = req.params.id;
     await taskReport.findOneAndDelete({user_id})
@@ -45,10 +43,11 @@ router.delete('/delete/:id', async(req, res) => {
 });
 
 
-// Parametros: Id del reporte del ciclo al cual se le desea actualizar la nota del ciclo y la nota del ciclo
-// Devuelve: -
+
+
 router.post('/update/:id',async(req, res) => {
     const _id = req.params.id;  // id del task
+    
     const name = req.body.name;
     const priority = req.body.priority;
     const initialDate = req.body.initialDate;
