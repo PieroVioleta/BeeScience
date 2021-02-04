@@ -1,7 +1,124 @@
+import { HomeOutlined } from '@material-ui/icons';
 import React, {Component} from 'react';
-import {DayPilot, DayPilotScheduler} from "daypilot-pro-react";
-import Zoom from "./Zoom";
+import axios from 'axios'
+import ReactDOM from 'react-dom';
+import Celda from './Celda'
+//import {DayPilot, DayPilotScheduler} from "daypilot-pro-react";
+//import Zoom from "./Zoom";
 
+
+const user_id = "5ffa6b98f96818c0e006c1a9"
+class Tarea extends Component { 
+    constructor(props) {
+        super(props);
+        
+        
+        //this.handleClickButton = this.handleClickButton.bind(this);
+        this.state = {
+            tareas: []
+        }
+    }
+    
+    componentDidUpdate(){
+        axios.get('http://localhost:8080/agenda/' + user_id)
+        .then(res=>{
+            const Tareas = res.data 
+            this.setState({ tareas:Tareas})
+        })
+      
+    }
+     
+    
+      
+      
+    
+    render(){   
+        
+        console.log(this.state)
+        let day = new Date().getDate();
+        console.log(day)
+        let month = new Date().getMonth()+1;
+        let year = new Date().getFullYear()
+        const week = ['1','2','3','4','5','6','7']; 
+        return( <div class = "Schedule">
+                <table class="Agenda">
+                <thead>
+                    <tr> 
+                    <th>Importancia </th>
+                    {week.map((value,index)=>{
+                        return <th>{day+index}/{month}/{year}</th>
+                    })}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Prioridad 1</th>
+                        {week.map(()=>{
+                            return <Celda name = ' ' priority = '2' />
+                    })} 
+                    </tr>
+                    <tr>
+                        <th>Prioridad 2</th>
+                        {week.map(()=>{
+                            return <Celda name = ' ' priority = '2' />
+                    })} 
+                    </tr>
+                    <tr>
+                        <th>Prioridad 3</th>
+                        {week.map(()=>{
+                            return <Celda name = ' ' priority = '2' />
+                    })} 
+                    </tr>
+                    <tr>
+                        <th>Prioridad 4</th>
+                        {week.map(()=>{
+                            return <Celda name = ' ' priority = '2' />
+                    })} 
+                    </tr>
+                    <tr>
+                        <th>Prioridad 5</th>
+                        {week.map(()=>{
+                            return <Celda name = ' ' priority = '2' />
+                    })} 
+                    </tr>
+                    <tr>
+                        <th>Prioridad 6</th>
+                        {week.map(()=>{
+                            return <Celda name = ' ' priority = '2' />
+                    })} 
+                    </tr>
+                    <tr>
+                        <th>Prioridad 7</th>
+                        {week.map(()=>{
+                            return <Celda name = ' ' priority = '2' />
+                    })} 
+                    </tr>
+                    <tr>
+                        <th>Prioridad 8</th>
+                        {week.map(()=>{
+                            return <Celda name = ' ' priority = '2' />
+                    })} 
+                    </tr>
+                    <tr>
+                        <th>Prioridad 9</th>
+                        {week.map(()=>{
+                            return <Celda name =  ' '  priority = '2' />
+                    })} 
+                    </tr>
+                    
+                    
+                        
+                   
+                </tbody>
+                </table>
+            </div>
+            
+        );
+    }
+    
+}
+
+/*
 class Tarea extends Component {
 
     constructor(props) {
@@ -9,7 +126,7 @@ class Tarea extends Component {
 
         this.state = {
             
-            startDate: "2021-01-01",
+            startDate: "2021-10-01",
             days: 31,
             scale: "Day",
             timeHeaders: [
@@ -81,14 +198,14 @@ class Tarea extends Component {
                   {...config}
                   onEventMoved={args => {
                       console.log("Event moved: ", args.e.data.id, args.newStart, args.newEnd, args.newResource);
-                      this.scheduler.message("Tarea : " + args.e.data.text);
+                      this.scheduler.message("Event moved: " + args.e.data.text);
                   }}
                   onEventResized={args => {
                       console.log("Event resized: ", args.e.data.id, args.newStart, args.newEnd);
-                      this.scheduler.message("Tarea cambio tamaño: " + args.e.data.text);
+                      this.scheduler.message("Event resized: " + args.e.data.text);
                   }}
                   onTimeRangeSelected={args => {
-                    DayPilot.Modal.prompt("Nombre de nueva tarea", "Event").then(modal => {
+                    DayPilot.Modal.prompt("New event name", "Event").then(modal => {
                       this.scheduler.clearSelection();
                       if (!modal.result) {
                         return;
@@ -110,6 +227,6 @@ class Tarea extends Component {
         );
     }
 }
-
+*/
 export default Tarea;
 

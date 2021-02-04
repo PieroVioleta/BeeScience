@@ -366,7 +366,6 @@ ul#nav li.current a { color: #fe6928; }
 /* ------------------------------------------------------------------ */
 /* e. Schedule
 /* ------------------------------------------------------------------ */
-
 .Schedule{
    position: absolute;
    top: 130px;
@@ -375,8 +374,48 @@ ul#nav li.current a { color: #fe6928; }
    height: 78%;
    background-color: #98c1d9;
    border: 1px black solid;
-
+   display: flex;
+   flex-direction: column;
+   flex-wrap: wrap;
 }
+.Agenda{
+   border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.Agenda thead tr {
+   background-color:rgba(0, 0, 0, 1);
+   color: #ffffff;
+   text-align: left;
+}
+
+.Agenda th,
+.Agenda td {
+    padding: 12px 15px;
+}
+.Agenda tbody tr {
+   border-bottom: 1px solid #dddddd;
+}
+
+.Agenda tbody tr:nth-of-type(even) {
+   background-color: #f3f3f3;
+}
+
+.task{
+   margin: 0;
+}
+.celda-tabla{
+   position: relative;
+   padding:0 0 0 0;
+   margin: 0;
+}
+.task:hover{
+   background-color: #FFEEDB;
+}
+
 
 .scheduler_default_corner div:nth-of-type(2) {
    display: none !important;
@@ -384,6 +423,18 @@ ul#nav li.current a { color: #fe6928; }
 .toolbar-item{
    color: black;
 }
+.tam{
+   position: absolute;
+   right:0;
+   top:0 ;
+  padding: 0 0;
+   
+}
+.celda{
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+  
 
 /* ------------------------------------------------------------------ */
 /* f. Call To Action Section
