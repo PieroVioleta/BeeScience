@@ -369,14 +369,15 @@ ul#nav li.current a { color: #fe6928; }
 .Schedule{
    position: absolute;
    top: 130px;
-   left: 300px;
-   width: 70%;
-   height: 78%;
+   left: 200px;
+   width: 75%;
+   height: 83%;
    background-color: #98c1d9;
    border: 1px black solid;
    display: flex;
    flex-direction: column;
    flex-wrap: wrap;
+   margin-bottom: 10px;
 }
 .Agenda{
    border-collapse: collapse;
@@ -385,7 +386,8 @@ ul#nav li.current a { color: #fe6928; }
     font-family: sans-serif;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
+   margin-bottom: 0;
+   }
 .Agenda thead tr {
    background-color:rgba(0, 0, 0, 1);
    color: #ffffff;
@@ -435,7 +437,34 @@ ul#nav li.current a { color: #fe6928; }
    flex-direction: row;
    align-items: center;
 }
-
+.listaTareasTitle h1{
+   padding: 0;
+   margin: 0;
+   height: 50px;
+   text-align: center;
+   background-color: whitesmoke;
+   font-size: larger;
+}
+.tbody{
+   margin-bottom: 0;
+}
+.boxTareas{
+   display: flex;
+   flex-wrap: wrap;
+}
+.boxTareas div:nth-of-type(2n){
+   background-color: tomato;
+}
+.boxTareas div:nth-of-type(2n+1){
+   background-color: teal;
+}
+.taskL{
+   margin: 15px;
+   padding: 10px;
+   color:black;
+   border: 3px solid grey;
+   border-radius: 10px;
+}
 /* ------------------------------------------------------------------ */
 /* f. Call To Action Section
 /* ------------------------------------------------------------------ */

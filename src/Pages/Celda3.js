@@ -1,40 +1,34 @@
 import React, {Component} from 'react';
 import axios from 'axios'
 
-class Celda extends Component{
+class Celda3 extends Component{
     constructor(props){
         super(props);
         this.handleClick = this.handleClick.bind(this);
 
         this.state = {
-            name: props.name,
-            id: props.id, 
+            name: props.name, 
+            id : props.id,
             tareas: []
         }
     }
     handleClick(e) {
-
-        
         if(e.target.innerText == ''){
         let name = prompt("Ingrese el nombre de la tarea")
         e.target.innerText = name
-        
+
         let day = (new Date().getDate()+this.state.id).toString();
         let month = (new Date().getMonth()+1).toString();
         let year = new Date().getFullYear().toString();
         let today = day+'/'+month+'/'+year
-    
 
         let dummyData = {}
         dummyData.initialDate = today
-
         dummyData.name = name
-        dummyData.priority ='normal'// priority 
+        dummyData.priority ='urgente'// priority
         dummyData.user_id = "5ffa6b98f96818c0e006c1a9"
-
         axios.post('http://localhost:8080/agenda/add',dummyData)
         .then(res =>{
-            console.log(res)
             const newTask = res.data
             //console.log(res.data)
             console.log(this)
@@ -42,9 +36,6 @@ class Celda extends Component{
             newTasks.push(newTask)
             this.setState({tareas:newTasks})
             
-        })
-        .catch(err =>{
-            console.log(err)
         })
         }
         // else{
@@ -75,4 +66,4 @@ class Celda extends Component{
         )
     }
 }
-export default Celda;   
+export default Celda3;   

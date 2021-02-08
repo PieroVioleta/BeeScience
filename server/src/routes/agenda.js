@@ -16,13 +16,11 @@ router.post('/add', async(req, res) => {
     const user_id = req.body.user_id;
     const name = req.body.name ;
     const initialDate = req.body.initialDate;
-    const endDate = req.body.endDate;
     const priority = req.body.priority;
 
     const newTask = new taskReport({
         user_id,
         initialDate,
-        endDate,
         name,
         priority
 
@@ -36,8 +34,8 @@ router.post('/add', async(req, res) => {
 })
 
 router.delete('/delete/:id', async(req, res) => {
-    const user_id = req.params.id;
-    await taskReport.findOneAndDelete({user_id})
+    const _id = req.params.id;
+    await taskReport.findOneAndDelete({_id:_id})
         .then(() => res.json('Task deleted!'))
         .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -51,8 +49,7 @@ router.post('/update/:id',async(req, res) => {
     const name = req.body.name;
     const priority = req.body.priority;
     const initialDate = req.body.initialDate;
-    const endDate = req.body.endDate;
-    await TaskReport.findByIdAndUpdate(_id, {$set: {name,priority,initialDate,endDate}})
+    await TaskReport.findByIdAndUpdate(_id, {$set: {name,priority,initialDate}})
         .then(() => res.json('Task updated!'))
         .catch(err => res.status(400).json('Error: ' + err));
 })
