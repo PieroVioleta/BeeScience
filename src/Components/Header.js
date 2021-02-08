@@ -27,7 +27,7 @@ class Header extends Component {
                <h3>{description}</h3>
                <hr />
                <ul className="social">
-                  <a className="button btn github-btn"><i className="fa fa-sign-in" aria-hidden="true"></i>Iniciar sesión</a>
+                  <a className="button btn github-btn" href="/LogIn"><i className="fa fa-sign-in" aria-hidden="true"></i>Iniciar sesión</a>
                   <a className="button btn project-btn">Registrarse</a>
                </ul>
             </div>

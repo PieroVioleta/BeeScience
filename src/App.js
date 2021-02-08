@@ -6,6 +6,7 @@ import Footer from './Components/Footer';
 import About from './Components/About';
 import NaviBar from './Components/NaviBar';
 import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
+import LogIn from './Pages/LogIn';
 import ForUni from './Pages/ForUni';
 import GestorNotas from './Pages/GestorNotas';
 import Tarea from './Pages/Tarea';
@@ -63,6 +64,9 @@ class App extends Component {
             <Header classname='Cabezara' data={information_site} />
             <About data={information_site}/>  
             <Footer data={information_site}/>
+          </Route>
+          <Route path="/login">
+            <LogIn/>
           </Route>
           <Route path="/forUni">
             <ForUni/>

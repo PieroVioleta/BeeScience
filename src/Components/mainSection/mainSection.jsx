@@ -47,7 +47,6 @@ function MainSection() {
         })
         .catch((error) => console.log(error));
     } else setCourses([]);
-
   }, [currentTerm]);
 
   //Actualizar el promedio del ciclo cada vez que cambie COURSES
@@ -76,7 +75,6 @@ function MainSection() {
     setTermGradeChanged(false);
   }, [termGradeChanged]);
 
-  //Falta mandar al server
   const calculateCourseGrade = (courseReport) => {
     let courseGrade;
     let testsWeight = courseReport.evaluationSystem.testsWeight;
@@ -88,37 +86,38 @@ function MainSection() {
     let makeUpGrade = courseReport.makeUpGrade;
     let weightsSum = testsWeight + midtermWeight + finalWeight;
     let gradesSum = 0;
-    if(makeUpGrade !== null) {
-        //Reemplazar susti
-        if(testsGrade !== null) gradesSum += testsWeight * testsGrade;
-        let gradesSum1 = gradesSum, gradesSum2 = gradesSum;
-        //Reemplazar parcial
-        gradesSum1 += midtermWeight * makeUpGrade.grade;
-        if(finalGrade !== null) gradesSum1 += finalWeight * finalGrade.grade;
-        //Reemplazar final
-        if(midtermGrade !== null) gradesSum2 += midtermWeight * midtermGrade.grade;
-        gradesSum2 += finalWeight * makeUpGrade.grade;
-        gradesSum = Math.max(gradesSum1, gradesSum2);
-    }
-    else {
-        if(testsGrade !== null) gradesSum += testsWeight * testsGrade;
-        if(midtermGrade !== null) gradesSum += midtermWeight * midtermGrade.grade;
-        if(finalGrade !== null) gradesSum += finalWeight * finalGrade.grade;
+    if (makeUpGrade !== null) {
+      //Reemplazar susti
+      if (testsGrade !== null) gradesSum += testsWeight * testsGrade;
+      let gradesSum1 = gradesSum,
+        gradesSum2 = gradesSum;
+      //Reemplazar parcial
+      gradesSum1 += midtermWeight * makeUpGrade.grade;
+      if (finalGrade !== null) gradesSum1 += finalWeight * finalGrade.grade;
+      //Reemplazar final
+      if (midtermGrade !== null)
+        gradesSum2 += midtermWeight * midtermGrade.grade;
+      gradesSum2 += finalWeight * makeUpGrade.grade;
+      gradesSum = Math.max(gradesSum1, gradesSum2);
+    } else {
+      if (testsGrade !== null) gradesSum += testsWeight * testsGrade;
+      if (midtermGrade !== null)
+        gradesSum += midtermWeight * midtermGrade.grade;
+      if (finalGrade !== null) gradesSum += finalWeight * finalGrade.grade;
     }
     courseGrade = gradesSum / weightsSum;
 
     axios
       .post("http://localhost:8080/courses/update/courseGrade", {
         _id: courseReport._id,
-        courseGrade
+        courseGrade,
       })
       .then((response) => console.log(response.data))
       .catch((error) => console.log(error));
 
     return courseGrade;
-  }
+  };
 
-  //Falta mandar al server
   const calculateTestsGrade = (courseReport) => {
     let numberOfTypes = 0;
     let testsGrade = 0;
@@ -170,14 +169,14 @@ function MainSection() {
     if (numberOfTypes !== 0)
       testsGrade = (quizzesMeanGrade + labsMeanGrade) / numberOfTypes;
 
-      axios
+    axios
       .post("http://localhost:8080/courses/update/testsGrade", {
         _id: courseReport._id,
-        testsGrade
+        testsGrade,
       })
       .then((response) => console.log(response.data))
       .catch((error) => console.log(error));
-    
+
     return testsGrade;
   };
 
@@ -233,21 +232,27 @@ function MainSection() {
       return;
     }
 
-    let _id = auxTerm[0]._id;
-    axios
-      .delete("http://localhost:8080/terms/delete/" + _id)
-      .then((response) => console.log(response.data))
-      .catch((error) => console.log(error));
+    let question =
+      "¿Está seguro que desea eliminar el reporte del ciclo " +
+      termCode.toUpperCase() +
+      "?";
+    if (window.confirm(question)) {
+      let _id = auxTerm[0]._id;
+      axios
+        .delete("http://localhost:8080/terms/delete/" + _id)
+        .then((response) => console.log(response.data))
+        .catch((error) => console.log(error));
 
-    let newTerms = terms.filter((term) => term.termCode !== termCode);
-    if (currentTerm._id !== _id) {
+      let newTerms = terms.filter((term) => term.termCode !== termCode);
+      if (currentTerm._id !== _id) {
+        setTerms(newTerms);
+        return;
+      }
+      let newCurrentTerm =
+        newTerms.length === 0 ? null : newTerms[newTerms.length - 1];
       setTerms(newTerms);
-      return;
+      setCurrentTerm(newCurrentTerm);
     }
-    let newCurrentTerm =
-      newTerms.length === 0 ? null : newTerms[newTerms.length - 1];
-    setTerms(newTerms);
-    setCurrentTerm(newCurrentTerm);
   };
 
   const handleAddCourse = (courseCode) => {
@@ -306,17 +311,23 @@ function MainSection() {
       return;
     }
 
-    let _id = course._id;
-    axios
-      .delete("http://localhost:8080/courses/delete/" + _id)
-      .then((response) => console.log(response.data))
-      .catch((error) => console.log(error));
+    let question =
+      "¿Está seguro que desea eliminar el reporte del curso " +
+      courseCode.toUpperCase() +
+      "?";
+    if (window.confirm(question)) {
+      let _id = course._id;
+      axios
+        .delete("http://localhost:8080/courses/delete/" + _id)
+        .then((response) => console.log(response.data))
+        .catch((error) => console.log(error));
 
-    let newCourses = courses.filter(
-      (course) => course.course_code !== courseCode
-    );
-    setTermGradeChanged(true);
-    setCourses(newCourses);
+      let newCourses = courses.filter(
+        (course) => course.course_code !== courseCode
+      );
+      setTermGradeChanged(true);
+      setCourses(newCourses);
+    }
   };
 
   const handleAddGrade = (courseID, newGrade) => {
@@ -364,35 +375,39 @@ function MainSection() {
       .then((response) => console.log(response.data))
       .catch((error) => console.log(error));
 
-      let newCourses = [...courses];
-      newCourses.forEach((course) => {
-        if (course._id === courseID) {
-          let evaluationType = evaluationName.substr(0, 2);
-          switch (evaluationType) {
-            case "PC":
-              course.quizzes = course.quizzes.filter(quiz => quiz.evaluationName !== evaluationName);
-              course.testsGrade = calculateTestsGrade(course);
-              break;
-            case "LA":
-              course.labs = course.labs.filter(lab => lab.evaluationName !== evaluationName);
-              course.testsGrade = calculateTestsGrade(course);
-              break;
-            case "EP":
-              course.midtermGrade = null;
-              break;
-            case "EF":
-              course.finalGrade = null;
-              break;
-            case "ES":
-              course.makeUpGrade = null;
-              break;
-            default:
-          }
-          course.courseGrade = calculateCourseGrade(course);
+    let newCourses = [...courses];
+    newCourses.forEach((course) => {
+      if (course._id === courseID) {
+        let evaluationType = evaluationName.substr(0, 2);
+        switch (evaluationType) {
+          case "PC":
+            course.quizzes = course.quizzes.filter(
+              (quiz) => quiz.evaluationName !== evaluationName
+            );
+            course.testsGrade = calculateTestsGrade(course);
+            break;
+          case "LA":
+            course.labs = course.labs.filter(
+              (lab) => lab.evaluationName !== evaluationName
+            );
+            course.testsGrade = calculateTestsGrade(course);
+            break;
+          case "EP":
+            course.midtermGrade = null;
+            break;
+          case "EF":
+            course.finalGrade = null;
+            break;
+          case "ES":
+            course.makeUpGrade = null;
+            break;
+          default:
         }
-      });
-      setCourses(newCourses);
-      setTermGradeChanged(true);
+        course.courseGrade = calculateCourseGrade(course);
+      }
+    });
+    setCourses(newCourses);
+    setTermGradeChanged(true);
   };
 
   return (
