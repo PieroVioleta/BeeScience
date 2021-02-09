@@ -1,4 +1,7 @@
 import React from "react";
+import axios from 'axios'
+
+import { Redirect } from "react-router-dom";
 import "../App.css";
 import axios from "axios";
 
@@ -35,6 +38,24 @@ class LogIn extends React.Component {
     }
   }
 
+  signUp() {
+    let userName = document.getElementById("signup-user").value;
+    let email = document.getElementById("signup-email").value;
+    let password = document.getElementById("signup-password").value;
+    axios.post('http://localhost:8080/user/add/', {
+            userName:userName,
+            email:email,
+            password:password
+        })
+            .then(function (response) {
+              console.log(response)
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+    
+  }
   render() {
     return (
       <div id="general-container">
@@ -119,7 +140,7 @@ class LogIn extends React.Component {
                   onClick={this.showPasswordSignup}
                 />
               </div>
-              <button>Registrarse</button>
+              <button onClick={this.signUp}>Registrarse</button>
             </form>
           </div>
         </div>
