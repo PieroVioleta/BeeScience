@@ -6,6 +6,11 @@
     box-sizing: content-box;
 }
 
+.loading {
+  color: white;
+  text-align: center;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 20px;

@@ -1,19 +1,39 @@
 import React from "react";
 import axios from 'axios'
-
 import { Redirect } from "react-router-dom";
 import "../App.css";
-import axios from "axios";
 
 class LogIn extends React.Component {
-  login() {
+  constructor(props) {
+    super(props);
+    this.login = this.login.bind(this)
+    this.state = {
+      redirect: false,
+      user: {}
+    }
+  }
+
+  login(e) {
+    e.preventDefault();
     let userName = document.getElementById("login-user").value;
     let password = document.getElementById("login-password").value;
+
+    if(userName === "" || password === "") {
+      alert("Complete todos los campos requeridos para iniciar sesión");
+      return;
+    }
 
     axios
       .get("http://localhost:8080/user/usr=" + userName + "&pass=" + password)
       .then((response) => {
-        console.log(response);
+        let res = response.data;
+        if(res.login === false) {
+          alert(res.msg);
+          return;
+        }
+        else {
+          this.setState({redirect: true, user: res.user})
+        }
       })
       .catch((error) => console.log(error));
   }
@@ -57,6 +77,15 @@ class LogIn extends React.Component {
     
   }
   render() {
+    if(this.state.redirect === true) {
+      return <Redirect to={
+        {
+          pathname: "./",
+          state: {user: this.state.user}
+        }
+      }/>
+    }
+
     return (
       <div id="general-container">
         <div id="forms-container">

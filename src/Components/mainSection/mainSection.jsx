@@ -4,11 +4,8 @@ import TermSelectionSection from "../termSelectionSection/termSelectionSection";
 import TermReportSection from "../termReportSection/termReportSection";
 import "./mainSection.css";
 
-function MainSection() {
-  //Get user ID 5ffa6b98f96818c0e006c1a9 set for props
-  // const user_id = this.props.user_id;
-  const user_id = "5ffa6b98f96818c0e006c1a9";
-
+function MainSection(props) {
+  const user_id = props.user_id;
   const [loading, setLoading] = useState(true);
   const [currentTerm, setCurrentTerm] = useState(null);
   const [terms, setTerms] = useState([]);
@@ -19,6 +16,7 @@ function MainSection() {
   useEffect(() => {
     var nav = document.getElementById("nav");
     nav.style.backgroundColor = "#293241";
+    if(user_id === "")  return;
     axios
       .get("http://localhost:8080/terms/" + user_id)
       .then((response) => {

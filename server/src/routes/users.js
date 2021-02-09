@@ -4,12 +4,14 @@ const User = require('../models/user');
 router.get('/usr=:userName&pass=:password', async(req, res) => {
     const userName = req.params.userName;
     const password = req.params.password;
-    console.log(userName);
-    console.log(password);
-    await User.find({userName: userName, password: password})
+    await User.find({userName: userName})
         .then(user => {
-            res.json(user)
-            console.log(user)
+            if(user.length === 0) {
+                res.json({login: false, msg: "Usuario no registrado"});
+                return;
+            }
+            if(user[0].password !== password)  res.json({login: false, msg: "Contraseña incorrecta"})
+            else    res.json({login: true, user: user});
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });

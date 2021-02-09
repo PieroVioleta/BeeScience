@@ -16,6 +16,8 @@ import FilePage from './Pages/PagesRecursos/FileUploadPage';
 import Pregunta from './Pages/Pregunta';
 import CursoFisica from './Pages/PagesRecursos/Cursos/CursoFisica';
 
+let user = null;
+
 class App extends Component {
 
   constructor(props){
@@ -26,9 +28,8 @@ class App extends Component {
     };
   }
 
-
-
   render() {
+
     const information_site = {
       name: 'Bee Science',
       github: 'https://github.com/PieroVioleta/BeeScience',
@@ -60,10 +61,16 @@ class App extends Component {
         <Router>
         <NaviBar/>
           <Switch>
-          <Route path="/" exact>  
-            <Header classname='Cabezara' data={information_site} />
+          <Route path="/"  render={(props) => {
+            if(props.location.state !== undefined)  user = props.location.state.user[0];
+            return (
+              <React.Fragment>
+                <Header classname='Cabezara' data={information_site} user={user}/>
             <About data={information_site}/>  
             <Footer data={information_site}/>
+              </React.Fragment>
+            )
+          }} exact>  
           </Route>
           <Route path="/login">
             <LogIn/>
@@ -75,7 +82,8 @@ class App extends Component {
             <Pregunta/>
           </Route>
           <Route path="/GestorNotas">
-            <GestorNotas/>
+            {/* <GestorNotas user_id="5ffa6b98f96818c0e006c1a9"/> */}
+            <GestorNotas user_id={(user === null) ? "" : user._id}/> 
           </Route>
           <Route path="/Tarea">
             <Tarea/>

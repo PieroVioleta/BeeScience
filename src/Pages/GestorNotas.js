@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import MainSection from '../Components/mainSection/mainSection.jsx'
 
-class GestorNotas extends Component{
+class GestorNotas extends Component {
+    constructor(props) {
+        super(props);
+    }
     render(){
         return(
-            <MainSection />
+            <MainSection user_id={this.props.user_id}/>
             );
     }
 }
