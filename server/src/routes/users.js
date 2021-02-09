@@ -18,13 +18,11 @@ router.get('/', async(req, res) => {
 
 
 router.post('/add/', async(req, res) => {
-  const user_id = req.body.user_id;
   const userName = req.body.userName;
   const email = req.body.email;
   const password = req.body.password;
 
   const newUser = new User({
-      user_id,
       userName,
       email,
       password
