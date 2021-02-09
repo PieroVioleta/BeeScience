@@ -1,10 +1,16 @@
 const router = require('express').Router();
-
 const User = require('../models/user');
 
-router.get('/', async(req, res) => {
-    await User.find()
-        .then(user => res.json(user))
+router.get('/usr=:userName&pass=:password', async(req, res) => {
+    const userName = req.params.userName;
+    const password = req.params.password;
+    console.log(userName);
+    console.log(password);
+    await User.find({userName: userName, password: password})
+        .then(user => {
+            res.json(user)
+            console.log(user)
+        })
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -34,4 +40,5 @@ router.post('/add/', async(req, res) => {
       })
       .catch(err => res.status(400).json('Error: ' + err));
 })
+
 module.exports = router;  
