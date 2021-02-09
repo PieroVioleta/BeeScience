@@ -22,6 +22,7 @@ const gradesRouter = require('./routes/grades');
 const questionRouter = require('./routes/questions');
 const taskRouter = require('./routes/agenda');
 const resourcesRouter = require('./routes/resources');
+const userRouter = require('./routes/users');
 //Middlewares
 app.use(cors());
 app.use(express.json());
@@ -45,6 +46,7 @@ app.use('/escuelas', escuelasRouter);
 app.use('/grades', gradesRouter);
 app.use('/question', questionRouter);
 app.use('/agenda',taskRouter);
+app.use('/user', userRouter);
 //static files
 
 //Start the server
