@@ -4,30 +4,24 @@ import axios from 'axios'
 class ComponentTarea extends Component{
     constructor(props){
         super(props);
-        //  this.handleClick = this.handleClick.bind(this);
+      
 
-        this.state = {
-            name: props.name, 
-            priority: props.priority,
-            initialDate: props.initialDate,
-            _id:props.id
-        }
     }
-    /*
-    handleClick() {
-        if(window.confirm("Desea eliminar esta tarea?")){
-            console.log(this.state._id)
-            axios.delete('http://localhost:8080/agenda/delete/'+ this.state._id)
-        }
-     }
-    */
+    
 
     render(){
+        let taskS
+        if(this.props.priority == 'Normal')
+            taskS = 'taskN'
+        else if(this.props.priority == 'Importante')
+            taskS = 'taskI'
+        else if(this.props.priority == 'Urgente')
+            taskS = 'taskU'
+    
         return(
-            <div  className='taskL' onClick = {this.props.onClick}  >
-                {this.state.name} <br/>
-                prioridad={this.state.priority}<br/>
-                fecha = {this.state.initialDate }
+            <div  className= {taskS}  onClick = {this.props.onClick}  >
+                {this.props .name} <br/>
+                fecha = {this.props.initialDate }
             </div>
         )
     }

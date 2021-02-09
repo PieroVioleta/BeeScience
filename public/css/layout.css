@@ -368,10 +368,10 @@ ul#nav li.current a { color: #fe6928; }
 /* ------------------------------------------------------------------ */
 .Schedule{
    position: absolute;
-   top: 130px;
+   top: 70px;
    left: 200px;
    width: 75%;
-   height: 83%;
+   height: 85%;
    background-color: #98c1d9;
    border: 1px black solid;
    display: flex;
@@ -381,7 +381,7 @@ ul#nav li.current a { color: #fe6928; }
 }
 .Agenda{
    border-collapse: collapse;
-    margin: 25px 0;
+    margin: 0 0;
     font-size: 0.9em;
     font-family: sans-serif;
     min-width: 400px;
@@ -397,6 +397,9 @@ ul#nav li.current a { color: #fe6928; }
 .Agenda th,
 .Agenda td {
     padding: 12px 15px;
+}
+.Agenda td:hover{
+   cursor: pointer;
 }
 .Agenda tbody tr {
    border-bottom: 1px solid #dddddd;
@@ -451,20 +454,49 @@ ul#nav li.current a { color: #fe6928; }
 .boxTareas{
    display: flex;
    flex-wrap: wrap;
+   flex-shrink: 2;
 }
-.boxTareas div:nth-of-type(2n){
-   background-color: tomato;
+.boxTareas div:hover{
+   cursor:pointer;
 }
-.boxTareas div:nth-of-type(2n+1){
-   background-color: teal;
-}
-.taskL{
+.taskN{
    margin: 15px;
    padding: 10px;
    color:black;
    border: 3px solid grey;
    border-radius: 10px;
+   background-color: green;
 }
+.taskI{
+   margin: 15px;
+   padding: 10px;
+   color:black;
+   border: 3px solid grey;
+   border-radius: 10px;
+   background-color: yellow;
+}
+.taskU{
+   margin: 15px;
+   padding: 10px;
+   color:black;
+   border: 3px solid grey;
+   border-radius: 10px;
+   background-color: red;
+}
+.Green{
+   background-color: green;
+   color: black;
+}
+.Yellow{
+   background-color: yellow;
+   color: black;
+}
+.Red{
+   background-color: red;
+   color: black;
+}
+
+
 /* ------------------------------------------------------------------ */
 /* f. Call To Action Section
 /* ------------------------------------------------------------------ */

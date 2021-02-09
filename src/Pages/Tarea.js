@@ -12,9 +12,9 @@ const user_id = "5ffa6b98f96818c0e006c1a9"
 class Tarea extends Component { 
     constructor(props) {
         super(props);
+        this.handleClick1 = this.handleClick1.bind(this);
         this.handleClick = this.handleClick.bind(this);
         
-        //this.handleClickButton = this.handleClickButton.bind(this);
         this.state = {
             tareas: []  
         }
@@ -23,27 +23,95 @@ class Tarea extends Component {
     async componentDidMount(){
 
         const res = await axios.get('http://localhost:8080/agenda/' + user_id)
-        console.log(res)
-        this.setState({tareas:res.data})
-        console.log(this.state.tareas)
+        let array = []
         
-    }
-     
-    handleClick(id) {
-        if(window.confirm("Desea eliminar esta tarea?")){
-            axios.delete('http://localhost:8080/agenda/delete/'+ id)
-            let index = this.state.tareas.findIndex((elem) => elem._id === id)
-            console.log("indice",index)
-            console.log("tareas antes:",this.state.tareas)
-            this.setState(this.state.tareas.splice(index,1))
+        array = res.data
+        
+        for(let i=0;i<array.length-1;i++){
+            for(let j=i+1;j<array.length;j++){
+                let swap
+                if(array[i].priority === 'Normal' && (array[j].priority === 'Urgente' || array[j].priority === 'Importante')){
+                    swap = array[i]
+                    array[i] = array[j]
+                    array[j] = swap
+                }
+                else if(array[i].priority === 'Importante' && array[j].priority === 'Urgente'){
+                    swap = array[i]
+                    array[i] = array[j]
+                    array[j] = swap
+                }
+            }
         }
-     }
+        this.setState({tareas:res.data})   
+    }
+    
+    async handleClick(id) {
+        if(window.confirm("Desea eliminar esta tarea?")){
+            await axios.delete('http://localhost:8080/agenda/delete/'+ id)
+            .then(
+            ()=>{
+                const tareas = this.state.tareas
+                const index = tareas.findIndex(elem =>elem._id === id)
+                tareas.splice(index,1)
+                this.setState({tareas:tareas})
+            })
+        }
+    }
+
+    async handleClick1(id,priority){
+        let name = prompt("Ingrese el nombre de la tarea")
+        let day = (new Date().getDate()+id).toString();
+        let month = (new Date().getMonth()+1).toString();
+        let year = new Date().getFullYear().toString();
+        let today = day+'/'+month+'/'+year
+
+        let dummyData = {}
+        dummyData.initialDate = today
+
+        dummyData.name = name
+        dummyData.priority = priority // priority 
+        dummyData.user_id = "5ffa6b98f96818c0e006c1a9"
+        if(this.state.tareas.length<16){
+        await axios.post('http://localhost:8080/agenda/add',dummyData)
+        .then(res =>{
+            console.log(res)
+            const newTask = res.data
+            const newTasks = [...this.state.tareas]
+            //console.log("newTasks:",newTasks)
+            newTasks.push(newTask)
+            //console.log("newTasksP:",newTasks)
+            for(let i=0;i<newTasks.length-1;i++){
+                for(let j=i+1;j<newTasks.length;j++){
+                    let swap
+                    if(newTasks[i].priority === 'Normal' && (newTasks[j].priority === 'Urgente' || newTasks[j].priority === 'Importante')){
+                        swap = newTasks[i]
+                        newTasks[i] = newTasks[j]
+                        newTasks[j] = swap
+                    }
+                    else if(newTasks[i].priority === 'Importante' && newTasks[j].priority === 'Urgente'){
+                        swap = newTasks[i]
+                        newTasks[i] = newTasks[j]
+                        newTasks[j] = swap
+                    }
+                }
+            }
+            console.log("newTasks afeter:",newTasks)
+            this.setState({tareas:newTasks})
+            
+        })
+        .catch(err =>{
+            console.log(err)
+        })
+        }
+        else{
+            alert("Máximo número de tareas alcanzado")
+        }
+    }
       
       
     
     render(){   
-        
-        console.log(this.state)
+        console.log("render method",this.state.tareas)
         let day = new Date().getDate();
         let month = new Date().getMonth()+1;
         let year = new Date().getFullYear()
@@ -59,22 +127,22 @@ class Tarea extends Component {
                     </tr>
                 </thead>
                 <tbody className = "tbody"> 
-                    <tr>
-                        <th>Normal</th>
+                    <tr >
+                        <th className="Green">Normal</th>
                         {week.map((value,index)=>{
-                            return <Celda name = '' id= {index} />
+                            return <Celda name = '' id= {index} onClick = {() => this.handleClick1(index,"Normal")} />
                     })} 
                     </tr>
                     <tr>
-                        <th>Importante</th>
+                        <th className="Yellow">Importante</th>
                         {week.map((value,index)=>{
-                            return <Celda2 name = ' ' id= {index}/>
+                            return <Celda2 name = ' ' id= {index}  onClick ={()=>this.handleClick1(index,"Importante")} />
                     })} 
                     </tr>
-                    <tr>
-                        <th>Urgente</th>
+                    <tr >
+                        <th className="Red">Urgente</th>
                         {week.map((value,index)=>{
-                            return <Celda3 name = ' ' id={index}/>
+                            return <Celda3 name = ' ' id={index} onClick ={()=>this.handleClick1(index,"Urgente")}/>
                     })} 
                     </tr>
                 </tbody>
@@ -93,7 +161,8 @@ class Tarea extends Component {
                             id = {elem._id}
                             onClick = {() => this.handleClick(elem._id)}
                             />
-                        })} 
+                        })
+                        } 
                         </div>
                     </div>
                     
