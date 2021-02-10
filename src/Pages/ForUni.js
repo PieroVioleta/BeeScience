@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { useState, useEffect } from "react";
-
+import NaviBar from "../Components/NaviBar";
 import { Button, TextField, Grid } from '@material-ui/core';
 import Question from './ComponentsForUni/Question'
 import axios from "axios";
@@ -55,6 +55,7 @@ function ForUni() {
     if(localStorage.getItem("session")) {
         return(
             <div>
+                <NaviBar />
                 <div id="contenedor-pregunta">
                     <form id="form_pregunta">
                         <span id="descripcionPregunta">Realiza una pregunta</span>

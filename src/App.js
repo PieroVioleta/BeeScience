@@ -4,7 +4,6 @@ import './App.css';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import About from './Components/About';
-import NaviBar from './Components/NaviBar';
 import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
 import LogIn from './Pages/LogIn';
 import ForUni from './Pages/ForUni';
@@ -16,15 +15,12 @@ import FilePage from './Pages/PagesRecursos/FileUploadPage';
 import Pregunta from './Pages/Pregunta';
 import CursoFisica from './Pages/PagesRecursos/Cursos/CursoFisica';
 
-let user = null;
-
 class App extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      foo: 'bar',
-      resumeData: {}
+      user: (localStorage.getItem("session")) ? JSON.parse(localStorage.getItem("session")) : null
     };
   }
 
@@ -59,18 +55,11 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-        <NaviBar/>
           <Switch>
-          <Route path="/"  render={(props) => {
-            if(props.location.state !== undefined)  user = props.location.state.user[0];
-            return (
-              <React.Fragment>
-                <Header classname='Cabezara' data={information_site} user={user}/>
+          <Route path="/" exact>
+            <Header classname='Cabezara' data={information_site}/>
             <About data={information_site}/>  
             <Footer data={information_site}/>
-              </React.Fragment>
-            )
-          }} exact>  
           </Route>
           <Route path="/login">
             <LogIn/>
@@ -82,8 +71,7 @@ class App extends Component {
             <Pregunta/>
           </Route>
           <Route path="/GestorNotas">
-            {/* <GestorNotas user_id="5ffa6b98f96818c0e006c1a9"/> */}
-            <GestorNotas user_id={(user === null) ? "" : user._id}/> 
+            <GestorNotas user={(this.state.user === null) ? "" : this.state.user} /> 
           </Route>
           <Route path="/Tarea">
             <Tarea/>

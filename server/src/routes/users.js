@@ -11,13 +11,16 @@ router.post('/checkUser/', async(req, res) => {
                 return;
             }
             if(user[0].password !== password)  res.json({login: false, msg: "Contraseña incorrecta"})
-            else    res.json({login: true, user: user});
+            else {
+                let usr = {
+                    id: user[0]._id,
+                    username: user[0].userName
+                }
+                res.json({login: true, user: usr});
+            }
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
-
-
-
 
 // const user = new Schema({
 //   user_id: String,

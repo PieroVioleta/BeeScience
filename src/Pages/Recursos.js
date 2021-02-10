@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Link} from 'react-router-dom';
+import NaviBar from "../Components/NaviBar";
 
 const useStyles = makeStyles((theme) => ({
   icono:{
@@ -69,6 +70,7 @@ export default function Album() {
   return (
     <div id="Recursos">
       <React.Fragment>
+      <NaviBar />
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>

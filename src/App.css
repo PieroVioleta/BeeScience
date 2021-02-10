@@ -15,6 +15,10 @@ header .banner-text h3{
     font-weight: bold;
 }
 
+#title {
+    text-shadow: 3px 3px white;
+}
+
 #general-container {
     background-image: url(./imagen/portada.jpg);
     height: 100vh;
@@ -59,6 +63,12 @@ header .banner-text h3{
 #login {
     height: 90%;
     width: 50%;
+}
+
+#navigation-panel {
+    display: flex;
+    flex-direction: row;
+    
 }
 
 #signup {
@@ -131,4 +141,12 @@ header .banner-text h3{
 #welcome {
     width: fit-content;
     font-size: 30px;
+}
+
+#logout {
+    background-color: #b23b3b;
+    display: inline;
+    padding: 5px 10px;
+    margin: 0;
+    border-radius: 10px;
 }

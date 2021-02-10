@@ -1,10 +1,21 @@
 import React, { Component } from "react";
 import "../App.css";
-// import ParticlesBg  from "particles-bg";
-
 import NaviBar from "./NaviBar";
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.handleLogout = this.handleLogout.bind(this);
+    this.state = {
+      user: (localStorage.getItem("session")) ? JSON.parse(localStorage.getItem("session")) : null
+    }
+  }
+
+  handleLogout() {
+    localStorage.removeItem("session");
+    this.setState({user: null});
+  }
+
   render() {
     if (this.props.data) {
       var name = this.props.data.name;
@@ -13,14 +24,14 @@ class Header extends Component {
 
     return (
       <div className="container">
+        <NaviBar user={this.state.user} logout={this.handleLogout}/>
         <header id="home">
-          {/* <ParticlesBg type="circle" bg={true} /> */}
-
-          <NaviBar />
           <div className="row banner">
             <div className="banner-text">
-              <h1 className="responsive-headline">{name}</h1>
-              {this.props.user === null ? (
+              <h1 id="title" className="responsive-headline">{name}</h1>
+              {(localStorage.getItem("session")) ? (
+                <h3 id="welcome">Bienvenido {this.state.user.username}</h3>
+              ) : (
                 <React.Fragment>
                   <h3>{description}</h3>
                   <hr />
@@ -34,8 +45,6 @@ class Header extends Component {
                     </a>
                   </ul>
                 </React.Fragment>
-              ) : (
-                <h3 id="welcome">Bienvenido {this.props.user.userName}</h3>
               )}
             </div>
           </div>

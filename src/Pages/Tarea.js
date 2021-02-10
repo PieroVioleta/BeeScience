@@ -7,6 +7,7 @@ import Celda2 from './Celda2'
 import Celda3 from './Celda3'
 import ComponentTarea from './ComponentTarea'
 import { Redirect } from 'react-router-dom';
+import NaviBar from "../Components/NaviBar";
 
 
 const user_id = "5ffa6b98f96818c0e006c1a9"
@@ -119,7 +120,12 @@ class Tarea extends Component {
         const week = ['1','2','3','4','5','6','7']; 
 
         if(localStorage.getItem("session")) {
-            return( <div class = "Schedule">
+            return( 
+            <React.Fragment>
+
+            
+                <NaviBar />
+            <div class = "Schedule">
             <table class="Agenda">
             <thead>
                 <tr> 
@@ -173,7 +179,7 @@ class Tarea extends Component {
                
             
         </div>
-        
+        </React.Fragment>
     );
         }
         else {

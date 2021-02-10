@@ -2,15 +2,15 @@ import React from "react";
 import axios from 'axios'
 import { Redirect } from "react-router-dom";
 import "../App.css";
+import NaviBar from "../Components/NaviBar";
 
 class LogIn extends React.Component {
   constructor(props) {
     super(props);
     this.login = this.login.bind(this)
-    // this.state = {
-    //   redirect: false,
-    //   user: {}
-    // }
+    this.state = {
+      redirect: false
+    }
   }
 
   login(e) {
@@ -35,9 +35,9 @@ class LogIn extends React.Component {
           return;
         }
         else {
-          // this.setState({redirect: true, user: res.user})
+          localStorage.setItem("session", JSON.stringify(res.user))
+          this.setState({redirect: true})
           // guarda la sesion en el localStorage
-          localStorage.setItem("session", JSON.stringify(res))
         }
       })
       .catch((error) => console.log(error));
@@ -46,6 +46,7 @@ class LogIn extends React.Component {
   // localStorage.setItem("user", JSON.stringify(obj))
 // JSON.parse("{'hola' : 'hola'}")
 // localStorage.removeItem("user")
+
   showPasswordLogin() {
     let passwordInput = document.getElementById("login-password");
     let checkbox = document.getElementById("login-show-password");
@@ -85,17 +86,13 @@ class LogIn extends React.Component {
     
   }
   render() {
-    // if(this.state.redirect === true) {
-    //   return <Redirect to={
-    //     {
-    //       pathname: "./",
-    //       state: {user: this.state.user}
-    //     }
-    //   }/>
-    // }
+    if(this.state.redirect === true) {
+      return <Redirect to="./" />;
+    }
 
     return (
       <div id="general-container">
+        <NaviBar />
         <div id="forms-container">
           <div id="login-container">
             <form id="login">
