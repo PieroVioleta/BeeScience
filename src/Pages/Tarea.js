@@ -6,6 +6,7 @@ import Celda from './Celda'
 import Celda2 from './Celda2'
 import Celda3 from './Celda3'
 import ComponentTarea from './ComponentTarea'
+import { Redirect } from 'react-router-dom';
 
 
 const user_id = "5ffa6b98f96818c0e006c1a9"
@@ -116,62 +117,68 @@ class Tarea extends Component {
         let month = new Date().getMonth()+1;
         let year = new Date().getFullYear()
         const week = ['1','2','3','4','5','6','7']; 
-        return( <div class = "Schedule">
-                <table class="Agenda">
-                <thead>
-                    <tr> 
-                    <th>Importancia </th>
+
+        if(localStorage.getItem("session")) {
+            return( <div class = "Schedule">
+            <table class="Agenda">
+            <thead>
+                <tr> 
+                <th>Importancia </th>
+                {week.map((value,index)=>{
+                    return <th>{day+index}/{month}/{year}</th>
+                })}
+                </tr>
+            </thead>
+            <tbody className = "tbody"> 
+                <tr >
+                    <th className="Green">Normal</th>
                     {week.map((value,index)=>{
-                        return <th>{day+index}/{month}/{year}</th>
-                    })}
-                    </tr>
-                </thead>
-                <tbody className = "tbody"> 
-                    <tr >
-                        <th className="Green">Normal</th>
-                        {week.map((value,index)=>{
-                            return <Celda name = '' id= {index} onClick = {() => this.handleClick1(index,"Normal")} />
-                    })} 
-                    </tr>
-                    <tr>
-                        <th className="Yellow">Importante</th>
-                        {week.map((value,index)=>{
-                            return <Celda2 name = ' ' id= {index}  onClick ={()=>this.handleClick1(index,"Importante")} />
-                    })} 
-                    </tr>
-                    <tr >
-                        <th className="Red">Urgente</th>
-                        {week.map((value,index)=>{
-                            return <Celda3 name = ' ' id={index} onClick ={()=>this.handleClick1(index,"Urgente")}/>
-                    })} 
-                    </tr>
-                </tbody>
-                </table>
-                    <div className="listaTareasTitle">
-                        <h1>
-                            Lista de tareas
-                        </h1>
-                        <div className="boxTareas   " >
-                        {this.state.tareas.map(elem =>{
-                            console.log(elem)
-                            return <ComponentTarea 
-                            name =  {elem.name} 
-                            priority = {elem.priority}
-                            initialDate = {elem.initialDate}
-                            id = {elem._id}
-                            onClick = {() => this.handleClick(elem._id)}
-                            />
-                        })
-                        } 
-                        </div>
+                        return <Celda name = '' id= {index} onClick = {() => this.handleClick1(index,"Normal")} />
+                })} 
+                </tr>
+                <tr>
+                    <th className="Yellow">Importante</th>
+                    {week.map((value,index)=>{
+                        return <Celda2 name = ' ' id= {index}  onClick ={()=>this.handleClick1(index,"Importante")} />
+                })} 
+                </tr>
+                <tr >
+                    <th className="Red">Urgente</th>
+                    {week.map((value,index)=>{
+                        return <Celda3 name = ' ' id={index} onClick ={()=>this.handleClick1(index,"Urgente")}/>
+                })} 
+                </tr>
+            </tbody>
+            </table>
+                <div className="listaTareasTitle">
+                    <h1>
+                        Lista de tareas
+                    </h1>
+                    <div className="boxTareas   " >
+                    {this.state.tareas.map(elem =>{
+                        console.log(elem)
+                        return <ComponentTarea 
+                        name =  {elem.name} 
+                        priority = {elem.priority}
+                        initialDate = {elem.initialDate}
+                        id = {elem._id}
+                        onClick = {() => this.handleClick(elem._id)}
+                        />
+                    })
+                    } 
                     </div>
-                    
-                        
-                   
+                </div>
                 
-            </div>
+                    
+               
             
-        );
+        </div>
+        
+    );
+        }
+        else {
+            return <Redirect to= "/LogIn"/>
+        }
     }
     
 }

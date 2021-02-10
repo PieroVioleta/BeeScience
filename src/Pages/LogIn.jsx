@@ -7,10 +7,10 @@ class LogIn extends React.Component {
   constructor(props) {
     super(props);
     this.login = this.login.bind(this)
-    this.state = {
-      redirect: false,
-      user: {}
-    }
+    // this.state = {
+    //   redirect: false,
+    //   user: {}
+    // }
   }
 
   login(e) {
@@ -24,7 +24,10 @@ class LogIn extends React.Component {
     }
 
     axios
-      .get("http://localhost:8080/user/usr=" + userName + "&pass=" + password)
+      .post("http://localhost:8080/user/checkUser/", {
+        userName:userName,
+        password:password
+      })
       .then((response) => {
         let res = response.data;
         if(res.login === false) {
@@ -32,12 +35,17 @@ class LogIn extends React.Component {
           return;
         }
         else {
-          this.setState({redirect: true, user: res.user})
+          // this.setState({redirect: true, user: res.user})
+          // guarda la sesion en el localStorage
+          localStorage.setItem("session", JSON.stringify(res))
         }
       })
       .catch((error) => console.log(error));
   }
 
+  // localStorage.setItem("user", JSON.stringify(obj))
+// JSON.parse("{'hola' : 'hola'}")
+// localStorage.removeItem("user")
   showPasswordLogin() {
     let passwordInput = document.getElementById("login-password");
     let checkbox = document.getElementById("login-show-password");
@@ -77,14 +85,14 @@ class LogIn extends React.Component {
     
   }
   render() {
-    if(this.state.redirect === true) {
-      return <Redirect to={
-        {
-          pathname: "./",
-          state: {user: this.state.user}
-        }
-      }/>
-    }
+    // if(this.state.redirect === true) {
+    //   return <Redirect to={
+    //     {
+    //       pathname: "./",
+    //       state: {user: this.state.user}
+    //     }
+    //   }/>
+    // }
 
     return (
       <div id="general-container">

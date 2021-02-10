@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const User = require('../models/user');
 
-router.get('/usr=:userName&pass=:password', async(req, res) => {
-    const userName = req.params.userName;
-    const password = req.params.password;
+router.post('/checkUser/', async(req, res) => {
+    const userName = req.body.userName;
+    const password = req.body.password;
     await User.find({userName: userName})
         .then(user => {
             if(user.length === 0) {
@@ -15,6 +15,8 @@ router.get('/usr=:userName&pass=:password', async(req, res) => {
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
+
+
 
 
 // const user = new Schema({
