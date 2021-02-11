@@ -5,6 +5,7 @@ import axios from "axios";
 import { Button, TextField, Grid } from '@material-ui/core';
 import Question from './ComponentsForUni/Question'
 import Comentario from './ComponentsForUni/Comentario'
+import { Redirect } from 'react-router-dom';
 
 
 
@@ -56,27 +57,30 @@ function Pregunta() {
             })
     }
 
-
-    return(
-        <div>
-            <div className="pregunta-margen">
-                <Question pregunta={textQuestion}/>
-            </div>
-            <div className="contenedor-comentarios">
-            <div id="contenedor-pregunta">
-                <form id="form_pregunta">
-                    <span id="descripcionPregunta">Realiza un comentario</span>
-                    <input id="entradaTexto" type="text" name="name" size="100"/>
-                    <button id="boton" type="button" onClick={()=>{enviarComentario()}}>Comentar</button>
-                </form>
-            </div>
-                <p className="titulo-comentarios">Comentarios:</p>
-                <div className="seccion-comentarios">
-                    {comments.map(elm => <Comentario pregunta={elm}/>) }
+    if(localStorage.getItem("session")) {
+        return(
+            <div>
+                <div className="pregunta-margen">
+                    <Question pregunta={textQuestion}/>
                 </div>
-            </div>
-        </div>          
-        );
+                <div className="contenedor-comentarios">
+                <div id="contenedor-pregunta">
+                    <form id="form_pregunta">
+                        <span id="descripcionPregunta">Realiza un comentario</span>
+                        <input id="entradaTexto" type="text" name="name" size="100"/>
+                        <button id="boton" type="button" onClick={()=>{enviarComentario()}}>Comentar</button>
+                    </form>
+                </div>
+                    <p className="titulo-comentarios">Comentarios:</p>
+                    <div className="seccion-comentarios">
+                        {comments.map(elm => <Comentario pregunta={elm}/>) }
+                    </div>
+                </div>
+            </div>          
+            );
+    } else {
+        return <Redirect to= "/LogIn"/>
+    }
 }
 // class Pregunta extends Component{
 //     constructor(props) {

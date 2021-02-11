@@ -6,9 +6,11 @@ import Celda from './Celda'
 import Celda2 from './Celda2'
 import Celda3 from './Celda3'
 import ComponentTarea from './ComponentTarea'
+import { Redirect } from 'react-router-dom';
+import NaviBar from "../Components/NaviBar";
 
 
-const user_id = "5ffa6b98f96818c0e006c1a9"
+
 class Tarea extends Component { 
     constructor(props) {
         super(props);
@@ -16,13 +18,14 @@ class Tarea extends Component {
         this.handleClick = this.handleClick.bind(this);
         
         this.state = {
+            user_id : props.user.id,
             tareas: []  
         }
     }
     
     async componentDidMount(){
 
-        const res = await axios.get('http://localhost:8080/agenda/' + user_id)
+        const res = await axios.get('http://localhost:8080/agenda/' + this.state.user_id)
         let array = []
         
         array = res.data
@@ -70,16 +73,14 @@ class Tarea extends Component {
 
         dummyData.name = name
         dummyData.priority = priority // priority 
-        dummyData.user_id = "5ffa6b98f96818c0e006c1a9"
+        dummyData.user_id = this.state.user_id
         if(this.state.tareas.length<16){
         await axios.post('http://localhost:8080/agenda/add',dummyData)
         .then(res =>{
             console.log(res)
             const newTask = res.data
             const newTasks = [...this.state.tareas]
-            //console.log("newTasks:",newTasks)
             newTasks.push(newTask)
-            //console.log("newTasksP:",newTasks)
             for(let i=0;i<newTasks.length-1;i++){
                 for(let j=i+1;j<newTasks.length;j++){
                     let swap
@@ -116,62 +117,73 @@ class Tarea extends Component {
         let month = new Date().getMonth()+1;
         let year = new Date().getFullYear()
         const week = ['1','2','3','4','5','6','7']; 
-        return( <div class = "Schedule">
-                <table class="Agenda">
-                <thead>
-                    <tr> 
-                    <th>Importancia </th>
-                    {week.map((value,index)=>{
-                        return <th>{day+index}/{month}/{year}</th>
-                    })}
-                    </tr>
-                </thead>
-                <tbody className = "tbody"> 
-                    <tr >
-                        <th className="Green">Normal</th>
-                        {week.map((value,index)=>{
-                            return <Celda name = '' id= {index} onClick = {() => this.handleClick1(index,"Normal")} />
-                    })} 
-                    </tr>
-                    <tr>
-                        <th className="Yellow">Importante</th>
-                        {week.map((value,index)=>{
-                            return <Celda2 name = ' ' id= {index}  onClick ={()=>this.handleClick1(index,"Importante")} />
-                    })} 
-                    </tr>
-                    <tr >
-                        <th className="Red">Urgente</th>
-                        {week.map((value,index)=>{
-                            return <Celda3 name = ' ' id={index} onClick ={()=>this.handleClick1(index,"Urgente")}/>
-                    })} 
-                    </tr>
-                </tbody>
-                </table>
-                    <div className="listaTareasTitle">
-                        <h1>
-                            Lista de tareas
-                        </h1>
-                        <div className="boxTareas   " >
-                        {this.state.tareas.map(elem =>{
-                            console.log(elem)
-                            return <ComponentTarea 
-                            name =  {elem.name} 
-                            priority = {elem.priority}
-                            initialDate = {elem.initialDate}
-                            id = {elem._id}
-                            onClick = {() => this.handleClick(elem._id)}
-                            />
-                        })
-                        } 
-                        </div>
-                    </div>
-                    
-                        
-                   
-                
-            </div>
+
+        if(localStorage.getItem("session")) {
+            return( 
+            <React.Fragment>
+
             
-        );
+                <NaviBar />
+            <div class = "Schedule">
+            <table class="Agenda">
+            <thead>
+                <tr> 
+                <th>Importancia </th>
+                {week.map((value,index)=>{
+                    return <th>{day+index}/{month}/{year}</th>
+                })}
+                </tr>
+            </thead>
+            <tbody className = "tbody"> 
+                <tr >
+                    <th className="Green">Normal</th>
+                    {week.map((value,index)=>{
+                        return <Celda name = '' id= {index} onClick = {() => this.handleClick1(index,"Normal")} />
+                })} 
+                </tr>
+                <tr>
+                    <th className="Yellow">Importante</th>
+                    {week.map((value,index)=>{
+                        return <Celda2 name = ' ' id= {index}  onClick ={()=>this.handleClick1(index,"Importante")} />
+                })} 
+                </tr>
+                <tr >
+                    <th className="Red">Urgente</th>
+                    {week.map((value,index)=>{
+                        return <Celda3 name = ' ' id={index} onClick ={()=>this.handleClick1(index,"Urgente")}/>
+                })} 
+                </tr>
+            </tbody>
+            </table>
+                <div className="listaTareasTitle">
+                    <h1>
+                        Lista de tareas
+                    </h1>
+                    <div className="boxTareas   " >
+                    {this.state.tareas.map(elem =>{
+                        console.log(elem)
+                        return <ComponentTarea 
+                        name =  {elem.name} 
+                        priority = {elem.priority}
+                        initialDate = {elem.initialDate}
+                        id = {elem._id}
+                        onClick = {() => this.handleClick(elem._id)}
+                        />
+                    })
+                    } 
+                    </div>
+                </div>
+                
+                    
+               
+            
+        </div>
+        </React.Fragment>
+    );
+        }
+        else {
+            return <Redirect to= "/LogIn"/>
+        }
     }
     
 }

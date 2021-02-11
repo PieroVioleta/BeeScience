@@ -99,7 +99,14 @@
 
    /* mobile navigation
    -------------------------------------------------------------------- */
+   #navigation-panel {
+      justify-content: flex-end;
+   }
+   
    #nav-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
       font: 12px 'opensans-bold', sans-serif;
       background: transparent !important;
       letter-spacing: 1.5px;  

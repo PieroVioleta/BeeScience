@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const User = require('../models/user');
 
-router.get('/usr=:userName&pass=:password', async(req, res) => {
-    const userName = req.params.userName;
-    const password = req.params.password;
+router.post('/checkUser/', async(req, res) => {
+    const userName = req.body.userName;
+    const password = req.body.password;
     await User.find({userName: userName})
         .then(user => {
             if(user.length === 0) {
@@ -11,11 +11,16 @@ router.get('/usr=:userName&pass=:password', async(req, res) => {
                 return;
             }
             if(user[0].password !== password)  res.json({login: false, msg: "Contraseña incorrecta"})
-            else    res.json({login: true, user: user});
+            else {
+                let usr = {
+                    id: user[0]._id,
+                    username: user[0].userName
+                }
+                res.json({login: true, user: usr});
+            }
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
-
 
 // const user = new Schema({
 //   user_id: String,

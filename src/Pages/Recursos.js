@@ -16,6 +16,7 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Link} from 'react-router-dom';
+import NaviBar from "../Components/NaviBar";
 
 const API_BASE = "http://localhost:8080";
 const user_id = "5ffa6b98f96818c0e006c1a9";
@@ -170,6 +171,7 @@ export default function Album() {
     <div id="Recursos">
       
       <React.Fragment>
+      <NaviBar />
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
