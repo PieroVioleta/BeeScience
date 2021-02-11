@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   icono:{
     marginLeft: '90%',
     backgroundColor: '#EE6C4D',
-    color: 'white',
+    color: 'primaria',
   },
   heroContent: {
     backgroundColor: 'lightblue',
@@ -101,6 +101,17 @@ const cards = [
       enlace: "#RecursoIngFisica",
       escuela: "Ingenieria física",
       link:"https://images.unsplash.com/photo-1568754690048-73d7d3a6bf32?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=633&q=80"},
+];
+
+const pcs = [
+  {title:'pc1'},
+  {title:'pc2'},
+  {title:'pc3'},
+  {title:'pc4'},
+  {title:'pc5'},
+  {title:'pc6'},
+  {title:'Parcial'},
+  {title:'Sustitutorio'},
 ];
 
 export default function Album() {
@@ -181,7 +192,6 @@ export default function Album() {
           <React.Fragment>
           <NaviBar />
           <main>
-            {/* Hero unit */}
             <div className={classes.heroContent}>
               <Container maxWidth="sm">
                 <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
@@ -193,10 +203,8 @@ export default function Album() {
                 </Typography>
                 
               </Container>
-            </div>       
-            
+            </div>             
             <Container className={classes.cardGrid} maxWidth="md" >
-              {/* End hero unit */}
               <Grid container spacing={4}>
                 {cards.map((card) => (
                   <Grid item key={card.index} xs={12} sm={6} md={4} >
@@ -219,7 +227,7 @@ export default function Album() {
               </Grid>
               <div >
               <label htmlFor="contained-button-file">
-                <Button className={classes.icono} variant="contained" component="span" onClick={handleClickOpen}>
+                <Button className={classes.icono}  variant="contained" component="span" onClick={handleClickOpen}>
                   Subir
                 </Button>
               </label>
@@ -232,7 +240,7 @@ export default function Album() {
                   PNG , o también documentos en formato pdf.
                 </DialogContentText>
               </DialogContent>
-              <DialogContent dividers>
+              <DialogContent dividers id="campos">
                 <DialogTitle>Codigo del Curso</DialogTitle>
                   <TextField
                   autoFocus
@@ -252,6 +260,7 @@ export default function Album() {
                 <DialogTitle>Tipo de Examen</DialogTitle>
                 <TextField
                   autoFocus
+                  autoComplete="pc1"
                   value={type_exam}
                   type="text"
                   onChange={(e) => { setTypeExam(e.target.value) }}

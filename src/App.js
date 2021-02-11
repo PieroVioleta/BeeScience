@@ -13,7 +13,8 @@ import Recursos from './Pages/Recursos';
 import RecursoPorArea from './Pages/PagesRecursos/RecursoPorArea';
 import FilePage from './Pages/PagesRecursos/FileUploadPage';
 import Pregunta from './Pages/Pregunta';
-import CursoFisica from './Pages/PagesRecursos/Cursos/CursoFisica';
+import Curso from './Pages/PagesRecursos/Curso';
+import Pdf from './Pages/PagesRecursos/Pdf';
 
 class App extends Component {
 
@@ -82,11 +83,14 @@ class App extends Component {
           <Route path="/RecursosPorCarrera">
             <RecursoPorArea />
           </Route>
-          <Route path="/CursoFisica">
-            <CursoFisica/>
+          <Route path="/Curso">
+            <Curso/>
           </Route>
           <Route path="/SubirArchivo">
             <FilePage/>
+          </Route>
+          <Route path="/pdf">
+            <Pdf/>
           </Route>
           </Switch>
         </Router>

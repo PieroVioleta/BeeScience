@@ -53,7 +53,6 @@ export default function Album() {
   const getEscuela = async () => {
     const response = await axios.get(`${API_BASE}/${id}`);
     setUserData(response.data);
-    
   }
 
   useEffect(() => {
@@ -89,7 +88,7 @@ export default function Album() {
                         title={course[1]}
                       />
                       <CardActions>
-                      <Link to={{ pathname: "/CursoFisica", state: {cod:course[0] , name:course[1]}}}>
+                      <Link to={{ pathname: "/Curso", state: {cod:course[0] , name:course[1]}}}>
                         <CardContent className={classes.cardContent}>
                           <Typography gutterBottom variant="h4" align="center">
                             {course[1]}({course[0]})
