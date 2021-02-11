@@ -366,12 +366,7 @@ function MainSection(props) {
   };
 
   const handleRemoveGrade = (courseID, evaluationName) => {
-    let question =
-      "¿Está seguro que desea eliminar la evaluación " +
-      evaluationName.toUpperCase() +
-      "?";
-    if (window.confirm(question)) {
-      axios
+    axios
       .post("http://localhost:8080/grades/delete/" + courseID, {
         evaluationName,
       })
@@ -411,7 +406,6 @@ function MainSection(props) {
     });
     setCourses(newCourses);
     setTermGradeChanged(true);
-    }
   };
 
   return (
