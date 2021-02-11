@@ -3,7 +3,7 @@ import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import {Link} from 'react-router-dom';
-// import { DropzoneArea } from 'material-ui-dropzone';
+import Dropzone from 'react-dropzone';
 
 const API_BASE = "http://localhost:8080"
 const user_id = "5ffa6b98f96818c0e006c1a9"
@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
     content: {
         margin: '20px auto' ,
         width: 500,
-        height: 480,
+        height: 550,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#cccccc',
+        backgroundColor: '#fff',
     }
   }));
 
@@ -62,25 +62,6 @@ function FileUploadPage() {
         }
 
 
-    async function uploadWithJSON(){
-        const toBase64 = file => new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-        });
-
-        const data = {
-            file: await toBase64(file),
-            user_id: user_id,
-            course_code: course_code,
-            type_exam: type_exam,
-            year: year,
-        }
-
-        submitForm("application/json", data, (msg) => console.log(msg));
-    }
-
     return (
         <main>
             <div className={classes.title}>
@@ -113,9 +94,21 @@ function FileUploadPage() {
                         <input type="file" name="file" 
                         onChange={(e) => {setFile(e.target.files[0])}}/>
                     </label>
+                    
+                    <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+                        {({getRootProps, getInputProps}) => (
+                            <section>
+                                <div {...getRootProps()}>
+                                    <input {...getInputProps()} />
+                                    <p>Drag 'n' drop some files here, or click to select files</p>
+                                </div>
+                            </section>
+                        )}
+                    </Dropzone>
+
 
                     <Link to="/Recursos">
-                        <input type="button" value="Subir" onClick={upload} />
+                        <input type="button" value="Subir" onClick={upload}/>
                     </Link>
                     
                 </form>

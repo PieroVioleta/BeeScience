@@ -59,4 +59,22 @@ router.get('/file/:id/delete', async(req, res) => {
   }
 });
 
+router.get('/course/:code', async(req, res) => {
+  const {code} = req.params;
+  await File.find({course_code:code})
+      .then(file => res.json(file))
+      .catch(err => res.status(400).json('Error: ' + err))
+  
+  // res.send('Profile File');
+});
+
+router.get('/course/:code/:name', async(req, res) => {
+  const {code, name} = req.params;
+
+  await File.find({course_code:code,type_exam:name})
+      .then(file => res.json(file))
+      .catch(err => res.status(400).json('Error: ' + err))
+  
+});
+
 module.exports = router;

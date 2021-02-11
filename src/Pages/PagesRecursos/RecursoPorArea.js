@@ -1,5 +1,4 @@
 import React, { useState, useEffect} from 'react';
-import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -12,7 +11,7 @@ import {Link, useLocation} from 'react-router-dom';
 import axios from 'axios';
 
 const API_BASE = "http://localhost:8080/escuelas"
-
+const card = "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
 const useStyles = makeStyles((theme) => ({
   icono:{
     flexDirection: 'center',
@@ -29,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
-    
   },
   card: {
     height: '100%',
@@ -46,40 +44,15 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-const cards = [
-    {index: 1, 
-      curso: "Introducción a la Computación",
-      link: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-    },
-    {index: 2, 
-      curso: "Física I",
-      link: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-    },
-    {index: 3, 
-      curso: "Calculo Diferencial",
-      link: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-    },
-    {index: 4, 
-      curso: "Algebra Lineal",
-      link: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-    },
-    {index: 5, 
-      curso: "Química I",
-      link: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-    },
-];
-
-
 export default function Album() {
   const [userData, setUserData] = useState([]);
-  const id =useLocation().state.id;
+  const id = useLocation().state.id;
   const classes = useStyles();
-   
-
+  
   const getEscuela = async () => {
     const response = await axios.get(`${API_BASE}/${id}`);
     setUserData(response.data);
-    // console.log( response.data[0].escuela);
+    
   }
 
   useEffect(() => {
@@ -87,62 +60,48 @@ export default function Album() {
   }, []);
   
   return (
-    <React.Fragment>
-      
-      <main>
-        {/* Hero unit */}
-        <div className={classes.heroContent}>
-          <Container maxWidth="sm">
-          {userData.map( el => (
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-                  {el.escuela}
-            </Typography>
-            )
-            )}
-            {userData.map( el => (
-            <Typography variant="h3" align="center" color="textPrimary" gutterBottom>
-               {el.ciclo}
-            </Typography>
-            )
-            )}
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
-              En esta sección encontrarás recursos de los cursos del Primer ciclo.
-            </Typography>
-          </Container>
-        </div>  
-        <Container className={classes.cardGrid} maxWidth="md" >
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card.index} xs={12} sm={6} md={4} >
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={card.link}
-                    title={card.curso}
-                  />
-                  
-                  <CardActions>
-                  <Link to={{ pathname: "/CursoFisica", state: {id:card.escuela}}}>
-                    <CardContent className={classes.cardContent}>
-                      <Typography gutterBottom variant="h5" component="h2" align="center">
-                        {card.curso}
-                      </Typography>
-                    </CardContent>
-                  </Link>
-
-
-                                     
-                  </CardActions>
-                </Card>
+    <React.Fragment> 
+        {userData.map( (data) => (
+          <main>
+            <div className={classes.heroContent}>
+              <Container maxWidth="sm" key={data._id}>
+                  <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                    {data.escuela}
+                  </Typography>
+                  <Typography variant="h3" align="center" color="textPrimary" gutterBottom>
+                    {data.ciclo}
+                  </Typography>           
+                  <Typography variant="h5" align="center" color="textSecondary" paragraph>
+                    En esta sección encontrarás recursos de los cursos del {data.ciclo}.
+                  </Typography>
+              </Container>
+            </div>
+            <Container className={classes.cardGrid} key={data.ciclo} maxWidth="md" >
+              <Grid container spacing={4}>
+                {data.courses.map((course) => (
+                  <Grid item key={course[0]} xs={12} sm={6} md={4} >
+                    <Card className={classes.card}>
+                      <CardMedia
+                        className={classes.cardMedia}
+                        image={card}
+                        title={course[1]}
+                      />
+                      <CardActions>
+                      <Link to={{ pathname: "/CursoFisica", state: {cod:course[0] , name:course[1]}}}>
+                        <CardContent className={classes.cardContent}>
+                          <Typography gutterBottom variant="h4" align="center">
+                            {course[1]}({course[0]})
+                          </Typography>
+                        </CardContent>
+                      </Link>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
-          
-        </Container>
-
-      </main>
-     
+            </Container>
+          </main>
+          ))}
     </React.Fragment>
   );
 }
