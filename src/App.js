@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   render() {
-
+    
     const information_site = {
       name: 'Bee Science',
       github: 'https://github.com/PieroVioleta/BeeScience',
@@ -73,8 +73,8 @@ class App extends Component {
           <Route path="/GestorNotas">
             <GestorNotas user={(this.state.user === null) ? "" : this.state.user} /> 
           </Route>
-          <Route path="/Tarea">
-            <Tarea/>
+          <Route path="/Tarea" >
+            <Tarea user={(this.state.user === null) ? "" : this.state.user}/>
           </Route>
           <Route path="/Recursos">
             <Recursos/>
