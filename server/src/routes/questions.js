@@ -17,11 +17,13 @@ router.get('/', async(req, res) => {
 //     } 
 // });
 
-router.post('/add/:user_id', async(req, res) => {
-    const user_id = req.params.user_id;
+router.post('/add/', async(req, res) => {
+    const user_id = req.body.user_id;
     const questionText = req.body.questionText;
+    const userName = req.body.userName;
     const newQuestion = new Question({
         user_id,
+        userName,
         questionText,
         comments : []
     });

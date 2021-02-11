@@ -10,10 +10,23 @@ import { Redirect } from 'react-router-dom';
 
 
 function Pregunta() {
+
+
+    ////////////
+    var userString = localStorage.getItem("session");
+    var user_id ;
+    var userName;
+    if(userString){
+        user_id = JSON.parse(userString).id;
+        userName = JSON.parse(userString).username;
+        // console.log(user_id);
+    }
+    ///////////
     const [textQuestion, setTextQuestion] = useState("");
+    const [autor, setAutor] = useState("");
     const [comments, setComments] = useState([]);
     // this.state = {info: ['', '', '']}
-    const user_id = "5ffa6b98f96818c0e006c1a9";
+    // const user_id = "5ffa6b98f96818c0e006c1a9";
     var url_string = window.location.href;
     var url = new URL(url_string);
     var id_question = url.searchParams.get("id");
@@ -25,11 +38,13 @@ function Pregunta() {
         axios.get('http://localhost:8080/question/getQuestion/'+id_question)
         .then(function (response) {
             let textQuestion = response.data.questionText;
+            let autor = response.data.userName;
             let comments = response.data.comments;
             comments.reverse();
             // console.log(comments);
             setTextQuestion(textQuestion);
             setComments(comments);
+            setAutor(autor);
             // console.log(response.data);
         })
         .catch(function (error) {
@@ -41,7 +56,8 @@ function Pregunta() {
 
     const enviarComentario = () => {
         var element = document.getElementById("entradaTexto")
-        var newComment = element.value
+        var newComment = {textComment: element.value, author: userName}
+
         axios.post('http://localhost:8080/question/addComment/' + id_question, {
             comment:newComment
         })
@@ -61,8 +77,8 @@ function Pregunta() {
         return(
             <div>
                 <div className="pregunta-margen">
-                    <Question pregunta={textQuestion}/>
-                </div>
+                    <Question pregunta={textQuestion} autor={autor}/>
+                </div>  
                 <div className="contenedor-comentarios">
                 <div id="contenedor-pregunta">
                     <form id="form_pregunta">
@@ -73,7 +89,7 @@ function Pregunta() {
                 </div>
                     <p className="titulo-comentarios">Comentarios:</p>
                     <div className="seccion-comentarios">
-                        {comments.map(elm => <Comentario pregunta={elm}/>) }
+                        {comments.map(elm => <Comentario pregunta={elm.textComment} autor={elm.author}/>) }
                     </div>
                 </div>
             </div>          

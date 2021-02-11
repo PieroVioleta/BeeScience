@@ -6,6 +6,7 @@ class Question extends Component {
     render() {
         const pregunta = this.props.pregunta
         const id = this.props.id
+        const autor = this.props.autor
         if(pregunta) {
             return (
                 <div>
@@ -20,7 +21,7 @@ class Question extends Component {
                                 <a className="pregunta" href={"Pregunta?id="+id}>{pregunta}</a>                
                             </div>
                             <div>
-                                <span className="pregunta-detalle">Preguntado hace 1 día por <a>Usuario desconocido</a> </span>
+                                <span className="pregunta-detalle">Preguntado por <a>{autor}</a> </span>
                             </div>
                         </div>    
                     </div>
@@ -40,7 +41,7 @@ class Question extends Component {
                                 <a className="pregunta" href="google.com">Pregunta vacia</a>                
                             </div>
                             <div>
-                                <span className="pregunta-detalle">Preguntado hace 1 día por <a>Usuario desconocido</a> </span>
+                                <span className="pregunta-detalle">Preguntado por <a>{autor}</a> </span>
                             </div>
                         </div>    
                     </div>

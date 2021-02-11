@@ -9,16 +9,30 @@ import { Redirect } from 'react-router-dom';
 function ForUni() {
 
     const [questions, setQuestions] = useState([]);
-    const user_id = "5ffa6b98f96818c0e006c1a9";
+
+    var userString = localStorage.getItem("session");
+    var user_id ;
+    var userName;
+    if(userString){
+        user_id = JSON.parse(userString).id;
+        userName = JSON.parse(userString).username;
+        // console.log(user_id);
+    }
+    // const user_id = "5ffa6b98f96818c0e006c1a9";
+
+
 
     useEffect(()=>{
         axios.get('http://localhost:8080/question/')
         .then(function (response) {
             let questionsTextArray = response.data.map((elm)=>elm.questionText);
             let idArray = response.data.map((elm)=>elm._id)
+            let nameArray = response.data.map((elm)=>elm.userName)
+            // console.log("aca es:")
+            // console.log(nameArray);
             let questionArray = []
             for (let index = 0; index < questionsTextArray.length; index++) {
-                const element = [questionsTextArray[index],idArray[index]];
+                const element = [questionsTextArray[index],idArray[index],nameArray[index]];
                 questionArray.push(element);
             }
             questionArray.reverse();
@@ -35,14 +49,16 @@ function ForUni() {
         var element = document.getElementById("entradaTexto")
         var questionText = element.value
         var id_element
-        axios.post('http://localhost:8080/question/add/' + user_id, {
+        axios.post('http://localhost:8080/question/add/', {
+            user_id:user_id,
+            userName:userName,
             questionText:questionText
         })
             .then(function (response) {
                 id_element = response.data._id
                 console.log(response);
                 var elm = questions
-                elm = [[questionText, id_element]].concat(elm)
+                elm = [[questionText, id_element, userName]].concat(elm)
                 console.log(elm)
                 setQuestions(elm)
             })
@@ -64,7 +80,7 @@ function ForUni() {
                     </form>
                 </div>
                 <div id="seccion-preguntas">
-                    {questions.map(elm => <Question id={elm[1]} pregunta={elm[0]}/>) }
+                    {questions.map(elm => <Question id={elm[1]} pregunta={elm[0]} autor={elm[2]}/>) }
                 </div>
             </div>          
             );

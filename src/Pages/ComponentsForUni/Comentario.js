@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class Comentario  extends Component {
     render() {
         const pregunta = this.props.pregunta
+        const autor = this.props.autor
         if(pregunta) {
             return (
                 <div>
@@ -17,7 +18,7 @@ class Comentario  extends Component {
                                 <a className="pregunta" href="google.com">{pregunta}</a>                
                             </div>
                             <div>
-                                <span className="pregunta-detalle">Preguntado hace 1 día por <a>Usuario desconocido</a> </span>
+                                <span className="pregunta-detalle">Preguntado hace 1 día por <a>{autor}</a> </span>
                             </div>
                         </div>    
                     </div>
