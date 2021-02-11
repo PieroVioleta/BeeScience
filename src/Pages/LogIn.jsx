@@ -89,97 +89,101 @@ class LogIn extends React.Component {
     if(this.state.redirect === true) {
       return <Redirect to="./" />;
     }
-
-    return (
-      <div id="general-container">
-        <NaviBar />
-        <div id="forms-container">
-          <div id="login-container">
-            <form id="login">
-              <h2>Iniciar Sesión</h2>
-              <label htmlFor="login-user" id="login-user-label">
-                Usuario:{" "}
-              </label>
-              <input
-                id="login-user"
-                type="text"
-                placeholder="Ingrese su usuario"
-                required
-              />
-              <label htmlFor="login-password" id="login-password-label">
-                Contraseña:{" "}
-              </label>
-              <input
-                id="login-password"
-                type="password"
-                placeholder="Ingrese su contraseña"
-                required
-              />
-              <div id="login-show-password-box">
-                <label
-                  htmlFor="login-show-password"
-                  id="login-show-password-label"
-                >
-                  Mostrar contraseña{" "}
+    if(localStorage.getItem("session")){
+      return <Redirect to= "./"/>
+    }else{
+      return (
+        <div id="general-container">
+          <NaviBar />
+          <div id="forms-container">
+            <div id="login-container">
+              <form id="login">
+                <h2>Iniciar Sesión</h2>
+                <label htmlFor="login-user" id="login-user-label">
+                  Usuario:{" "}
                 </label>
                 <input
-                  id="login-show-password"
-                  type="checkbox"
-                  onClick={this.showPasswordLogin}
+                  id="login-user"
+                  type="text"
+                  placeholder="Ingrese su usuario"
+                  required
                 />
-              </div>
-              <button onClick={this.login}>Ingresar</button>
-            </form>
-          </div>
-          <div id="signup-container">
-            <form id="signup">
-              <h2>Registrarse</h2>
-              <label htmlFor="signup-user" id="signup-user-label">
-                Usuario:{" "}
-              </label>
-              <input
-                id="signup-user"
-                type="text"
-                placeholder="Ingrese su usuario"
-                required
-              />
-              <label htmlFor="signup-email" id="signup-email-label">
-                Correo electrónico:{" "}
-              </label>
-              <input
-                id="signup-email"
-                type="text"
-                placeholder="Ingrese su correo electrónico"
-                required
-              />
-              <label htmlFor="signup-password" id="signup-password-label">
-                Contraseña:{" "}
-              </label>
-              <input
-                id="signup-password"
-                type="password"
-                placeholder="Ingrese su contraseña"
-                required
-              />
-              <div id="signup-show-password-box">
-                <label
-                  htmlFor="signup-show-password"
-                  id="signup-show-password-label"
-                >
-                  Mostrar contraseña{" "}
+                <label htmlFor="login-password" id="login-password-label">
+                  Contraseña:{" "}
                 </label>
                 <input
-                  id="signup-show-password"
-                  type="checkbox"
-                  onClick={this.showPasswordSignup}
+                  id="login-password"
+                  type="password"
+                  placeholder="Ingrese su contraseña"
+                  required
                 />
-              </div>
-              <button onClick={this.signUp}>Registrarse</button>
-            </form>
+                <div id="login-show-password-box">
+                  <label
+                    htmlFor="login-show-password"
+                    id="login-show-password-label"
+                  >
+                    Mostrar contraseña{" "}
+                  </label>
+                  <input
+                    id="login-show-password"
+                    type="checkbox"
+                    onClick={this.showPasswordLogin}
+                  />
+                </div>
+                <button onClick={this.login}>Ingresar</button>
+              </form>
+            </div>
+            <div id="signup-container">
+              <form id="signup">
+                <h2>Registrarse</h2>
+                <label htmlFor="signup-user" id="signup-user-label">
+                  Usuario:{" "}
+                </label>
+                <input
+                  id="signup-user"
+                  type="text"
+                  placeholder="Ingrese su usuario"
+                  required
+                />
+                <label htmlFor="signup-email" id="signup-email-label">
+                  Correo electrónico:{" "}
+                </label>
+                <input
+                  id="signup-email"
+                  type="text"
+                  placeholder="Ingrese su correo electrónico"
+                  required
+                />
+                <label htmlFor="signup-password" id="signup-password-label">
+                  Contraseña:{" "}
+                </label>
+                <input
+                  id="signup-password"
+                  type="password"
+                  placeholder="Ingrese su contraseña"
+                  required
+                />
+                <div id="signup-show-password-box">
+                  <label
+                    htmlFor="signup-show-password"
+                    id="signup-show-password-label"
+                  >
+                    Mostrar contraseña{" "}
+                  </label>
+                  <input
+                    id="signup-show-password"
+                    type="checkbox"
+                    onClick={this.showPasswordSignup}
+                  />
+                </div>
+                <button onClick={this.signUp}>Registrarse</button>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
+    
   }
 }
 

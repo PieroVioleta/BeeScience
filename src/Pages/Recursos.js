@@ -17,9 +17,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Link} from 'react-router-dom';
 import NaviBar from "../Components/NaviBar";
+import { Redirect } from 'react-router-dom';
 
+var userString = localStorage.getItem("session");
 const API_BASE = "http://localhost:8080";
-const user_id = "5ffa6b98f96818c0e006c1a9";
+var user_id ;
+
+if(userString){
+  user_id = JSON.parse(userString).id;
+  console.log(user_id);
+}
+
 const dropzoneRef = createRef();
 
 const openDialog = () => {
@@ -166,125 +174,128 @@ export default function Album() {
     setOpen(false);
 
     }
+    if(localStorage.getItem("session")){
+      return (
 
-  return (
-    <div id="Recursos">
-      
-      <React.Fragment>
-      <NaviBar />
-      <main>
-        {/* Hero unit */}
-        <div className={classes.heroContent}>
-          <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              Recursos 
-            </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
-              En esta sección encontrarás recursos educativos de las diferentes carreras profesionales 
-              que ofrece la facultad de ciencias de la Universidad Nacional de Ingenieria.
-            </Typography>
+        <div id="Recursos">
+          <React.Fragment>
+          <NaviBar />
+          <main>
+            {/* Hero unit */}
+            <div className={classes.heroContent}>
+              <Container maxWidth="sm">
+                <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                  Recursos 
+                </Typography>
+                <Typography variant="h5" align="center" color="textSecondary" paragraph>
+                  En esta sección encontrarás recursos educativos de las diferentes carreras profesionales 
+                  que ofrece la facultad de ciencias de la Universidad Nacional de Ingenieria.
+                </Typography>
+                
+              </Container>
+            </div>       
             
-          </Container>
-        </div>       
-        
-        <Container className={classes.cardGrid} maxWidth="md" >
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card.index} xs={12} sm={6} md={4} >
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={card.link}
-                    title={card.escuela}
-                  />
-                  <Link to={{ pathname: "/RecursosPorCarrera", state:{id:card.escuela}}}>
-                    <CardContent className={classes.cardContent}>
-                      <Typography gutterBottom variant="h5" component="h2" align="center">
-                        {card.escuela}
-                      </Typography>
-                    </CardContent>
-                  </Link>
-                </Card>
+            <Container className={classes.cardGrid} maxWidth="md" >
+              {/* End hero unit */}
+              <Grid container spacing={4}>
+                {cards.map((card) => (
+                  <Grid item key={card.index} xs={12} sm={6} md={4} >
+                    <Card className={classes.card}>
+                      <CardMedia
+                        className={classes.cardMedia}
+                        image={card.link}
+                        title={card.escuela}
+                      />
+                      <Link to={{ pathname: "/RecursosPorCarrera", state:{id:card.escuela}}}>
+                        <CardContent className={classes.cardContent}>
+                          <Typography gutterBottom variant="h5" component="h2" align="center">
+                            {card.escuela}
+                          </Typography>
+                        </CardContent>
+                      </Link>
+                    </Card>
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
-          <div >
-          <label htmlFor="contained-button-file">
-            <Button className={classes.icono} variant="contained" component="span" onClick={handleClickOpen}>
-              Subir
-            </Button>
-          </label>
+              <div >
+              <label htmlFor="contained-button-file">
+                <Button className={classes.icono} variant="contained" component="span" onClick={handleClickOpen}>
+                  Subir
+                </Button>
+              </label>
+            </div>
+              <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+              <DialogTitle id="form-dialog-title">Subir Archivo</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Elija los documentos que desea compartir con la comunidad, puede subir imagenes formato JPG, 
+                  PNG , o también documentos en formato pdf.
+                </DialogContentText>
+              </DialogContent>
+              <DialogContent dividers>
+                <DialogTitle>Codigo del Curso</DialogTitle>
+                  <TextField
+                  autoFocus
+                  value={course_code}
+                  type="text"
+                  onChange={(e) => { setCourseCode(e.target.value) }}
+                  fullWidth
+                  />
+                <DialogTitle>Año</DialogTitle>
+                  <TextField
+                  autoFocus
+                  value={year}
+                  type="text"
+                  onChange={(e) => { setYear(e.target.value) }}
+                  fullWidth
+                  />
+                <DialogTitle>Tipo de Examen</DialogTitle>
+                <TextField
+                  autoFocus
+                  value={type_exam}
+                  type="text"
+                  onChange={(e) => { setTypeExam(e.target.value) }}
+                  fullWidth
+                  />
+                <Dropzone ref={dropzoneRef} noClick noKeyboard>
+                    {({getInputProps}) => (
+                                  <div className="container_">
+                                  <div {...getRootProps({className: 'dropzone'})}>
+                                    <input {...getInputProps()}/>
+                                    <p>arrastra aquí un archivo</p>
+                                    <button
+                                      type="button"
+                                      onClick={openDialog}
+                                    >
+                                      Abrir Archivo
+                                    </button>
+                                  </div>
+                                  <aside>
+                                    <h4>Formato de archivo permitido</h4>
+                                    <ul>{acceptedFileItems}</ul>
+                                    <h4>Formato de archivo no permitido</h4>
+                                    <ul>{fileRejectionItems}</ul>
+                                  </aside>
+                                </div>
+                              )}
+                  </Dropzone>
+              </DialogContent> 
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Cancel
+                </Button>
+                <Button value="Subir" onClick={upload} color="primary">
+                  Subir
+                </Button>
+              </DialogActions>
+            </Dialog>
+            </Container>       
+          </main>
+        </React.Fragment>
         </div>
-          <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Subir Archivo</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Elija los documentos que desea compartir con la comunidad, puede subir imagenes formato JPG, 
-              PNG , o también documentos en formato pdf.
-            </DialogContentText>
-          </DialogContent>
-          <DialogContent dividers>
-            <DialogTitle>Codigo del Curso</DialogTitle>
-              <TextField
-              autoFocus
-              value={course_code}
-              type="text"
-              onChange={(e) => { setCourseCode(e.target.value) }}
-              fullWidth
-              />
-            <DialogTitle>Año</DialogTitle>
-              <TextField
-              autoFocus
-              value={year}
-              type="text"
-              onChange={(e) => { setYear(e.target.value) }}
-              fullWidth
-              />
-            <DialogTitle>Tipo de Examen</DialogTitle>
-            <TextField
-              autoFocus
-              value={type_exam}
-              type="text"
-              onChange={(e) => { setTypeExam(e.target.value) }}
-              fullWidth
-              />
-            <Dropzone ref={dropzoneRef} noClick noKeyboard>
-                {({getInputProps}) => (
-                              <div className="container_">
-                              <div {...getRootProps({className: 'dropzone'})}>
-                                <input {...getInputProps()}/>
-                                <p>arrastra aquí un archivo</p>
-                                <button
-                                  type="button"
-                                  onClick={openDialog}
-                                >
-                                  Abrir Archivo
-                                </button>
-                              </div>
-                              <aside>
-                                <h4>Formato de archivo permitido</h4>
-                                <ul>{acceptedFileItems}</ul>
-                                <h4>Formato de archivo no permitido</h4>
-                                <ul>{fileRejectionItems}</ul>
-                              </aside>
-                            </div>
-                          )}
-              </Dropzone>
-          </DialogContent> 
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button value="Subir" onClick={upload} color="primary">
-              Subir
-            </Button>
-          </DialogActions>
-        </Dialog>
-        </Container>       
-      </main>
-    </React.Fragment>
-    </div>
-    
-  );
+      );
+    }else{
+      return <Redirect to= "/LogIn"/>
+    }
+  
 }

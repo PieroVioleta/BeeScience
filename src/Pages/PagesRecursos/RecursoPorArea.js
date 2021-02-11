@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Link, useLocation} from 'react-router-dom';
 import axios from 'axios';
+import NaviBar from "../../Components/NaviBar";
 
 const API_BASE = "http://localhost:8080/escuelas"
 const card = "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
@@ -61,6 +62,7 @@ export default function Album() {
   
   return (
     <React.Fragment> 
+      <NaviBar/>
         {userData.map( (data) => (
           <main>
             <div className={classes.heroContent}>

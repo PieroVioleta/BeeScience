@@ -18,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {Link, useLocation} from 'react-router-dom';
+import NaviBar from "../../../Components/NaviBar";
 
 const API_BASE = "http://localhost:8080/resources/course"
 const useStyles = makeStyles((theme) => ({
@@ -72,6 +73,7 @@ export default function Curso() {
 
   return (
     <div >
+      <NaviBar/>
       <div className={classes.title}>
         <Container maxWidth="sm">
           <Typography  variant="h2" align="center" color="textPrimary" >
