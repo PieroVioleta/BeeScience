@@ -18,7 +18,7 @@ class Comentario  extends Component {
                                 <a className="pregunta" href="google.com">{pregunta}</a>                
                             </div>
                             <div>
-                                <span className="pregunta-detalle">Preguntado hace 1 día por <a>{autor}</a> </span>
+                                <span className="pregunta-detalle">Preguntado por <a>{autor}</a> </span>
                             </div>
                         </div>    
                     </div>
